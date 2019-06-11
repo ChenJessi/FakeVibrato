@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -59,6 +60,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected int getLayoutId() {
+        QMUIStatusBarHelper.translucent(this);
         return R.layout.activity_main;
     }
 
@@ -69,7 +71,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initView() {
-        QMUIStatusBarHelper.translucent(this);
+
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mFragments.add(new HomeFragment());
         mFragments.add(new HomeFragment());
@@ -90,12 +92,5 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     protected void initData() {
 
 
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

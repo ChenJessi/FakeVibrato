@@ -3,6 +3,7 @@ package com.chen.fakevibrato.base;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import butterknife.Unbinder;
 
 /**
  * @author Created by CHEN on 2019/6/11
- * @email 188669@163.com
+ * @email 188669@163.cominitView
  */
 public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView{
     protected BaseActivity mActivity;
@@ -44,14 +45,14 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mRootView = setView() == 0 ? null :inflater.inflate(setView(), container, false);
+        View view = setView() == 0 ? null :inflater.inflate(setView(), container, false);
         //绑定到butterknife
-        mUnbinder = ButterKnife.bind(this, mRootView);
+        mUnbinder = ButterKnife.bind(this, view);
         mPresenter = initPresenter();
         if (mPresenter != null){
             mPresenter.attachView(this);
         }
-        return mRootView;
+        return view;
     }
 
     @Override
@@ -66,8 +67,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
                 if (isFirstVisible) {
                     onFragmentFirstVisible();
                     isFirstVisible = false;
+                }else {
+                    onFragmentVisibleChange(true);
                 }
-                onFragmentVisibleChange(true);
                 isFragmentVisible = true;
             }
         }
@@ -82,13 +84,15 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         if (mRootView == null) {
             return;
         }
+
         if (isFirstVisible && isVisibleToUser) {
             onFragmentFirstVisible();
             isFirstVisible = false;
+            return;
         }
         if (isVisibleToUser) {
-            onFragmentVisibleChange(true);
             isFragmentVisible = true;
+            onFragmentVisibleChange(true);
             return;
         }
         if (isFragmentVisible) {

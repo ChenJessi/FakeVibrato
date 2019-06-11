@@ -1,9 +1,11 @@
 package com.chen.fakevibrato.ui.home.view;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chen.fakevibrato.R;
@@ -30,6 +32,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     private HomeAdapter adapter;
     private List<String> mList = new ArrayList<>();
+    private PagerSnapHelper helper;
     @Override
     protected int setView() {
         return R.layout.fragment_home;
@@ -42,12 +45,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void initView(View view) {
-        mList.add("aaaa");
-        mList.add("bbbb");
-        mList.add("cccc");
+
         adapter = new HomeAdapter(getActivity(),mList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
+        helper = new PagerSnapHelper();
+        helper.attachToRecyclerView(recyclerView);
     }
 
     @Override
@@ -56,8 +59,23 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    protected void Load() {
+    protected void onFragmentFirstVisible() {
+        super.onFragmentFirstVisible();
+        mList.add("测试测试");
+        mList.add("测试测试11");
+        mList.add("测试测试2222");
+        adapter.notifyItemRangeChanged(mList.size() -3 , 3);
+    }
 
+    int i = 0;
+    @Override
+    protected void Load() {
+        Log.e("test", "load : "+ i + " : "+isFirstVisible());
+        i++;
+        mList.add("aaaa");
+        mList.add("bbbb");
+        mList.add("cccc");
+        adapter.notifyItemRangeChanged(mList.size() -3 , 3);
     }
 
 }
