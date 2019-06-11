@@ -1,11 +1,40 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <style name="AppTheme" parent="QMUI.Compat">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="QMUITopBarStyle">@style/TopBarStyle</item>
     </style>
 
+    <!-- 在 App 的 theme 中添加 -->
+
+    <!-- 并添加自己的 style -->
+    <style name="TopBarStyle" parent="QMUI.TopBar">
+        <item name="qmui_topbar_separator_color">?attr/qmui_config_color_separator</item>
+        <item name="qmui_topbar_separator_height">1px</item>
+        <item name="qmui_topbar_bg_color">@color/qmui_config_color_blue</item>
+        <item name="qmui_topbar_need_separator">true</item>
+        <item name="qmui_topbar_left_back_drawable_id">@drawable/qmui_icon_topbar_back</item>
+        <item name="qmui_topbar_title_gravity">center</item>
+        <item name="android:paddingLeft">4dp</item>
+        <item name="android:paddingRight">4dp</item>
+        <item name="qmui_topbar_title_color">?attr/qmui_config_color_gray_1</item>
+        <item name="qmui_topbar_title_text_size">17sp</item>
+        <item name="qmui_topbar_title_text_size_with_subtitle">16sp</item>
+        <item name="qmui_topbar_title_margin_horizontal_when_no_btn_aside">0dp</item>
+        <item name="qmui_topbar_title_container_padding_horizontal">8dp</item>
+        <item name="qmui_topbar_subtitle_text_size">11sp</item>
+        <item name="qmui_topbar_subtitle_color">@color/qmui_config_color_gray_1</item>
+        <item name="qmui_topbar_image_btn_width">48dp</item>
+        <item name="qmui_topbar_image_btn_height">48dp</item>
+        <item name="qmui_topbar_text_btn_padding_horizontal">12dp</item>
+        <item name="qmui_topbar_text_btn_color_state_list">@color/qmui_topbar_text_color</item>
+        <item name="qmui_topbar_text_btn_text_size">16sp</item>
+    </style>
 </resources>
