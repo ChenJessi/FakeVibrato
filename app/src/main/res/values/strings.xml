@@ -5,4 +5,11 @@
     <string name="title_release">发布</string>
     <string name="title_notifications">消息</string>
     <string name="title_user">我的</string>
+
+    //home
+    <string name="tabSegment_item_1_title">首页</string>
+    <string name="tabSegment_item_2_title">关注</string>
+    <string name="tabSegment_item_4_title">消息</string>
+    <string name="tabSegment_item_5_title">我的</string>
+
 </resources>

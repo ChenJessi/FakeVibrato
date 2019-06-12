@@ -3,6 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,25 +22,34 @@
     <com.qmuiteam.qmui.widget.QMUIViewPager
         android:id="@+id/viewPager"
         app:layout_constraintTop_toBottomOf="@id/topBar"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintBottom_toTopOf="@id/mTabLayout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="0dp">
     </com.qmuiteam.qmui.widget.QMUIViewPager>
+    <!--<com.qmuiteam.qmui.widget.QMUITabSegment-->
+        <!--android:id="@+id/mTabSegment"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="40dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--android:background="@color/black"/>-->
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        app:labelVisibilityMode="labeled"
-        app:itemTextColor="@drawable/selector_bottom_color"
-        android:background="?android:attr/windowBackground"
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/mTabLayout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
-
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/black"
+        tl:tl_iconVisible="false"
+        tl:tl_indicator_color="@color/white"
+        tl:tl_indicator_corner_radius="1.5dp"
+        tl:tl_indicator_height="3dp"
+        app:tl_indicator_style="NORMAL"
+        tl:tl_textsize="14sp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
