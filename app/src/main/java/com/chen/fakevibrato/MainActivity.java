@@ -16,6 +16,7 @@ import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.ui.home.contract.MainContract;
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
 import com.chen.fakevibrato.ui.home.view.HomeFragment;
+import com.chen.fakevibrato.utils.DisplayUtils;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.SlidingTabLayout;
@@ -97,24 +98,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 }
             }) ;
         }
-
         mTabLayout.setTabData(mTabEntities);
 
     }
 
     @Override
     protected void initListener() {
-        mTabLayout.setIndicatorWidth(82);
+        TextView textView = mTabLayout.getTitleView(0);
+        String text = textView.getText().toString().trim();
+        TextPaint textPaint = textView.getPaint();
+        int textPaintWidth = (int) textPaint.measureText(text);
+        mTabLayout.setIndicatorWidth(DisplayUtils.px2dp(MainActivity.this, textPaintWidth));
         mTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
                 TextView textView = mTabLayout.getTitleView(position);
                 String text = textView.getText().toString().trim();
-                Paint textPaint = textView.getPaint();
-
+                TextPaint textPaint = textView.getPaint();
                 int textPaintWidth = (int) textPaint.measureText(text);
-
-//                mTabLayout.setIndicatorWidth( textPaintWidth- textView.getPaddingLeft());
+                mTabLayout.setIndicatorWidth(DisplayUtils.px2dp(MainActivity.this, textPaintWidth));
             }
 
             @Override
