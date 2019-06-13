@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.chen.fakevibrato.App;
 import com.chen.fakevibrato.utils.Constants;
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -38,7 +39,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         super.onCreate(savedInstanceState);
         mApplication = (App) getApplication();
 
-
+        QMUIStatusBarHelper.translucent(this);
         if (getLayoutId()!=0){
             setContentView(getLayoutId());
         }

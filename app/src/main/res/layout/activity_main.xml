@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:tl="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/qmui_config_color_blue"
-    tools:context=".MainActivity">
-
-    <com.qmuiteam.qmui.widget.QMUITopBar
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_height="?attr/qmui_topbar_height"/>
+    android:background="#00000000">
 
     <com.qmuiteam.qmui.widget.QMUIViewPager
         android:id="@+id/viewPager"
-        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/mTabLayout"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -29,14 +24,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
     </com.qmuiteam.qmui.widget.QMUIViewPager>
-    <!--<com.qmuiteam.qmui.widget.QMUITabSegment-->
-        <!--android:id="@+id/mTabSegment"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--android:background="@color/black"/>-->
 
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/mTabLayout"
@@ -51,5 +38,16 @@
         tl:tl_indicator_corner_radius="1.5dp"
         tl:tl_indicator_height="3dp"
         app:tl_indicator_style="NORMAL"
-        tl:tl_textsize="14sp"/>
+        tl:tl_textsize="15sp"/>
+    <ImageView
+        android:id="@+id/ivBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/mTabLayout"
+        app:layout_constraintTop_toTopOf="@id/mTabLayout"
+        android:background="@mipmap/bottom_tab"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
