@@ -12,11 +12,15 @@
         android:background="@color/white"
         app:srlPrimaryColor="#444444"
         app:srlAccentColor="@android:color/white"
+        app:srlEnableAutoLoadMore="false"
+        app:srlHeaderHeight="200dp"
+        app:srlDragRate="1"
         app:srlEnablePreviewInEditMode="true">
         <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
         <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
-        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        <com.scwang.smartrefresh.header.MaterialHeader
             android:layout_width="match_parent"
+            app:mhPrimaryColor="@color/black"
             android:layout_height="wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -29,4 +33,94 @@
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        app:contentInsetStart="0dp"
+        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tvRandom"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="随拍"
+                android:gravity="center_vertical"
+                android:textColor="@color/gray1"
+                android:textSize="16sp"
+                android:drawablePadding="5dp"
+                android:textStyle="bold"
+                android:drawableLeft="@mipmap/camera"/>
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="1dp"
+                android:layout_height="10dp"
+                android:background="@color/gray1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+            <TextView
+                android:id="@+id/tvRecommend"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/view"
+                android:layout_marginRight="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="推荐"
+                android:gravity="center_vertical"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:drawablePadding="5dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tvLocal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/view"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="本地"
+                android:gravity="center_vertical"
+                android:textColor="@color/gray1"
+                android:textSize="18sp"
+                android:drawablePadding="5dp"
+                android:textStyle="bold"/>
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="15dp"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/camera"/>
+
+            <ImageView
+                android:id="@+id/ivLive"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/ivSearch"
+                android:layout_marginRight="15dp"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/camera"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>

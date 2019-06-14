@@ -9,4 +9,18 @@
         <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="LoadingView">
+    <attr name="radius1" format="dimension"/> <!--球1的半径,默认为6dp,设置的方法:setRadius()-->
+    <attr name="radius2" format="dimension"/><!--球2的半径,默认为6dp,设置的方法:setRadius()-->
+    <attr name="rtlScale" format="float"/><!--小球从右往左的最大缩放倍数,默认0.7,设置的方法:setScales()-->
+    <attr name="ltrScale" format="float"/><!--小球从左往右的最大缩放倍数,默认1.3,设置的方法:setScales()-->
+    <attr name="color1" format="color"/><!--球1的颜色,默认设置的方法:setColors()-->
+    <attr name="color2" format="color"/><!--球2的颜色,默认设置的方法:setColors()-->
+    <attr name="mixColor" format="color"/><!--叠加的颜色,默认是黑色,设置的方法:setColors()-->
+    <attr name="duration" format="integer"/><!--一次转动的动画时长，默认:350ms,设置的方法:setDuration()-->
+    <attr name="pauseDuration" format="integer"/><!--一次转动动画以后停顿的时间,默认80ms,设置的方法:setDuration()-->
+    <attr name="gap" format="dimension"/><!--两球的间隔,默认0.8dp,设置方法：setRadius()-->
+    <attr name="scaleStartFraction" format="float"/><!--动画进度在[0,scaleStartFraction]期间，小球大小逐渐缩放，默认0.2f,设置的方法:setStartEndFraction()-->
+    <attr name="scaleEndFraction" format="float"/><!--动画进度在[scaleEndFraction,1]期间，小球大小逐渐恢复，默认0.8f,设置的方法:setStartEndFraction()-->
+    </declare-styleable>
 </resources>
