@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -40,4 +42,8 @@ dependencies {
 
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'com.github.jd-alexander:LikeButton:0.2.3'
+}
+repositories {
+    mavenCentral()
 }

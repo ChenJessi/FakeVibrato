@@ -292,7 +292,6 @@ public class LoadingView extends View {
     public void start() {
         if (anim == null) {
             initAnim();
-            return;
         }
         if (anim.isRunning()) {
             anim.cancel();
@@ -303,11 +302,12 @@ public class LoadingView extends View {
             public void run() {
                 isAnimCanceled = false;
                 isLtr = false;
-                if (anim == null) {
-                    initAnim();
-                }else {
+//                if (anim == null) {
+//                    initAnim();
+//                }else {
+
                     anim.start();
-                }
+//                }
 
             }
         });

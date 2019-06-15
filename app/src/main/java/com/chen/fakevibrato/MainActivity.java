@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         mFragments.add(new HomeFragment());
         mFragments.add(new HomeFragment());
-        mFragments.add(new Fragment());
+        mFragments.add(new HomeFragment());
         mFragments.add(new HomeFragment());
         mFragments.add(new HomeFragment());
         adapter = new MyPagerAdapter(getSupportFragmentManager(), mFragments);
@@ -89,9 +89,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             });
         }
         mTabLayout.setTabData(mTabEntities);
+        swipeLayout.setRightSwipeEnabled(true);
         swipeLayout.setLeftSwipeEnabled(true);
-        swipeLayout.setRightSwipeEnabled(false);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
+        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.random_shoot));
     }
     @Override
     protected void initListener() {
@@ -111,12 +112,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 mTabLayout.setIndicatorWidth(DisplayUtils.px2dp(MainActivity.this, textPaintWidth));
                 if (position == 0 || position == 1){
                     swipeLayout.setLeftSwipeEnabled(true);
-                    swipeLayout.setRightSwipeEnabled(false);
+                    swipeLayout.setRightSwipeEnabled(true);
                     swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
-                }else {
+                    swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.random_shoot));
+                }else if (position == 4){
                     swipeLayout.setLeftSwipeEnabled(false);
                     swipeLayout.setRightSwipeEnabled(true);
                     swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.side_right));
+                }else if (position == 3){
+                    swipeLayout.setLeftSwipeEnabled(false);
+                    swipeLayout.setRightSwipeEnabled(false);
                 }
             }
 
@@ -135,7 +140,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @OnClick(R.id.ivBottom)
     public void onViewClicked() {
-
+        startActivity(new Intent(MainActivity.this, Main2Activity.class));
     }
 
 }

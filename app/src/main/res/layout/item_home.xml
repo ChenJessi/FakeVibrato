@@ -1,11 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<TextView
-    android:id="@+id/textView"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:text="test"/>
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/gray"
+        android:gravity="center"
+        android:text="test"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/ivHead"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="30dp"
+        android:src="@mipmap/head"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:qmui_border_color="@color/white"
+        app:qmui_border_width="2px"
+        app:qmui_is_circle="true"
+        app:srcCompat="@color/qmui_btn_blue_text" />
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/ivAttentionBg"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/ivHead"
+        app:layout_constraintLeft_toLeftOf="@id/ivHead"
+        app:layout_constraintRight_toRightOf="@id/ivHead"
+        app:layout_constraintTop_toBottomOf="@id/ivHead"
+        app:qmui_is_circle="true"
+        app:srcCompat="@color/white" />
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/ivAttention"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@mipmap/add_red"
+        app:layout_constraintBottom_toBottomOf="@id/ivHead"
+        app:layout_constraintLeft_toLeftOf="@id/ivHead"
+        app:layout_constraintRight_toRightOf="@id/ivHead"
+        app:layout_constraintTop_toBottomOf="@id/ivHead"
+        app:qmui_is_circle="true" />
+
+    <com.like.LikeButton
+        android:id="@+id/btLikes"
+        android:layout_width="50dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="20dp"
+        app:circle_end_color="@color/red1"
+        app:circle_start_color="@color/red1"
+        app:dots_primary_color="@color/red1"
+        app:dots_secondary_color="@color/red1"
+        app:icon_size="40dp"
+        app:icon_type="heart"
+        app:layout_constraintLeft_toLeftOf="@id/ivHead"
+        app:layout_constraintRight_toRightOf="@id/ivHead"
+        app:layout_constraintTop_toBottomOf="@id/ivHead"
+        app:like_drawable="@mipmap/heart_red1"
+        app:liked="false"
+        app:unlike_drawable="@mipmap/heart_white">
+
+        <TextView
+            android:id="@+id/tvLikes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:lines="1"
+            android:maxLength="5"
+            android:text="9999"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+    </com.like.LikeButton>
+
+    <TextView
+        android:id="@+id/tvComment"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableTop="@mipmap/comment"
+        android:gravity="center"
+        android:lines="1"
+        android:maxLength="5"
+        android:text="9999"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintLeft_toLeftOf="@id/ivHead"
+        app:layout_constraintRight_toRightOf="@id/ivHead"
+        app:layout_constraintTop_toBottomOf="@id/btLikes" />
+
+    <TextView
+        android:id="@+id/tvReprinted"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:drawableTop="@mipmap/reprinted"
+        android:gravity="center"
+        android:lines="1"
+        android:maxLength="5"
+        android:text="9999"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintLeft_toLeftOf="@id/ivHead"
+        app:layout_constraintRight_toRightOf="@id/ivHead"
+        app:layout_constraintTop_toBottomOf="@id/tvComment" />
+
+    <com.chen.fakevibrato.widget.HeartLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

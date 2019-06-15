@@ -66,7 +66,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void initView(View view) {
-        QMUIStatusBarHelper.getStatusbarHeight(getActivity());
+//        QMUIStatusBarHelper.getStatusbarHeight(getActivity());
 
 
 //        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(toolBar.getLayoutParams());
@@ -79,9 +79,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         recyclerView.setAdapter(adapter);
         helper = new PagerSnapHelper();
         helper.attachToRecyclerView(recyclerView);
-        loadingView = new LoadingView(getActivity());
-        loadingView.start();
-        refreshLayout.setRefreshContent(loadingView);
 
 
     }
@@ -94,19 +91,19 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
         //        refreshLayout.setRefreshContent(recyclerView);
 
-        loadingView.stop();
-        refreshLayout.finishRefresh();//结束刷新
-        refreshLayout.setRefreshContent(recyclerView);
+//        loadingView.stop();
+//        refreshLayout.finishRefresh();//结束刷新
+//        refreshLayout.setRefreshContent(recyclerView);
     }
 
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
-
-        //        mList.add("测试测试");
-        //        mList.add("测试测试11");
-        //        mList.add("测试测试2222");
-        //        adapter.notifyItemRangeChanged(mList.size() -3 , 3);
+        loadingView = new LoadingView(getActivity());
+        loadingView.start();
+        if (refreshLayout != null){
+            refreshLayout.setRefreshContent(loadingView);
+        }
     }
 
     int i = 0;
