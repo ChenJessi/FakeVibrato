@@ -140,7 +140,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @OnClick(R.id.ivBottom)
     public void onViewClicked() {
-        startActivity(new Intent(MainActivity.this, Main2Activity.class));
     }
 
 }
