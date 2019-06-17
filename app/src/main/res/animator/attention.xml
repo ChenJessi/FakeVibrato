@@ -6,18 +6,12 @@
         <objectAnimator
             android:propertyName="rotation"
             android:valueFrom="0"
-            android:valueTo="180"
-            android:valueType="floatType" />
-        <objectAnimator
-            android:propertyName="scaleX"
-            android:valueFrom="1"
-            android:valueTo="0"
-            android:valueType="floatType" />
-        <objectAnimator
-            android:propertyName="scaleY"
-            android:valueFrom="1"
-            android:valueTo="0"
+            android:valueTo="90"
             android:valueType="floatType" />
 
-
+        <objectAnimator
+            android:propertyName="alpha"
+            android:valueFrom="1"
+            android:valueTo="0"
+            android:valueType="floatType"/>
 </set>

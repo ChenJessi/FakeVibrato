@@ -19,6 +19,7 @@ import com.chen.fakevibrato.ui.home.adapter.HomeAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
 import com.chen.fakevibrato.ui.home.presenter.HomePresenter;
 import com.chen.fakevibrato.widget.LoadingView;
+import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -66,13 +67,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void initView(View view) {
-//        QMUIStatusBarHelper.getStatusbarHeight(getActivity());
-
-
-//        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(toolBar.getLayoutParams());
-//        lp.setMargins(50, 100, 0, 0);
-//        toolBar.setLayoutParams(lp);
-
 
         adapter = new HomeAdapter(getActivity(), mList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -83,13 +77,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     }
 
-    //    View view1 = getLayoutInflater().inflate(R.layout.layout_side_right,null);
     LoadingView loadingView;
 
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-        //        refreshLayout.setRefreshContent(recyclerView);
+        // refreshLayout.setRefreshContent(recyclerView);
 
 //        loadingView.stop();
 //        refreshLayout.finishRefresh();//结束刷新
