@@ -5,5 +5,5 @@ package com.chen.fakevibrato.ui.home;
  * @email 188669@163.com
  */
 public class CommentBean {
-    
+
 }

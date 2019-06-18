@@ -23,6 +23,6 @@ public class FaceView extends QMUIQQFaceView {
 
     public FaceView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-//        setCompiler(QMUIQQFaceCompiler.getInstance(FaceManager.getInstance()));
+        setCompiler(QMUIQQFaceCompiler.getInstance(FaceManager.getInstance()));
     }
 }

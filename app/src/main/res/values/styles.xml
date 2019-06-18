@@ -13,7 +13,6 @@
         <item name="QMUITopBarStyle">@style/TopBarStyle</item>
     </style>
 
-    <!-- 在 App 的 theme 中添加 -->
 
     <!-- 并添加自己的 style -->
     <style name="TopBarStyle" parent="QMUI.TopBar">
@@ -50,13 +49,13 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <!--底部弹窗-->
+    <style name="BottomSheet" parent="android:Theme.Dialog">
+        <item name="android:backgroundDimAmount">?attr/qmui_dialog_background_dim_amount</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null
+        </item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
+        <item name="android:layout_width">match_parent</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
