@@ -3,6 +3,7 @@ package com.chen.fakevibrato
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chen.fakevibrato.widget.CommentDialog
 import kotlinx.android.synthetic.main.activity_main2.*
 
 class Main2Activity : AppCompatActivity() {
@@ -12,5 +13,7 @@ class Main2Activity : AppCompatActivity() {
         setContentView(R.layout.activity_main2)
         mainAdapter = TestAdapter(this);
         listView.setAdapter(mainAdapter)
+
+        CommentDialog.Builder(this).show()
     }
 }
