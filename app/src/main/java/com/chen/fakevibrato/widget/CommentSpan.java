@@ -2,8 +2,10 @@ package com.chen.fakevibrato.widget;
 
 import android.text.NoCopySpan;
 import android.text.SpannableString;
+import android.view.View;
 
 import com.chen.fakevibrato.ui.home.CommentBean;
+import com.qmuiteam.qmui.span.QMUITouchableSpan;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.textview.QMUILinkTextView;
 
@@ -19,22 +21,50 @@ import java.util.regex.Pattern;
  * @email 188669@163.com
  */
 public class CommentSpan extends SpannableString {
-    String patt = "GraphType\\\\s*=\\\\s*\\\".+\\\"\\\\s*";
-//    Pattern Pattern.matches
+
+    private static final String regex_http = "http(s)?://([a-zA-Z|\\d]+\\.)+[a-zA-Z|\\d]+(/[a-zA-Z|\\d|\\-|\\+|_./?%=]*)?";
+//    private static final String regex_at = "@[\\u4e00-\\u9fa5\\w\\-]+";
+    private static final String regex_at = "^[0-9a-zA-Z\\u4e00-\\u9fa5_-]\\s${4,10}";
+//    private static final String regex_at = "@[^.]{4,30} ";
+    private static final String regex_topic="#[^#@]{1,15}\\s";
+
+    private List<String> topicList = new ArrayList<String>();
+    private List<String> atList = new ArrayList<String>();
+    private List<String> httpList = new ArrayList<String>();
 
     public CommentSpan(CharSequence source) {
         super(source);
-//        Pattern.compile()
     }
 
-    private void get(){
-        String s = "https://wenku.baidu.com/view/e109601f52d380eb62946d75.html?rec_flag=default&mark_pay_doc=2&mark_rec_page=1&mark_rec_position=4&mark_rec=view_r_1&clear_uda_param=1\n" ;
+    private List<String> getTopic(String s){
         List<String> strs = new ArrayList<String>();
-        Pattern p = Pattern.compile("GraphType\\s*=\\s*\".+\"\\s*");
+        Pattern p = Pattern.compile(regex_topic);
         Matcher m = p.matcher(s);
-//        new QMUIBottomSheet.BottomListSheetBuilder().
         while(m.find()) {
             strs.add(m.group());
         }
+
+        return strs;
+    }
+    private List<String> getAt(String s){
+        List<String> strs = new ArrayList<String>();
+        Pattern p = Pattern.compile(regex_at);
+        Matcher m = p.matcher(s);
+        while(m.find()) {
+            strs.add(m.group());
+        }
+
+        return strs;
+    }
+
+    @Override
+    public void setSpan(Object what, int start, int end, int flags) {
+        super.setSpan(what, start, end, flags);
+    }
+
+    public interface onClick{
+        void topic();
+        void at();
+        void url();
     }
 }

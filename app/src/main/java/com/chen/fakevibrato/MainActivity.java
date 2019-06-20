@@ -27,6 +27,8 @@ import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,6 +96,21 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         swipeLayout.setLeftSwipeEnabled(true);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.random_shoot));
+
+
+
+            String s = "https://wenku.baidu.com/view/e109601f52d380eb62946d75.html?rec_flag=default&mark_pay_doc=2&mark_rec_page=1&mark_rec_position=4&mark_rec=view_r_1&clear_uda_param=1\n" ;
+            List<String> strs = new ArrayList<String>();
+            String aaa = "#测试@朋友 $#话题@a#s ";
+
+//            Pattern p = Pattern.compile("#[^#]{1,10}\\s");
+            Pattern p = Pattern.compile("@[^@]{1,10}\\s");
+            Matcher m = p.matcher(aaa);
+
+              while ( m.find()){
+                MyLog.d("testgdroup ："+ m.group());
+            }
+
     }
     @Override
     protected void initListener() {
