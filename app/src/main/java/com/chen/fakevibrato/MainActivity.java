@@ -19,10 +19,12 @@ import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
 import com.chen.fakevibrato.ui.home.view.HomeFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.MyLog;
+import com.chen.fakevibrato.widget.CommentSpan;
 import com.daimajia.swipe.SwipeLayout;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.qmuiteam.qmui.span.QMUITouchableSpan;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 import java.util.ArrayList;
@@ -110,6 +112,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
               while ( m.find()){
                 MyLog.d("testgdroup ："+ m.group());
             }
+        CommentSpan sb = new CommentSpan(aaa);
 
     }
     @Override
