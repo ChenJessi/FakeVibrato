@@ -3,6 +3,7 @@ package com.chen.fakevibrato;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextPaint;
+import android.text.style.ReplacementSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -104,15 +105,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             String s = "https://wenku.baidu.com/view/e109601f52d380eb62946d75.html?rec_flag=default&mark_pay_doc=2&mark_rec_page=1&mark_rec_position=4&mark_rec=view_r_1&clear_uda_param=1\n" ;
             List<String> strs = new ArrayList<String>();
             String aaa = "#测试@朋友 $#话题@a#s ";
-
-//            Pattern p = Pattern.compile("#[^#]{1,10}\\s");
-            Pattern p = Pattern.compile("@[^@]{1,10}\\s");
-            Matcher m = p.matcher(aaa);
-
-              while ( m.find()){
-                MyLog.d("testgdroup ："+ m.group());
-            }
-        CommentSpan sb = new CommentSpan(aaa);
+//        CommentSpan sb = new CommentSpan(aaa);
 
     }
     @Override
@@ -161,6 +154,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @OnClick(R.id.ivBottom)
     public void onViewClicked() {
+       startActivity(new Intent(MainActivity.this, Main3Activity.class));
     }
 
 }

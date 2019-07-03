@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chen.fakevibrato.widget.CommentDialog
+import com.chen.fakevibrato.widget.CommentSpan
 import kotlinx.android.synthetic.main.activity_main2.*
 
 class Main2Activity : AppCompatActivity() {
@@ -15,5 +16,6 @@ class Main2Activity : AppCompatActivity() {
         listView.setAdapter(mainAdapter)
 
         CommentDialog.Builder(this).show()
+
     }
 }
