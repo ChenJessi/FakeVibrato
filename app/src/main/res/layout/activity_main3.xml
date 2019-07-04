@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".Main3Activity">
 
-    <TextView
+    <com.chen.fakevibrato.widget.FaceView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

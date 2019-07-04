@@ -14,11 +14,11 @@ import com.qmuiteam.qmui.widget.textview.QMUILinkTextView;
  */
 public class FaceView extends QMUIQQFaceView {
     public FaceView(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public FaceView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs,0);
     }
 
     public FaceView(Context context, AttributeSet attrs, int defStyleAttr) {

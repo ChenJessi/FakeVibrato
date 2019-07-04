@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import com.chen.fakevibrato.utils.MyLog;
 import com.qmuiteam.qmui.link.ITouchableSpan;
 
+
 /**
  * @author Created by CHEN on 2019/7/3
  * @email 188669@163.com
@@ -20,17 +21,19 @@ public abstract class TouchableSpan extends ClickableSpan implements ITouchableS
     private boolean mIsPressed;
     @ColorInt
     private int mNormalBackgroundColor;
-    @ColorInt private int mPressedBackgroundColor;
-    @ColorInt private int mNormalTextColor;
-    @ColorInt private int mPressedTextColor;
+    @ColorInt
+    private int mPressedBackgroundColor;
+    @ColorInt
+    private int mNormalTextColor;
+    @ColorInt
+    private int mPressedTextColor;
 
     private boolean mIsNeedUnderline = false;
 
     public abstract void onSpanClick(View widget);
 
     @Override
-    public  void onClick(View widget) {
-        MyLog.d("点击了");
+    public void onClick(View widget) {
         if (ViewCompat.isAttachedToWindow(widget)) {
             onSpanClick(widget);
         }

@@ -35,9 +35,13 @@ public class CommentSpan {
     private List<String> atList = new ArrayList<String>();
     private List<String> httpList = new ArrayList<String>();
     private String source;
-    public CommentSpan() {
+    private OnSpanClick onSpanClick;
+    public CommentSpan() { }
 
+    public void setOnSpanClick(OnSpanClick onSpanClick) {
+        this.onSpanClick = onSpanClick;
     }
+
     private void getTopic(String s){
         Pattern p = Pattern.compile(regex_topic);
         Matcher m = p.matcher(s);
@@ -60,27 +64,34 @@ public class CommentSpan {
         this.source = s.toString();
         getAt(source.toString());
         getTopic(source.toString());
+        int fromIndex = 0;
         SpannableString sp = new SpannableString(source);
         for (int i = 0; i < atList.size(); i++) {
             String atStr = atList.get(i);
-            MyLog.d("@ index : " + source.indexOf(atStr));
             sp.setSpan(new TouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
                 @Override
                 public void onSpanClick(View widget) {
-                    Toast.makeText(widget.getContext(), "点击了@", Toast.LENGTH_SHORT).show();
+                    if (onSpanClick != null){
+                        onSpanClick.atClick(atStr);
+                    }
                 }
-            }, source.indexOf(atStr), source.indexOf(atStr) + atStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            }, source.indexOf(atStr,fromIndex), source.indexOf(atStr,fromIndex) + atStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            fromIndex = source.indexOf(atStr,fromIndex) + atStr.length();
         }
+        fromIndex = 0;
         for (int i = 0; i < topicList.size(); i++) {
             String topicStr = topicList.get(i);
-            MyLog.d("index : "+source.indexOf(topicStr));
             sp.setSpan(new TouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
                 @Override
                 public void onSpanClick(View widget) {
-                    Toast.makeText(widget.getContext(), "点击了话题", Toast.LENGTH_SHORT).show();
+                    if (onSpanClick != null){
+                        onSpanClick.atClick(topicStr);
+                    }
                 }
-            }, source.indexOf(topicStr), source.indexOf(topicStr) + topicStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            }, source.indexOf(topicStr,fromIndex), source.indexOf(topicStr,fromIndex) + topicStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            fromIndex = source.indexOf(topicStr,fromIndex) + topicStr.length();
         }
+        fromIndex = 0;
         for (int i = 0; i < httpList.size(); i++) {
             String httpStr = httpList.get(i);
             sp.setSpan(new TouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
@@ -88,14 +99,15 @@ public class CommentSpan {
                 public void onSpanClick(View widget) {
                     Toast.makeText(widget.getContext(), "点击了url", Toast.LENGTH_SHORT).show();
                 }
-            }, source.indexOf(httpStr), httpList.indexOf(httpStr) + httpStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            }, source.indexOf(httpStr,fromIndex), source.indexOf(httpStr,fromIndex) + httpStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            fromIndex = source.indexOf(httpStr,fromIndex) + httpStr.length();
         }
         return sp;
     }
 
-    public  interface onClick{
-        void topic();
-        void at();
-        void url();
+    public  interface OnSpanClick{
+        void topicClick(String topic);
+        void atClick(String at);
+        void urlClick(String url);
     }
 }
