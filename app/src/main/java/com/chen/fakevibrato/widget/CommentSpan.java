@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.chen.fakevibrato.ui.home.CommentBean;
 import com.chen.fakevibrato.utils.MyLog;
+import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
 import com.qmuiteam.qmui.span.QMUITouchableSpan;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.textview.QMUILinkTextView;
@@ -28,8 +29,8 @@ import java.util.regex.Pattern;
 public class CommentSpan {
 
     private static final String regex_http = "http(s)?://([a-zA-Z|\\d]+\\.)+[a-zA-Z|\\d]+(/[a-zA-Z|\\d|\\-|\\+|_./?%=]*)?";
-    private static final String regex_at = "@[0-9a-zA-Z\\u4e00-\\u9fa5_-]{1,30}\\s";
-    private static final String regex_topic="#[0-9a-zA-Z\\u4e00-\\u9fa5]{2,15}\\s";
+    private static final String regex_at = "@[\\[\\]0-9a-zA-Z\\u4e00-\\u9fa5_-]{1,30}\\s";
+    private static final String regex_topic="#[\\[\\]0-9a-zA-Z\\u4e00-\\u9fa5]{2,15}\\s";
 
     private List<String> topicList = new ArrayList<String>();
     private List<String> atList = new ArrayList<String>();
@@ -60,15 +61,19 @@ public class CommentSpan {
         }
     }
 
+
     public SpannableString setSpan(CharSequence s){
         this.source = s.toString();
         getAt(source.toString());
         getTopic(source.toString());
         int fromIndex = 0;
         SpannableString sp = new SpannableString(source);
+
+        fromIndex = 0;
+
         for (int i = 0; i < atList.size(); i++) {
             String atStr = atList.get(i);
-            sp.setSpan(new TouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
+            sp.setSpan(new QMUITouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
                 @Override
                 public void onSpanClick(View widget) {
                     if (onSpanClick != null){
@@ -79,13 +84,24 @@ public class CommentSpan {
             fromIndex = source.indexOf(atStr,fromIndex) + atStr.length();
         }
         fromIndex = 0;
+//        String topicStr1 = "#这是一个话题 ";
+//        sp.setSpan(new QMUITouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
+//            @Override
+//            public void onSpanClick(View widget) {
+//                if (onSpanClick != null){
+//                    onSpanClick.topicClick(topicStr1);
+//                }
+//            }
+//        }, source.lastIndexOf(topicStr1), source.lastIndexOf(topicStr1) + topicStr1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
         for (int i = 0; i < topicList.size(); i++) {
+            MyLog.d("topicList : "+i);
             String topicStr = topicList.get(i);
-            sp.setSpan(new TouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
+            sp.setSpan(new QMUITouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
                 @Override
                 public void onSpanClick(View widget) {
                     if (onSpanClick != null){
-                        onSpanClick.atClick(topicStr);
+                        onSpanClick.topicClick(topicStr);
                     }
                 }
             }, source.indexOf(topicStr,fromIndex), source.indexOf(topicStr,fromIndex) + topicStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -102,6 +118,7 @@ public class CommentSpan {
             }, source.indexOf(httpStr,fromIndex), source.indexOf(httpStr,fromIndex) + httpStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             fromIndex = source.indexOf(httpStr,fromIndex) + httpStr.length();
         }
+
         return sp;
     }
 

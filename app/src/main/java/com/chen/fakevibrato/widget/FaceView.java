@@ -3,6 +3,7 @@ package com.chen.fakevibrato.widget;
 import android.content.Context;
 import android.util.AttributeSet;
 
+import com.chen.fakevibrato.Main3Activity;
 import com.qmuiteam.qmui.qqface.IQMUIQQFaceManager;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
@@ -16,7 +17,6 @@ public class FaceView extends QMUIQQFaceView {
     public FaceView(Context context) {
         this(context,null);
     }
-
     public FaceView(Context context, AttributeSet attrs) {
         this(context, attrs,0);
     }
@@ -24,5 +24,6 @@ public class FaceView extends QMUIQQFaceView {
     public FaceView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setCompiler(QMUIQQFaceCompiler.getInstance(FaceManager.getInstance()));
+
     }
 }

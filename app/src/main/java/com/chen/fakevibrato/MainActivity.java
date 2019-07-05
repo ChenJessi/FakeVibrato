@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -155,6 +156,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @OnClick(R.id.ivBottom)
     public void onViewClicked() {
        startActivity(new Intent(MainActivity.this, Main3Activity.class));
+//       startActivity(new Intent(MainActivity.this, Main2Activity.class));
     }
 
 }
