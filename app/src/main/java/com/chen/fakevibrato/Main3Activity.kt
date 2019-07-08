@@ -48,8 +48,8 @@ class Main3Activity : AppCompatActivity() {
 
         textView1.setText(span);
         textView1.setMovementMethod(LinkMovementMethod.getInstance())
-        ViewCompat.setBackground(textView2, QMUIResHelper.getAttrDrawable(
-                this@Main3Activity, R.attr.qmui_s_list_item_bg_with_border_bottom));
+//        ViewCompat.setBackground(textView2, QMUIResHelper.getAttrDrawable(
+//                this@Main3Activity, R.attr.qmui_s_list_item_bg_with_border_bottom));
 //        textView2.setPadding(padding, padding, padding, padding);
         textView2.setMovementMethodDefault()
         textView2.setText(span)

@@ -4,6 +4,8 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
+import android.view.animation.CycleInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +25,7 @@ import com.like.LikeButton;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
 import java.util.List;
+import java.util.concurrent.CyclicBarrier;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,6 +61,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                 attentionAnim(holder.ivAttention, holder.ivAttentionBg);
             }
         });
+        recordAnim(holder.ivRecord);
     }
 
     @Override
@@ -80,10 +86,21 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         TextView tvComment;
         @BindView(R.id.tvReprinted)
         TextView tvReprinted;
+        @BindView(R.id.ivRecord)
+        ImageView ivRecord;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+    }
+
+    private void recordAnim(ImageView ivRecord){
+        AnimatorSet animator = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.record);
+        ObjectAnimator objectAnimator = (ObjectAnimator) animator.getChildAnimations().get(0);
+        objectAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setInterpolator(new LinearInterpolator());
+        animator.setTarget(ivRecord);
+        animator.start();
     }
 
     private void attentionAnim(QMUIRadiusImageView ivAttention, QMUIRadiusImageView ivAttentionBg){

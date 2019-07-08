@@ -1,9 +1,11 @@
 package com.chen.fakevibrato.widget;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.text.NoCopySpan;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -73,7 +75,7 @@ public class CommentSpan {
 
         for (int i = 0; i < atList.size(); i++) {
             String atStr = atList.get(i);
-            sp.setSpan(new QMUITouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
+            sp.setSpan(new QMUITouchableSpan(Color.WHITE, Color.parseColor("#FF4040"), Color.TRANSPARENT, Color.TRANSPARENT) {
                 @Override
                 public void onSpanClick(View widget) {
                     if (onSpanClick != null){
@@ -81,23 +83,15 @@ public class CommentSpan {
                     }
                 }
             }, source.indexOf(atStr,fromIndex), source.indexOf(atStr,fromIndex) + atStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            sp.setSpan(new StyleSpan(Typeface.BOLD),source.indexOf(atStr,fromIndex), source.indexOf(atStr,fromIndex) + atStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             fromIndex = source.indexOf(atStr,fromIndex) + atStr.length();
         }
         fromIndex = 0;
-//        String topicStr1 = "#这是一个话题 ";
-//        sp.setSpan(new QMUITouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
-//            @Override
-//            public void onSpanClick(View widget) {
-//                if (onSpanClick != null){
-//                    onSpanClick.topicClick(topicStr1);
-//                }
-//            }
-//        }, source.lastIndexOf(topicStr1), source.lastIndexOf(topicStr1) + topicStr1.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
 
         for (int i = 0; i < topicList.size(); i++) {
             MyLog.d("topicList : "+i);
             String topicStr = topicList.get(i);
-            sp.setSpan(new QMUITouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
+            sp.setSpan(new QMUITouchableSpan(Color.WHITE, Color.parseColor("#FF4040"), Color.TRANSPARENT, Color.TRANSPARENT) {
                 @Override
                 public void onSpanClick(View widget) {
                     if (onSpanClick != null){
@@ -105,17 +99,19 @@ public class CommentSpan {
                     }
                 }
             }, source.indexOf(topicStr,fromIndex), source.indexOf(topicStr,fromIndex) + topicStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            sp.setSpan(new StyleSpan(Typeface.BOLD),source.indexOf(topicStr,fromIndex), source.indexOf(topicStr,fromIndex) + topicStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             fromIndex = source.indexOf(topicStr,fromIndex) + topicStr.length();
         }
         fromIndex = 0;
         for (int i = 0; i < httpList.size(); i++) {
             String httpStr = httpList.get(i);
-            sp.setSpan(new TouchableSpan(Color.RED, Color.BLACK, Color.YELLOW, Color.GREEN) {
+            sp.setSpan(new TouchableSpan(Color.WHITE, Color.parseColor("#FF4040"), Color.TRANSPARENT, Color.TRANSPARENT) {
                 @Override
                 public void onSpanClick(View widget) {
                     Toast.makeText(widget.getContext(), "点击了url", Toast.LENGTH_SHORT).show();
                 }
             }, source.indexOf(httpStr,fromIndex), source.indexOf(httpStr,fromIndex) + httpStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            sp.setSpan(new StyleSpan(Typeface.BOLD),source.indexOf(httpStr,fromIndex), source.indexOf(httpStr,fromIndex) + httpStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             fromIndex = source.indexOf(httpStr,fromIndex) + httpStr.length();
         }
 
