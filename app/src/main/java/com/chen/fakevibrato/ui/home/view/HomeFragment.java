@@ -19,6 +19,7 @@ import com.chen.fakevibrato.ui.home.adapter.HomeAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
 import com.chen.fakevibrato.ui.home.presenter.HomePresenter;
 import com.chen.fakevibrato.widget.LoadingView;
+import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

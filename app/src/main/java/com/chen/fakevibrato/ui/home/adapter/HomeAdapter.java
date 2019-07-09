@@ -7,6 +7,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.text.TextPaint;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +20,11 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chen.fakevibrato.MainActivity;
 import com.chen.fakevibrato.R;
+import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.MyLog;
+import com.chen.fakevibrato.widget.EmojiconTextView;
 import com.like.LikeButton;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
@@ -28,6 +32,7 @@ import java.util.List;
 import java.util.concurrent.CyclicBarrier;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +67,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             }
         });
         recordAnim(holder.ivRecord);
+        holder.tvRecordName.setSelected(true);
+        String text = "测试跑马灯[爱心][微笑][微笑][得意]测试[爱心][蛋糕][爱心][爱心][爱心]";
+        holder.tvRecordName.setText(text);
+//        holder.tvRecordName.scrollBy();
     }
 
     @Override
@@ -88,6 +97,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         TextView tvReprinted;
         @BindView(R.id.ivRecord)
         ImageView ivRecord;
+        @BindView(R.id.tvRecordName)
+        EmojiconTextView tvRecordName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
