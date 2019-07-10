@@ -18,6 +18,7 @@ import com.chen.fakevibrato.base.BaseFragment;
 import com.chen.fakevibrato.ui.home.adapter.HomeAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
 import com.chen.fakevibrato.ui.home.presenter.HomePresenter;
+import com.chen.fakevibrato.widget.CommentDialog;
 import com.chen.fakevibrato.widget.LoadingView;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
@@ -75,7 +76,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         helper = new PagerSnapHelper();
         helper.attachToRecyclerView(recyclerView);
 
-
+        initListener();
     }
 
     LoadingView loadingView;
@@ -132,5 +133,29 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             case R.id.ivLive:
                 break;
         }
+    }
+
+    private void initListener(){
+        adapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+
+            @Override
+            public void onLikes(int position) {
+
+            }
+
+            @Override
+            public void onComment(int position) {
+                new CommentDialog.Builder(getActivity()).show();
+            }
+
+            @Override
+            public void onReprinted(int position) {
+
+            }
+        });
     }
 }

@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,7 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chen.fakevibrato.R;
+import com.chen.fakevibrato.TestAdapter;
 import com.chen.fakevibrato.ui.home.adapter.CommentAdapter;
+import com.chen.fakevibrato.utils.MyLog;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
@@ -64,14 +68,14 @@ public class CommentDialog extends BottomSheetDialog {
             ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, QMUIDisplayHelper.getScreenHeight(context) / 5 * 3);
             lp.topToBottom = R.id.tvNum;
             lp.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+
             recyclerView.setLayoutParams(lp);
             adapter = new CommentAdapter(context);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(adapter);
+
             ConstraintLayout.LayoutParams lp1 = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-
             mDialog.setContentView(view);
-
 
             mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override

@@ -24,8 +24,6 @@ class Main3Activity : AppCompatActivity() {
 //        val s = "#测试@朋友[微笑]hai #话题@a#s[微笑][微笑][微笑][撇嘴][撇嘴] #这是一个话题[难过] @艾特#测试@朋友 #话题@a#s #这是一个话题[难过] @艾特#测试@朋[微笑] #话题@a#s #这是一个话题 @艾特#测试@朋友 #话题@a#s #这是[微笑]话题 @艾特#测试@朋友 #话题@a#s #这是一个话题 @艾特#测试@朋友 #话题@a#s #这是一个话题 @艾特"
         val s = "#测试@朋友hai @朋友[呲牙] @朋友 @朋友 @朋友 @朋友 @朋友 @朋友 #话题@a#s #这是一个话题 @艾特#测试@朋友 #话题@a#s #这是一个话题 @艾特#测试@朋 #话题@a#s #这是一个话题 @艾特#测试@朋友 #话题@a#s #这是[微笑]话题 @艾特#测试@朋友 #话题@a#s #这是一个话题 @艾特#测试@朋友 #话题@a#s #这是一个话题 @艾特"
         val sp = CommentSpan()
-        val a = s.indexOf("#这是一个话题 ")
-        MyLog.d(a.toString() + " ");
         sp.setOnSpanClick(object : CommentSpan.OnSpanClick {
             override fun topicClick(topic: String) {
                 MyLog.d("topic : "+topic)
@@ -44,10 +42,10 @@ class Main3Activity : AppCompatActivity() {
 
         var span = sp.setSpan(s)
 
-        textView.setText(span);
+//        textView.setText(span);
 
-        textView1.setText(span);
-        textView1.setMovementMethod(LinkMovementMethod.getInstance())
+//        textView1.setText(span);
+//        textView1.setMovementMethod(LinkMovementMethod.getInstance())
 //        ViewCompat.setBackground(textView2, QMUIResHelper.getAttrDrawable(
 //                this@Main3Activity, R.attr.qmui_s_list_item_bg_with_border_bottom));
 //        textView2.setPadding(padding, padding, padding, padding);

@@ -8,6 +8,7 @@
             android:propertyName="rotation"
             android:valueFrom="0"
             android:valueTo="360"
+            android:repeatCount="-1"
             android:valueType="floatType" />
 
 </set>
