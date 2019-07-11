@@ -2,7 +2,6 @@ package com.chen.fakevibrato.widget;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.text.NoCopySpan;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
@@ -10,14 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.chen.fakevibrato.ui.home.CommentBean;
 import com.chen.fakevibrato.utils.MyLog;
-import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
 import com.qmuiteam.qmui.span.QMUITouchableSpan;
-import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
-import com.qmuiteam.qmui.widget.textview.QMUILinkTextView;
-
-import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
 import java.util.List;

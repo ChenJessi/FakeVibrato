@@ -21,6 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.TestAdapter;
+import com.chen.fakevibrato.bean.CommentBean;
+import com.chen.fakevibrato.bean.CommentChildBean;
+import com.chen.fakevibrato.ui.home.adapter.CommAdapter;
 import com.chen.fakevibrato.ui.home.adapter.CommentAdapter;
 import com.chen.fakevibrato.utils.MyLog;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -46,7 +49,8 @@ public class CommentDialog extends BottomSheetDialog {
         private CommentDialog mDialog;
         private Context context;
         private OnDismissListener onDismissListener;
-        private CommentAdapter adapter;
+//        private CommentAdapter adapter;
+        private CommAdapter adapter;
         public Builder(Context context) {
             this.context = context;
         }
@@ -70,9 +74,32 @@ public class CommentDialog extends BottomSheetDialog {
             lp.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
 
             recyclerView.setLayoutParams(lp);
-            adapter = new CommentAdapter(context);
+//            adapter = new CommentAdapter(context);
+            adapter = new CommAdapter(context);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(adapter);
+            adapter.setListener(new BaseExpandableRecyclerViewAdapter.ExpandableRecyclerViewOnClickListener<CommentBean, CommentChildBean>() {
+                @Override
+                public boolean onGroupLongClicked(CommentBean groupItem) {
+                    return false;
+                }
+
+                @Override
+                public boolean onInterceptGroupExpandEvent(CommentBean groupItem, boolean isExpand) {
+                    return false;
+                }
+
+                @Override
+                public void onGroupClicked(CommentBean groupItem) {
+
+                }
+
+                @Override
+                public void onChildClicked(CommentBean groupItem, CommentChildBean childItem) {
+
+                }
+            });
+
 
             ConstraintLayout.LayoutParams lp1 = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             mDialog.setContentView(view);

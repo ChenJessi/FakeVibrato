@@ -76,7 +76,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             }
         });
         recordAnim(holder.ivRecord);
-//        iconAnim(holder.ivIcom);
+        iconAnim(holder.ivIcom);
         holder.tvName.setText("@chen188669[爱心]");
         String content = "百无一用是深情，最不屑一顾是相思 @[蛋糕][呲牙] @chen[爱心] @chen188669 #这是[微笑]话题 #这是也是话题 #话题@测试  @艾特#测试";
         CommentSpan sp = new CommentSpan();
@@ -147,8 +147,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     private void iconAnim(ImageView ivIcom){
+        //需要增加贝塞尔曲线以完成最终效果
         AnimatorSet animator = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.icon_anim);
-//        animator.setInterpolator(new LinearInterpolator());
         animator.setTarget(ivIcom);
         animator.start();
     }
