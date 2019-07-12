@@ -50,12 +50,37 @@
         <item name="android:background">@color/black_overlay</item>
     </style>
     <!--底部弹窗-->
-    <style name="BottomSheet" parent="android:Theme.Dialog">
-        <item name="android:backgroundDimAmount">?attr/qmui_dialog_background_dim_amount</item>
+    <!--<style name="BottomSheet" parent="android:Theme.Dialog">-->
+        <!--<item name="android:backgroundDimAmount">?attr/qmui_dialog_background_dim_amount</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="android:windowBackground">@android:color/white</item>-->
+        <!--<item name="android:windowAnimationStyle">@null-->
+        <!--</item>&lt;!&ndash; 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。&ndash;&gt;-->
+        <!--<item name="android:layout_width">match_parent</item>-->
+    <!--</style>-->
+
+    <style name="BottomSheet" parent="@android:style/Theme.Dialog">
+        <!-- 边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 半透明 -->
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- 无标题 -->
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowAnimationStyle">@null
-        </item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
+        <item name="android:background">@android:color/white</item>
+        <!-- 背景透明 -->
+        <item name="android:windowBackground">@android:color/white</item>
+        <!-- 模糊 -->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!-- 遮罩层 -->
+        <item name="android:backgroundDimAmount">0.5</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="android:windowAnimationStyle">@style/SheetDialogAnimation</item>
+
+    </style>
+    <style name="SheetDialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_out_anim</item>
     </style>
 </resources>

@@ -44,6 +44,7 @@ dependencies {
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'cn.dreamtobe.kpswitch:library:1.6.2'
 }
 repositories {
     mavenCentral()

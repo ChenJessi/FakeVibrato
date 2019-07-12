@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingRight="5dp"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/etContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/ivAt"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/at"/>
+        <ImageView
+            android:id="@+id/ivType"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/emoji"/>
+        <ImageView
+            android:id="@+id/ivSend"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:padding="8dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/send"/>
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:visibility="visible"
+        android:layout_height="300dp"></androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>

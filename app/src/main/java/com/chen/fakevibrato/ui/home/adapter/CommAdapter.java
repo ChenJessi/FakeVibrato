@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.bean.CommentBean;
 import com.chen.fakevibrato.bean.CommentChildBean;
+import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.BaseExpandableRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class CommAdapter extends BaseExpandableRecyclerViewAdapter<CommentBean, 
             for (int j = 0; j < 5; j++){
                 CommentChildBean childBean = new CommentChildBean();
                 childBean.setContent("child : "+ j);
+                list.add(childBean);
             }
             commentBean.setContent("group : "+i);
             commentBean.setList(list);
@@ -58,13 +60,7 @@ public class CommAdapter extends BaseExpandableRecyclerViewAdapter<CommentBean, 
 
     @Override
     public void onBindGroupViewHolder(GroupViewHolder holder, CommentBean groupBean, boolean isExpand) {
-        holder.tvGroup.setText(groupBean.getContent());
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                holder.onExpandStatusChanged(CommAdapter.this,!isExpand);
-//            }
-//        });
+        holder.tvGroup.setText(groupBean.getContent() + groupBean.isExpandable());
     }
 
     @Override
@@ -86,7 +82,7 @@ public class CommAdapter extends BaseExpandableRecyclerViewAdapter<CommentBean, 
 
         @Override
         protected void onExpandStatusChanged(RecyclerView.Adapter relatedAdapter, boolean isExpanding) {
-
+            MyLog.d("isExpanding : "+isExpanding);
         }
     }
 

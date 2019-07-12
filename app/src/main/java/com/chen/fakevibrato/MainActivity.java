@@ -22,6 +22,7 @@ import com.chen.fakevibrato.ui.home.view.HomeFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.CommentSpan;
+
 import com.daimajia.swipe.SwipeLayout;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
@@ -154,7 +155,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @OnClick(R.id.ivBottom)
     public void onViewClicked() {
-       startActivity(new Intent(MainActivity.this, Main3Activity.class));
+//       startActivity(new Intent(MainActivity.this, Main3Activity.class));
+//       startActivity(new Intent(MainActivity.this, EmojiActivity.class));
 //       startActivity(new Intent(MainActivity.this, Main2Activity.class));
     }
 

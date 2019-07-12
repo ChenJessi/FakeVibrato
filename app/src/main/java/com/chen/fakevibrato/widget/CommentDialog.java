@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chen.fakevibrato.R;
@@ -51,13 +53,21 @@ public class CommentDialog extends BottomSheetDialog {
         private OnDismissListener onDismissListener;
 //        private CommentAdapter adapter;
         private CommAdapter adapter;
+        private OnDialogListener onDialogListener;
         public Builder(Context context) {
             this.context = context;
         }
 
-        public void setOnDismissListener(OnDismissListener onDismissListener){
+        public Builder setOnDismissListener(OnDismissListener onDismissListener){
             this.onDismissListener = onDismissListener;
+            return this;
         }
+
+        public Builder setOnDialogListener(OnDialogListener onDialogListener) {
+            this.onDialogListener = onDialogListener;
+            return this;
+        }
+
         private void create(){
             mDialog = new CommentDialog(context);
             View view = LayoutInflater.from(context).inflate(R.layout.dialog_comment, null);
@@ -67,6 +77,8 @@ public class CommentDialog extends BottomSheetDialog {
             TextView tvMark1 = view.findViewById(R.id.tvMark1);
             TextView tvMark2 = view.findViewById(R.id.tvMark2);
             TextView tvNum = view.findViewById(R.id.tvNum);
+            ImageView ivEmoji = view.findViewById(R.id.ivEmoji);
+            ImageView ivDismiss = view.findViewById(R.id.ivDismiss);
             LinearLayout llComment = view.findViewById(R.id.llComment);
             RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
             ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, QMUIDisplayHelper.getScreenHeight(context) / 5 * 3);
@@ -86,12 +98,13 @@ public class CommentDialog extends BottomSheetDialog {
 
                 @Override
                 public boolean onInterceptGroupExpandEvent(CommentBean groupItem, boolean isExpand) {
+                    MyLog.d("isExpand : "+isExpand);
                     return false;
                 }
 
                 @Override
                 public void onGroupClicked(CommentBean groupItem) {
-
+                    adapter.expandGroup(groupItem);
                 }
 
                 @Override
@@ -99,14 +112,29 @@ public class CommentDialog extends BottomSheetDialog {
 
                 }
             });
+            ivEmoji.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (onDialogListener != null){
+                        onDialogListener.emojiClick();
+                    }
+                }
+            });
 
-
-            ConstraintLayout.LayoutParams lp1 = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             mDialog.setContentView(view);
 
             mDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
+                    if (onDismissListener != null){
+                        onDismissListener.dismiss();
+                    }
+                }
+            });
+            ivDismiss.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
                     if (onDismissListener != null){
                         onDismissListener.dismiss();
                     }
@@ -123,6 +151,9 @@ public class CommentDialog extends BottomSheetDialog {
         }
 
 
+        public interface OnDialogListener{
+            void emojiClick();
+        }
     }
     public interface OnDismissListener{
         void dismiss();

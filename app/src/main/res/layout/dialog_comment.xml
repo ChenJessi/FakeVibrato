@@ -96,11 +96,12 @@
 
     <ImageView
         android:id="@+id/ivDismiss"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginTop="10dp"
+        android:padding="5dp"
         android:layout_marginRight="10dp"
-        android:background="@mipmap/close"
+        android:src="@mipmap/close"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 <LinearLayout

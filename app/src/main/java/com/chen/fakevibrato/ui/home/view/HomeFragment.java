@@ -19,6 +19,7 @@ import com.chen.fakevibrato.ui.home.adapter.HomeAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
 import com.chen.fakevibrato.ui.home.presenter.HomePresenter;
 import com.chen.fakevibrato.widget.CommentDialog;
+import com.chen.fakevibrato.widget.EmojiDialog;
 import com.chen.fakevibrato.widget.LoadingView;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
@@ -149,7 +150,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
             @Override
             public void onComment(int position) {
-                new CommentDialog.Builder(getActivity()).show();
+                new CommentDialog.Builder(getActivity()).setOnDialogListener(new CommentDialog.Builder.OnDialogListener() {
+                    @Override
+                    public void emojiClick() {
+                        new EmojiDialog.Builder(getActivity()).show();
+                    }
+                }).show();
             }
 
             @Override

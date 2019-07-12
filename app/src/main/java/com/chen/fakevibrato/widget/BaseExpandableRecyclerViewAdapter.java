@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chen.fakevibrato.utils.MyLog;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -343,6 +345,7 @@ public abstract class BaseExpandableRecyclerViewAdapter
                 return false;
             }
         });
+        MyLog.d("测试 1111 ： "+groupBean.isExpandable());
         if (!groupBean.isExpandable()) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -357,8 +360,10 @@ public abstract class BaseExpandableRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
                     final boolean isExpand = mExpandGroupSet.contains(groupBean);
+                    MyLog.d("测试 2222 ： "+isExpand);
                     if (mListener == null || !mListener.onInterceptGroupExpandEvent(groupBean, isExpand)) {
                         final int adapterPosition = holder.getAdapterPosition();
+                        MyLog.d("测试 2222 ： "+adapterPosition);
                         holder.onExpandStatusChanged(BaseExpandableRecyclerViewAdapter.this, !isExpand);
                         if (isExpand) {
                             mExpandGroupSet.remove(groupBean);
