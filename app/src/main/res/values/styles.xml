@@ -4,15 +4,26 @@
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
     <style name="AppTheme" parent="QMUI.Compat">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/transparent</item>
+        <item name="colorPrimaryDark">@color/transparent</item>
+        <item name="colorAccent">@color/transparent</item>
         <item name="windowActionBar">false</item>
         <!--<item name="android:background">@color/gray</item>-->
         <item name="windowNoTitle">true</item>
         <item name="QMUITopBarStyle">@style/TopBarStyle</item>
     </style>
 
+    <!--继承Theme.AppCompat.NoActionBar，不显示标题栏-->
+    <style name="TransparentTheme" parent="Theme.AppCompat.NoActionBar">
+        <!--不设置activity进入和退出动画样式-->
+        <item name="android:windowAnimationStyle">@null</item>
+        <!--设置窗口的背景为透明，设置透明背景必须要设置此项-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!--设置窗口的背景是否为半透明，设置透明背景必须要设置此项-->
+        <item name="android:windowIsTranslucent">true</item>
+        <!--设置状态栏的背景为半透明-->
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
 
     <!-- 并添加自己的 style -->
     <style name="TopBarStyle" parent="QMUI.TopBar">

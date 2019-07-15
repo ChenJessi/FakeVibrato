@@ -78,6 +78,7 @@ public class CommentDialog extends BottomSheetDialog {
             TextView tvMark2 = view.findViewById(R.id.tvMark2);
             TextView tvNum = view.findViewById(R.id.tvNum);
             ImageView ivEmoji = view.findViewById(R.id.ivEmoji);
+            ImageView ivAt = view.findViewById(R.id.ivAt);
             ImageView ivDismiss = view.findViewById(R.id.ivDismiss);
             LinearLayout llComment = view.findViewById(R.id.llComment);
             RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
@@ -120,6 +121,16 @@ public class CommentDialog extends BottomSheetDialog {
                     }
                 }
             });
+            ivAt.setOnClickListener(v -> {
+                if (onDialogListener != null){
+                    onDialogListener.atClick();
+                }
+            });
+            llComment.setOnClickListener(v -> {
+                if (onDialogListener != null){
+                    onDialogListener.commentClick();
+                }
+            });
 
             mDialog.setContentView(view);
 
@@ -153,6 +164,8 @@ public class CommentDialog extends BottomSheetDialog {
 
         public interface OnDialogListener{
             void emojiClick();
+            void atClick();
+            void commentClick();
         }
     }
     public interface OnDismissListener{

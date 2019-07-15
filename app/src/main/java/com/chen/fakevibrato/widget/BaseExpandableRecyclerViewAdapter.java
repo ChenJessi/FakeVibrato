@@ -360,10 +360,8 @@ public abstract class BaseExpandableRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
                     final boolean isExpand = mExpandGroupSet.contains(groupBean);
-                    MyLog.d("测试 2222 ： "+isExpand);
                     if (mListener == null || !mListener.onInterceptGroupExpandEvent(groupBean, isExpand)) {
                         final int adapterPosition = holder.getAdapterPosition();
-                        MyLog.d("测试 2222 ： "+adapterPosition);
                         holder.onExpandStatusChanged(BaseExpandableRecyclerViewAdapter.this, !isExpand);
                         if (isExpand) {
                             mExpandGroupSet.remove(groupBean);

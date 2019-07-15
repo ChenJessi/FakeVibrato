@@ -14,6 +14,7 @@ import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView
 import com.qmuiteam.qmui.util.QMUIResHelper
 import kotlinx.android.synthetic.main.activity_main3.*
+import kotlinx.android.synthetic.main.activity_main3.view.*
 import java.security.AccessController.getContext
 
 class Main3Activity : AppCompatActivity() {
@@ -49,8 +50,8 @@ class Main3Activity : AppCompatActivity() {
 //        ViewCompat.setBackground(textView2, QMUIResHelper.getAttrDrawable(
 //                this@Main3Activity, R.attr.qmui_s_list_item_bg_with_border_bottom));
 //        textView2.setPadding(padding, padding, padding, padding);
-        textView2.setMovementMethodDefault()
-        textView2.setText(span)
+//        textView2.setMovementMethodDefault()
+//        textView2.setText(span)
 //        textView.setOnClickListener {
 //            MyLog.d(a.toString() + " 点击了");
 //        }

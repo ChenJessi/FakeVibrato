@@ -9,6 +9,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.text.TextPaint;
 import android.text.method.BaseMovementMethod;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,7 +82,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         String content = "百无一用是深情，最不屑一顾是相思 @[蛋糕][呲牙] @chen[爱心] @chen188669 #这是[微笑]话题 #这是也是话题 #话题@测试  @艾特#测试";
         CommentSpan sp = new CommentSpan();
         contentClick(sp);
-        holder.tvContent.setMovementMethodDefault();
+//        holder.tvContent.setMovementMethodDefault();
+        holder.tvContent.setMovementMethod(LinkMovementMethod.getInstance());
         holder.tvContent.setText(sp.setSpan(content));
 
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 import com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView;
 
@@ -11,7 +12,7 @@ import com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView;
  * @author Created by CHEN on 2019/7/5
  * @email 188669@163.com
  */
-public class EmojiconTextView extends QMUISpanTouchFixTextView {
+public class EmojiconTextView extends TextView {
     private int mEmojiconSize;
     private int mEmojiconTextSize;
     private int mTextStart = 0;

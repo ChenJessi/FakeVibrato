@@ -10,4 +10,10 @@ public class MyLog {
     public static void d(String msg){
         Log.d("fakeVibrato",msg);
     }
+    public static void i(String msg){
+        Log.i("fakeVibrato",msg);
+    }
+    public static void e(String msg){
+        Log.e("fakeVibrato",msg);
+    }
 }

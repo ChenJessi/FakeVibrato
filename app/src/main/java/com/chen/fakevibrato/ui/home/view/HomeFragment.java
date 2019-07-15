@@ -1,5 +1,6 @@
 package com.chen.fakevibrato.ui.home.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.chen.fakevibrato.ui.home.adapter.HomeAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
 import com.chen.fakevibrato.ui.home.presenter.HomePresenter;
 import com.chen.fakevibrato.widget.CommentDialog;
+import com.chen.fakevibrato.widget.EmojiActivity;
 import com.chen.fakevibrato.widget.EmojiDialog;
 import com.chen.fakevibrato.widget.LoadingView;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler;
@@ -153,7 +155,17 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 new CommentDialog.Builder(getActivity()).setOnDialogListener(new CommentDialog.Builder.OnDialogListener() {
                     @Override
                     public void emojiClick() {
-                        new EmojiDialog.Builder(getActivity()).show();
+                        startActivity(new Intent(getActivity(), EmojiActivity.class));
+                    }
+
+                    @Override
+                    public void atClick() {
+
+                    }
+
+                    @Override
+                    public void commentClick() {
+                        startActivity(new Intent(getActivity(), EmojiActivity.class));
                     }
                 }).show();
             }
