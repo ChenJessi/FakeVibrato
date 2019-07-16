@@ -68,7 +68,7 @@ public class CommentSpan {
 
         for (int i = 0; i < atList.size(); i++) {
             String atStr = atList.get(i);
-            sp.setSpan(new QMUITouchableSpan(Color.WHITE, Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT) {
+            sp.setSpan(new TouchableSpan(Color.WHITE, Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT) {
                 @Override
                 public void onSpanClick(View widget) {
                     if (onSpanClick != null){
@@ -84,7 +84,7 @@ public class CommentSpan {
         for (int i = 0; i < topicList.size(); i++) {
             MyLog.d("topicList : "+i);
             String topicStr = topicList.get(i);
-            sp.setSpan(new QMUITouchableSpan(Color.WHITE, Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT) {
+            sp.setSpan(new TouchableSpan(Color.WHITE, Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT) {
                 @Override
                 public void onSpanClick(View widget) {
                     if (onSpanClick != null){
