@@ -45,6 +45,7 @@ dependencies {
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'cn.dreamtobe.kpswitch:library:1.6.2'
+    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
 }
 repositories {
     mavenCentral()

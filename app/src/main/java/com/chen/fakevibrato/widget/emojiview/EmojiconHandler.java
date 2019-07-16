@@ -1,6 +1,7 @@
-package com.chen.fakevibrato.widget;
+package com.chen.fakevibrato.widget.emojiview;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.util.ArrayMap;
@@ -8,7 +9,8 @@ import android.util.Log;
 import android.util.SparseIntArray;
 
 import com.chen.fakevibrato.R;
-import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.chen.fakevibrato.utils.DisplayUtils;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +34,8 @@ public final class EmojiconHandler {
      * 表情的偏移值
      */
     private static final int EMOJIICON_TRANSLATE_Y = 0;
-    private static final int QQFACE_TRANSLATE_Y = QMUIDisplayHelper.dpToPx(1);
+
+    private static final int QQFACE_TRANSLATE_Y = 1;  //单位dp
 
     static {
         long start = System.currentTimeMillis();
@@ -1639,7 +1642,7 @@ public final class EmojiconHandler {
                 boolean isQQFace = results[2] > 0;
                 EmojiconSpan span = new EmojiconSpan(context, icon, (int) (emojiSize * EMOJIICON_SCALE),
                         (int) (emojiSize * EMOJIICON_SCALE));
-                span.setTranslateY(isQQFace ? QQFACE_TRANSLATE_Y : EMOJIICON_TRANSLATE_Y);
+                span.setTranslateY(isQQFace ? DisplayUtils.dp2px(context,QQFACE_TRANSLATE_Y) : EMOJIICON_TRANSLATE_Y);
                 if (span.getCachedDrawable() == null) {
                     text.replace(processIdx, processIdx + skip, "..");
                     //重新计算字符串的合法长度

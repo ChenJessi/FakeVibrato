@@ -1,18 +1,11 @@
 package com.chen.fakevibrato;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextPaint;
-import android.text.style.ReplacementSpan;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.chen.fakevibrato.base.BaseActivity;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
@@ -20,24 +13,18 @@ import com.chen.fakevibrato.ui.home.contract.MainContract;
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
 import com.chen.fakevibrato.ui.home.view.HomeFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
-import com.chen.fakevibrato.utils.MyLog;
-import com.chen.fakevibrato.widget.CommentSpan;
 
-import com.chen.fakevibrato.widget.EmojiActivity;
+import com.chen.fakevibrato.widget.emojipanel.EmojiActivity;
 import com.daimajia.swipe.SwipeLayout;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.qmuiteam.qmui.span.QMUITouchableSpan;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {

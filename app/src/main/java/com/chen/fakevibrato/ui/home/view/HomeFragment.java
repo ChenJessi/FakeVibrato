@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.Toolbar;
@@ -20,12 +18,8 @@ import com.chen.fakevibrato.ui.home.adapter.HomeAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
 import com.chen.fakevibrato.ui.home.presenter.HomePresenter;
 import com.chen.fakevibrato.widget.CommentDialog;
-import com.chen.fakevibrato.widget.EmojiActivity;
-import com.chen.fakevibrato.widget.EmojiDialog;
+import com.chen.fakevibrato.widget.emojipanel.EmojiActivity;
 import com.chen.fakevibrato.widget.LoadingView;
-import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler;
-import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;

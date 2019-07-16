@@ -1,8 +1,7 @@
 package com.chen.fakevibrato.bean;
 
-import com.chen.fakevibrato.widget.BaseExpandableRecyclerViewAdapter;
+import com.chen.fakevibrato.widget.expandable.BaseExpandableRecyclerViewAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

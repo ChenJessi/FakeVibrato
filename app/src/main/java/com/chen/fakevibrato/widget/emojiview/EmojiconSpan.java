@@ -1,4 +1,4 @@
-package com.chen.fakevibrato.widget;
+package com.chen.fakevibrato.widget.emojiview;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,6 +6,8 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.text.style.DynamicDrawableSpan;
+
+import com.chen.fakevibrato.widget.emojiview.EmojiCache;
 
 import java.lang.ref.WeakReference;
 

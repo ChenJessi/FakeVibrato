@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".widget.EmojiActivity"
+        <activity android:name=".widget.emojipanel.EmojiActivity"
             android:theme="@style/TransparentTheme"></activity>
         <activity android:name=".Main3Activity" />
         <activity android:name=".Main2Activity" />

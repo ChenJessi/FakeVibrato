@@ -131,7 +131,7 @@
         android:layout_height="wrap_content"
         android:background="@mipmap/record"/>
 
-    <com.chen.fakevibrato.widget.EmojiconTextView
+    <com.chen.fakevibrato.widget.emojiview.EmojiconTextView
         android:id="@+id/tvRecordName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -148,7 +148,7 @@
         android:textSize="15sp"
         android:marqueeRepeatLimit="marquee_forever"/>
 
-    <com.chen.fakevibrato.widget.EmojiconTextView
+    <com.chen.fakevibrato.widget.emojiview.EmojiconTextView
         android:id="@+id/tvContent"
         app:layout_constraintBottom_toTopOf="@id/tvRecordName"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -162,7 +162,7 @@
         android:textSize="15sp"
         android:ellipsize="end"
         android:layout_height="wrap_content" />
-    <com.chen.fakevibrato.widget.EmojiconTextView
+    <com.chen.fakevibrato.widget.emojiview.EmojiconTextView
         android:id="@+id/tvName"
         app:layout_constraintBottom_toTopOf="@id/tvContent"
         app:layout_constraintLeft_toLeftOf="parent"

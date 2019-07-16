@@ -1,38 +1,30 @@
 package com.chen.fakevibrato.widget;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.TestAdapter;
 import com.chen.fakevibrato.bean.CommentBean;
 import com.chen.fakevibrato.bean.CommentChildBean;
-import com.chen.fakevibrato.ui.home.adapter.CommAdapter;
 import com.chen.fakevibrato.ui.home.adapter.CommentAdapter;
 import com.chen.fakevibrato.utils.MyLog;
+import com.chen.fakevibrato.widget.expandable.BaseExpandableRecyclerViewAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
-import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 
 /**
+ * 评论弹窗
  * @author Created by CHEN on 2019/6/18
  * @email 188669@163.com
  */
@@ -51,8 +43,7 @@ public class CommentDialog extends BottomSheetDialog {
         private CommentDialog mDialog;
         private Context context;
         private OnDismissListener onDismissListener;
-//        private CommentAdapter adapter;
-        private CommAdapter adapter;
+        private CommentAdapter adapter;
         private OnDialogListener onDialogListener;
         public Builder(Context context) {
             this.context = context;
@@ -88,10 +79,10 @@ public class CommentDialog extends BottomSheetDialog {
 
             recyclerView.setLayoutParams(lp);
 //            adapter = new CommentAdapter(context);
-            adapter = new CommAdapter(context);
+            adapter = new CommentAdapter(context);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(adapter);
-            adapter.setListener(new BaseExpandableRecyclerViewAdapter.ExpandableRecyclerViewOnClickListener<CommentBean, CommentChildBean>() {
+            adapter.setOnItemClickListener(new BaseExpandableRecyclerViewAdapter.OnItemClickListener<CommentBean, CommentChildBean>() {
                 @Override
                 public boolean onGroupLongClicked(CommentBean groupItem) {
                     return false;

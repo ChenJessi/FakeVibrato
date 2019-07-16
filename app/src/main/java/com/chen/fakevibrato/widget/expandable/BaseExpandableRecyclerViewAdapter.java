@@ -1,4 +1,4 @@
-package com.chen.fakevibrato.widget;
+package com.chen.fakevibrato.widget.expandable;
 
 /**
  * @author Created by CHEN on 2019/7/11
@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import butterknife.ButterKnife;
+
 
 public abstract class BaseExpandableRecyclerViewAdapter
         <GroupBean extends BaseExpandableRecyclerViewAdapter.BaseGroupBean<ChildBean>,
@@ -40,7 +42,7 @@ public abstract class BaseExpandableRecyclerViewAdapter
     private static final int TYPE_MASK = TYPE_GROUP | TYPE_CHILD | TYPE_EMPTY | TYPE_HEADER;
 
     private Set<GroupBean> mExpandGroupSet;
-    private ExpandableRecyclerViewOnClickListener<GroupBean, ChildBean> mListener;
+    private OnItemClickListener<GroupBean, ChildBean> onItemClickListener;
 
     private boolean mIsEmpty;
     private boolean mShowHeaderViewWhenEmpty;
@@ -166,8 +168,8 @@ public abstract class BaseExpandableRecyclerViewAdapter
         }
     }
 
-    public final void setListener(ExpandableRecyclerViewOnClickListener<GroupBean, ChildBean> listener) {
-        mListener = listener;
+    public final void setOnItemClickListener(OnItemClickListener<GroupBean, ChildBean> onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 
     public final boolean isGroupExpanding(GroupBean groupBean) {
@@ -339,8 +341,8 @@ public abstract class BaseExpandableRecyclerViewAdapter
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (mListener != null) {
-                    return mListener.onGroupLongClicked(groupBean);
+                if (onItemClickListener != null) {
+                    return onItemClickListener.onGroupLongClicked(groupBean);
                 }
                 return false;
             }
@@ -350,8 +352,8 @@ public abstract class BaseExpandableRecyclerViewAdapter
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mListener != null) {
-                        mListener.onGroupClicked(groupBean);
+                    if (onItemClickListener != null) {
+                        onItemClickListener.onGroupClicked(groupBean);
                     }
                 }
             });
@@ -360,7 +362,7 @@ public abstract class BaseExpandableRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
                     final boolean isExpand = mExpandGroupSet.contains(groupBean);
-                    if (mListener == null || !mListener.onInterceptGroupExpandEvent(groupBean, isExpand)) {
+                    if (onItemClickListener == null || !onItemClickListener.onInterceptGroupExpandEvent(groupBean, isExpand)) {
                         final int adapterPosition = holder.getAdapterPosition();
                         holder.onExpandStatusChanged(BaseExpandableRecyclerViewAdapter.this, !isExpand);
                         if (isExpand) {
@@ -382,8 +384,8 @@ public abstract class BaseExpandableRecyclerViewAdapter
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onChildClicked(groupBean, childBean);
+                if (onItemClickListener != null) {
+                    onItemClickListener.onChildClicked(groupBean, childBean);
                 }
             }
         });
@@ -469,7 +471,7 @@ public abstract class BaseExpandableRecyclerViewAdapter
     }
 
 
-    public interface ExpandableRecyclerViewOnClickListener<GroupBean extends BaseGroupBean, ChildBean> {
+    public interface OnItemClickListener<GroupBean extends BaseGroupBean, ChildBean> {
 
         /**
          * called when group item is long clicked

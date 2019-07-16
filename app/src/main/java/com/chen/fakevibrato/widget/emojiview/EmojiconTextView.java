@@ -1,12 +1,10 @@
-package com.chen.fakevibrato.widget;
+package com.chen.fakevibrato.widget.emojiview;
 
 import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.TextView;
-
-import com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView;
 
 /**
  * @author Created by CHEN on 2019/7/5

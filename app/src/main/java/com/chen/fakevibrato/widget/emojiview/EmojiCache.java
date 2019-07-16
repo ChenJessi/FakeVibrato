@@ -1,4 +1,4 @@
-package com.chen.fakevibrato.widget;
+package com.chen.fakevibrato.widget.emojiview;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

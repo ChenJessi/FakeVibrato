@@ -28,8 +28,10 @@ import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.CommentSpan;
-import com.chen.fakevibrato.widget.EmojiconTextView;
+
+
 import com.chen.fakevibrato.widget.HeartLayout;
+import com.chen.fakevibrato.widget.emojiview.EmojiconTextView;
 import com.like.LikeButton;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 

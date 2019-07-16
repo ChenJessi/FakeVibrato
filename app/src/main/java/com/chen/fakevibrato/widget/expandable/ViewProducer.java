@@ -1,4 +1,4 @@
-package com.chen.fakevibrato.widget;
+package com.chen.fakevibrato.widget.expandable;
 
 /**
  * @author Created by CHEN on 2019/7/11
