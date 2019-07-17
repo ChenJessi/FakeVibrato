@@ -41,7 +41,7 @@ class Main3Activity : AppCompatActivity() {
             }
         })
 
-        var span = sp.setSpan(s)
+//        var span = sp.setSpan(s)
 
 //        textView.setText(span);
 

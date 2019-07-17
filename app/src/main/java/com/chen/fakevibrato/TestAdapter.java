@@ -96,14 +96,14 @@ public class TestAdapter extends BaseExpandableListAdapter {
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         final GroupHolder holder;
         if(convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.group_test, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_group_comment, parent, false);
             holder = new GroupHolder(convertView);
             convertView.setTag(holder);
         }else {
             holder = (GroupHolder) convertView.getTag();
         }
 
-        holder.tvGroup.setText("GROUP : " + groupPosition);
+//        holder.tvGroup.setText("GROUP : " + groupPosition);
         return convertView;
     }
 
@@ -111,23 +111,23 @@ public class TestAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final ChildHolder holder;
         if(convertView == null){
-            convertView = LayoutInflater.from(mContext).inflate(R.layout.child_test, parent, false);
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_child_comment, parent, false);
             holder = new ChildHolder(convertView);
             convertView.setTag(holder);
         }else {
             holder = (ChildHolder) convertView.getTag();
         }
 
-        holder.tvChild.setText("CHILD : " + childPosition + " msg :"+mList.get(groupPosition).get(childPosition));
-        holder.tvChild.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mList.get(groupPosition).add("添加测试");
-                onGroupCollapsed(groupPosition);
-                onGroupExpanded(groupPosition);
-                notifyDataSetChanged();
-            }
-        });
+//        holder.tvChild.setText("CHILD : " + childPosition + " msg :"+mList.get(groupPosition).get(childPosition));
+//        holder.tvChild.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mList.get(groupPosition).add("添加测试");
+//                onGroupCollapsed(groupPosition);
+//                onGroupExpanded(groupPosition);
+//                notifyDataSetChanged();
+//            }
+//        });
         return convertView;
     }
 
@@ -140,14 +140,14 @@ public class TestAdapter extends BaseExpandableListAdapter {
     private class GroupHolder  {
         private TextView tvGroup;
         public GroupHolder(View view) {
-            tvGroup =  view.findViewById(R.id.tvGroup);
+//            tvGroup =  view.findViewById(R.id.tvGroup);
         }
     }
 
     private class ChildHolder  {
-        private TextView tvChild;
+//        private TextView tvChild;
         public ChildHolder(View view) {
-            tvChild =  view.findViewById(R.id.tvChild);
+//            tvChild =  view.findViewById(R.id.tvChild);
         }
     }
 }

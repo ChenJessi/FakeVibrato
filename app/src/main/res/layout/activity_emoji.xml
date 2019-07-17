@@ -10,6 +10,7 @@
     android:background="@color/transparent"
     android:orientation="vertical"
     android:fitsSystemWindows="false"
+    android:id="@+id/rootView"
     tools:context=".widget.emojipanel.EmojiActivity">
     <View
         android:layout_width="match_parent"
@@ -57,33 +58,36 @@
 
     </LinearLayout>
 
-    <cn.dreamtobe.kpswitch.widget.KPSwitchFSPanelLinearLayout
+    <cn.dreamtobe.kpswitch.widget.KPSwitchFSPanelRelativeLayout
         android:id="@+id/panel_root"
         app:layout_constraintTop_toBottomOf="@id/editText"
         android:layout_width="match_parent"
         android:background="@color/white"
         android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:orientation="vertical"
+        android:visibility="visible">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="match_parent"
             android:background="@color/white"
             android:visibility="visible"
-            android:layout_height="300dp"></androidx.recyclerview.widget.RecyclerView>
-        <!--<com.rd.PageIndicatorView-->
-            <!--android:id="@+id/pageIndicatorView"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerInParent="true"-->
-            <!--app:piv_animationType="scale"-->
-            <!--app:piv_dynamicCount="true"-->
-            <!--app:piv_interactiveAnimation="true"-->
-            <!--app:piv_selectedColor="@color/gray_50"-->
-            <!--app:piv_unselectedColor="@color/gray_300"-->
-            <!--app:piv_viewPager="@id/viewPager"-->
-            <!--attrs:piv_padding="12dp"-->
-            <!--attrs:piv_radius="8dp" />-->
-    </cn.dreamtobe.kpswitch.widget.KPSwitchFSPanelLinearLayout>
+            android:layout_height="280dp"></androidx.recyclerview.widget.RecyclerView>
+        <com.rd.PageIndicatorView
+            android:id="@+id/indicatorView"
+            android:layout_below="@id/recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:piv_animationType="scale"
+            app:piv_dynamicCount="true"
+            android:layout_gravity="center"
+            app:piv_interactiveAnimation="true"
+            app:piv_selectedColor="@color/gray"
+            app:piv_unselectedColor="@color/gray1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            app:piv_padding="12dp"
+            app:piv_radius="5dp" />
+    </cn.dreamtobe.kpswitch.widget.KPSwitchFSPanelRelativeLayout>
 
 </LinearLayout>

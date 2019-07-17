@@ -7,6 +7,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextPaint;
 import android.text.method.BaseMovementMethod;
 import android.text.method.LinkMovementMethod;
@@ -81,12 +82,12 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         recordAnim(holder.ivRecord);
         iconAnim(holder.ivIcom);
         holder.tvName.setText("@chen188669[爱心]");
-        String content = "百无一用是深情，最不屑一顾是相思 @[蛋糕][呲牙] @chen[爱心] @chen188669 #这是[微笑]话题 #这是也是话题 #话题@测试  @艾特#测试";
+        String content = "百无一用是深情，最不屑一顾是相思 https://www.baidu.com @[蛋糕][呲牙] @chen[爱心] @chen188669 #这是[微笑]话题 #这是也是话题 #话题@测试  @艾特#测试";
         CommentSpan sp = new CommentSpan();
         contentClick(sp);
-//        holder.tvContent.setMovementMethodDefault();
+
         holder.tvContent.setMovementMethod(LinkMovementMethod.getInstance());
-        holder.tvContent.setText(sp.setSpan(content));
+        holder.tvContent.setText(sp.setSpan(content,  Color.WHITE));
 
 
         holder.tvRecordName.setSelected(true);

@@ -78,11 +78,21 @@ public class CommentDialog extends BottomSheetDialog {
             lp.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
 
             recyclerView.setLayoutParams(lp);
-//            adapter = new CommentAdapter(context);
             adapter = new CommentAdapter(context);
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(adapter);
-            adapter.setOnItemClickListener(new BaseExpandableRecyclerViewAdapter.OnItemClickListener<CommentBean, CommentChildBean>() {
+            int count = adapter.getGroupCount();
+            for (int i = 0; i < count; i++) {
+                adapter.expandGroup(adapter.getGroupItem(i));
+            }
+
+            adapter.setOnItemClickListener(new CommentAdapter.OnItemClickListener() {
+                @Override
+                public void onMoreClick(CommentBean groupBean) {
+                    int index = adapter.getGroupIndex(groupBean);
+                    recyclerView.scrollToPosition(index);
+                }
+
                 @Override
                 public boolean onGroupLongClicked(CommentBean groupItem) {
                     return false;
@@ -90,13 +100,12 @@ public class CommentDialog extends BottomSheetDialog {
 
                 @Override
                 public boolean onInterceptGroupExpandEvent(CommentBean groupItem, boolean isExpand) {
-                    MyLog.d("isExpand : "+isExpand);
-                    return false;
+                    return true;
                 }
 
                 @Override
                 public void onGroupClicked(CommentBean groupItem) {
-                    adapter.expandGroup(groupItem);
+
                 }
 
                 @Override
@@ -104,6 +113,7 @@ public class CommentDialog extends BottomSheetDialog {
 
                 }
             });
+
             ivEmoji.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

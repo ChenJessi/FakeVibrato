@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 /**
+ * 屏幕辅助类
  * @author Created by CHEN on 2019/6/12
  * @email 188669@163.com
  */

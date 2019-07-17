@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
+ * emoji
  * @author Created by CHEN on 2019/7/5
  * @email 188669@163.com
  */

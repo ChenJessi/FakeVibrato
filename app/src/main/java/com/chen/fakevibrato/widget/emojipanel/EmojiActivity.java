@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.utils.MyLog;
@@ -17,25 +18,30 @@ import com.chen.fakevibrato.widget.pagergrid.PagerGridLayoutManager;
 import com.chen.fakevibrato.widget.pagergrid.PagerGridSnapHelper;
 import com.qmuiteam.qmui.util.QMUIKeyboardHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
+import com.rd.PageIndicatorView;
 
 import cn.dreamtobe.kpswitch.util.KPSwitchConflictUtil;
 import cn.dreamtobe.kpswitch.util.KeyboardUtil;
 import cn.dreamtobe.kpswitch.widget.KPSwitchFSPanelFrameLayout;
 import cn.dreamtobe.kpswitch.widget.KPSwitchFSPanelLinearLayout;
+import cn.dreamtobe.kpswitch.widget.KPSwitchFSPanelRelativeLayout;
 
 /**
- * 表情工具面板
+ * 表情工具面板view
  */
 public class EmojiActivity extends AppCompatActivity {
+    private LinearLayout rootView;
     private RecyclerView recyclerView;
     private EmojiconEditText editText;
     private ImageView ivAt;
     private ImageView ivEmoji;
     private ImageView ivSend;
+    private PageIndicatorView indicatorView;
     private boolean isEmiji = false;
-    private KPSwitchFSPanelLinearLayout mPanelLayout;
+    private KPSwitchFSPanelRelativeLayout mPanelLayout;
     private EmojiAdapter adapter;
     private boolean isFirst = true;
+    private boolean isKeyboard = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +49,13 @@ public class EmojiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_emoji);
 
         recyclerView = findViewById(R.id.recyclerView);
+        rootView = findViewById(R.id.rootView);
         ivEmoji = findViewById(R.id.ivEmoji);
         ivSend = findViewById(R.id.ivSend);
         ivAt = findViewById(R.id.ivAt);
         editText = findViewById(R.id.editText);
         mPanelLayout = findViewById(R.id.panel_root);
+        indicatorView = findViewById(R.id.indicatorView);
         KeyboardUtil.attach(this, mPanelLayout);
 
         PagerGridLayoutManager manager = new PagerGridLayoutManager(5, 8, PagerGridLayoutManager.HORIZONTAL);
@@ -60,6 +68,18 @@ public class EmojiActivity extends AppCompatActivity {
 
         KPSwitchConflictUtil.showPanel(mPanelLayout);
         KeyboardUtil.showKeyboard(editText);
+
+        manager.setPageListener(new PagerGridLayoutManager.PageListener() {
+            @Override
+            public void onPageSizeChanged(int pageSize) {
+                indicatorView.setCount(pageSize);
+            }
+
+            @Override
+            public void onPageSelect(int pageIndex) {
+                indicatorView.setSelection(pageIndex);
+            }
+        });
     }
 
     private void initListener() {
@@ -77,6 +97,8 @@ public class EmojiActivity extends AppCompatActivity {
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isKeyboard = true;
+                ivEmoji.setImageResource(R.mipmap.emoji);
                 KPSwitchConflictUtil.showPanel(mPanelLayout);
                 KeyboardUtil.showKeyboard(editText);
                 //KPSwitchConflictUtil.showKeyboard(mPanelLayout, editText);
@@ -85,19 +107,30 @@ public class EmojiActivity extends AppCompatActivity {
         ivEmoji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isFirst){
-                    isFirst = false;
-                    recyclerView.setVisibility(View.VISIBLE);
-                    recyclerView.setAdapter(adapter);
+                if (isKeyboard){
+                    isKeyboard = false;
+                    ivEmoji.setImageResource(R.mipmap.keyboard);
+                    if (isFirst){
+                        isFirst = false;
+                        recyclerView.setVisibility(View.VISIBLE);
+                        recyclerView.setAdapter(adapter);
+                    }else {
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                    isEmiji = true;
+                    KPSwitchConflictUtil.showPanel(mPanelLayout);
+                    KeyboardUtil.hideKeyboard(editText);
                 }else {
-                    recyclerView.setVisibility(View.VISIBLE);
+                    isKeyboard = true;
+                    ivEmoji.setImageResource(R.mipmap.emoji);
+                    KPSwitchConflictUtil.showPanel(mPanelLayout);
+                    KeyboardUtil.showKeyboard(editText);
                 }
-                isEmiji = true;
-                KPSwitchConflictUtil.showPanel(mPanelLayout);
-                KeyboardUtil.hideKeyboard(editText);
-
             }
         });
+        /**
+         * 软键盘监听处理
+         */
         QMUIKeyboardHelper.setVisibilityEventListener(EmojiActivity.this, new QMUIKeyboardHelper.KeyboardVisibilityEventListener() {
             @Override
             public boolean onVisibilityChanged(boolean isOpen, int heightDiff) {
@@ -117,6 +150,14 @@ public class EmojiActivity extends AppCompatActivity {
             @Override
             public void onItemClick(String emoji) {
                 editText.append(emoji);
+            }
+        });
+        rootView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KeyboardUtil.hideKeyboard(editText);
+                KPSwitchConflictUtil.hidePanelAndKeyboard(mPanelLayout);
+                finish();
             }
         });
     }

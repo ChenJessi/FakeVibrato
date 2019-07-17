@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/ivHead"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@mipmap/head"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="60dp"
+        app:qmui_border_color="@color/white"
+        app:qmui_border_width="2px"
+        app:qmui_is_circle="true" />
+
+    <com.chen.fakevibrato.widget.emojiview.EmojiconTextView
+        android:id="@+id/tvName"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toTopOf="@id/ivHead"
+        app:layout_constraintLeft_toRightOf="@id/ivHead"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:textColor="@color/gray2"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="15sp"
+        android:ellipsize="end"
+        android:maxLength="20"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"
+        android:text="昵称"/>
+
+    <com.chen.fakevibrato.widget.emojiview.EmojiconTextView
+        android:id="@+id/tvContent"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        app:layout_constraintLeft_toLeftOf="@id/tvName"
+        app:layout_constraintRight_toLeftOf="@id/btLikes"
+        android:layout_width="0dp"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLength="120"
+        android:layout_height="wrap_content"
+        android:text="内容"/>
+
+    <com.like.LikeButton
+        android:id="@+id/btLikes"
+        android:layout_width="30dp"
+        android:layout_height="45dp"
+        app:circle_end_color="@color/red1"
+        app:circle_start_color="@color/red1"
+        app:dots_primary_color="@color/red1"
+        app:dots_secondary_color="@color/red1"
+        app:icon_size="20dp"
+        app:icon_type="heart"
+        android:layout_marginRight="10dp"
+        app:layout_constraintTop_toTopOf="@id/ivHead"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:like_drawable="@mipmap/heart_red1"
+        app:liked="false"
+        app:unlike_drawable="@mipmap/heart_gray">
+
+        <TextView
+            android:id="@+id/tvLikes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:lines="1"
+            android:maxLength="5"
+            android:text="9999"
+            android:textColor="@color/gray2"
+            android:textSize="10sp" />
+    </com.like.LikeButton>
+
+    <TextView
+        android:id="@+id/tvMore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvContent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="@id/ivHead"
+        android:visibility="gone"
+        android:textColor="@color/gray2"
+        android:textSize="11sp"
+        android:drawableRight="@mipmap/gray_triangle_up"
+        android:text="─── 收起 "/>
+</androidx.constraintlayout.widget.ConstraintLayout>

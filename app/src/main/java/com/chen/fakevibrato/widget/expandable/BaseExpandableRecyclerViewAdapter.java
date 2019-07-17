@@ -23,7 +23,13 @@ import java.util.Set;
 
 import butterknife.ButterKnife;
 
-
+/**
+ * recyclerview 二级列表adapter
+ * @param <GroupBean>
+ * @param <ChildBean>
+ * @param <GroupViewHolder>
+ * @param <ChildViewHolder>
+ */
 public abstract class BaseExpandableRecyclerViewAdapter
         <GroupBean extends BaseExpandableRecyclerViewAdapter.BaseGroupBean<ChildBean>,
                 ChildBean,
@@ -347,7 +353,7 @@ public abstract class BaseExpandableRecyclerViewAdapter
                 return false;
             }
         });
-        MyLog.d("测试 1111 ： "+groupBean.isExpandable());
+
         if (!groupBean.isExpandable()) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -362,7 +368,11 @@ public abstract class BaseExpandableRecyclerViewAdapter
                 @Override
                 public void onClick(View v) {
                     final boolean isExpand = mExpandGroupSet.contains(groupBean);
-                    if (onItemClickListener == null || !onItemClickListener.onInterceptGroupExpandEvent(groupBean, isExpand)) {
+                    /**
+                     * onItemClickListener != null 且 onInterceptGroupExpandEvent 为false 时 默认点击groupitem 展开收起
+                     * onInterceptGroupExpandEvent 是否拦截展开收起事件
+                     */
+                    if (onItemClickListener != null && !onItemClickListener.onInterceptGroupExpandEvent(groupBean, isExpand)) {
                         final int adapterPosition = holder.getAdapterPosition();
                         holder.onExpandStatusChanged(BaseExpandableRecyclerViewAdapter.this, !isExpand);
                         if (isExpand) {
@@ -372,6 +382,8 @@ public abstract class BaseExpandableRecyclerViewAdapter
                             mExpandGroupSet.add(groupBean);
                             notifyItemRangeInserted(adapterPosition + 1, groupBean.getChildCount());
                         }
+                    }else if (onItemClickListener != null){            //没有展开时，返回实践
+                        onItemClickListener.onGroupClicked(groupBean);
                     }
                 }
             });

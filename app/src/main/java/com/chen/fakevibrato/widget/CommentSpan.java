@@ -3,6 +3,7 @@ package com.chen.fakevibrato.widget;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StyleSpan;
 import android.util.Log;
@@ -18,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * at topic url span辅助类
  * @author Created by CHEN on 2019/6/18
  * @email 188669@163.com
  */
@@ -32,6 +34,8 @@ public class CommentSpan {
     private List<String> httpList = new ArrayList<String>();
     private String source;
     private OnSpanClick onSpanClick;
+
+
     public CommentSpan() { }
 
     public void setOnSpanClick(OnSpanClick onSpanClick) {
@@ -55,20 +59,28 @@ public class CommentSpan {
             Log.e("tag","group getAt ： "+atList.toString());
         }
     }
+    private void getUrl(String s){
+        Pattern p = Pattern.compile(regex_http);
+        Matcher m = p.matcher(s);
+        while(m.find()) {
+            httpList.add(m.group());
+            Log.e("tag","group getAt ： "+httpList.toString());
+        }
+    }
 
-
-    public SpannableString setSpan(CharSequence s){
+    public SpannableStringBuilder setSpan(CharSequence s, int textColor){
         this.source = s.toString();
         getAt(source.toString());
         getTopic(source.toString());
+        getUrl(source.toString());
         int fromIndex = 0;
-        SpannableString sp = new SpannableString(source);
+        SpannableStringBuilder sp = new SpannableStringBuilder(source);
 
         fromIndex = 0;
 
         for (int i = 0; i < atList.size(); i++) {
             String atStr = atList.get(i);
-            sp.setSpan(new TouchableSpan(Color.WHITE, Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT) {
+            sp.setSpan(new TouchableSpan(textColor, textColor, Color.TRANSPARENT, Color.TRANSPARENT) {
                 @Override
                 public void onSpanClick(View widget) {
                     if (onSpanClick != null){
@@ -82,9 +94,8 @@ public class CommentSpan {
         fromIndex = 0;
 
         for (int i = 0; i < topicList.size(); i++) {
-            MyLog.d("topicList : "+i);
             String topicStr = topicList.get(i);
-            sp.setSpan(new TouchableSpan(Color.WHITE, Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT) {
+            sp.setSpan(new TouchableSpan(textColor, textColor, Color.TRANSPARENT, Color.TRANSPARENT) {
                 @Override
                 public void onSpanClick(View widget) {
                     if (onSpanClick != null){
@@ -98,10 +109,12 @@ public class CommentSpan {
         fromIndex = 0;
         for (int i = 0; i < httpList.size(); i++) {
             String httpStr = httpList.get(i);
-            sp.setSpan(new TouchableSpan(Color.WHITE, Color.WHITE, Color.TRANSPARENT, Color.TRANSPARENT) {
+            sp.setSpan(new TouchableSpan(textColor, textColor, Color.TRANSPARENT, Color.TRANSPARENT) {
                 @Override
                 public void onSpanClick(View widget) {
-                    Toast.makeText(widget.getContext(), "点击了url", Toast.LENGTH_SHORT).show();
+                    if (onSpanClick != null){
+                        onSpanClick.urlClick(httpStr);
+                    }
                 }
             }, source.indexOf(httpStr,fromIndex), source.indexOf(httpStr,fromIndex) + httpStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             sp.setSpan(new StyleSpan(Typeface.BOLD),source.indexOf(httpStr,fromIndex), source.indexOf(httpStr,fromIndex) + httpStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);

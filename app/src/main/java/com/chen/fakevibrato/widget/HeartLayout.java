@@ -25,6 +25,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 /**
+ * 仿抖音点击红心
  * @author Created by CHEN on 2019/6/15
  * @email 188669@163.com
  */

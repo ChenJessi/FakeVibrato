@@ -13,6 +13,7 @@ import com.qmuiteam.qmui.link.ITouchableSpan;
 
 
 /**
+ * 点击类span
  * @author Created by CHEN on 2019/7/3
  * @email 188669@163.com
  */

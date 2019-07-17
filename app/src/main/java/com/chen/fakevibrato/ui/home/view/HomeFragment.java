@@ -17,6 +17,7 @@ import com.chen.fakevibrato.base.BaseFragment;
 import com.chen.fakevibrato.ui.home.adapter.HomeAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
 import com.chen.fakevibrato.ui.home.presenter.HomePresenter;
+import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.CommentDialog;
 import com.chen.fakevibrato.widget.emojipanel.EmojiActivity;
 import com.chen.fakevibrato.widget.LoadingView;
@@ -54,6 +55,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     private List<String> mList = new ArrayList<>();
     private PagerSnapHelper helper;
 
+    private CommentDialog.Builder builder;
+
     @Override
     protected int setView() {
         return R.layout.fragment_home;
@@ -83,9 +86,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
         // refreshLayout.setRefreshContent(recyclerView);
 
-//        loadingView.stop();
-//        refreshLayout.finishRefresh();//结束刷新
-//        refreshLayout.setRefreshContent(recyclerView);
+        //        loadingView.stop();
+        //        refreshLayout.finishRefresh();//结束刷新
+        //        refreshLayout.setRefreshContent(recyclerView);
     }
 
     @Override
@@ -93,7 +96,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         super.onFragmentFirstVisible();
         loadingView = new LoadingView(getActivity());
         loadingView.start();
-        if (refreshLayout != null){
+        if (refreshLayout != null) {
             refreshLayout.setRefreshContent(loadingView);
         }
     }
@@ -132,7 +135,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         }
     }
 
-    private void initListener(){
+    private void initListener() {
         adapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -146,22 +149,25 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
             @Override
             public void onComment(int position) {
-                new CommentDialog.Builder(getActivity()).setOnDialogListener(new CommentDialog.Builder.OnDialogListener() {
-                    @Override
-                    public void emojiClick() {
-                        startActivity(new Intent(getActivity(), EmojiActivity.class));
-                    }
-
-                    @Override
-                    public void atClick() {
-
-                    }
-
-                    @Override
-                    public void commentClick() {
-                        startActivity(new Intent(getActivity(), EmojiActivity.class));
-                    }
-                }).show();
+                MyLog.d("builder : "+builder);
+                if (builder != null){
+                    builder.show();
+                }else {
+                    builder = new CommentDialog.Builder(getActivity()).setOnDialogListener(new CommentDialog.Builder.OnDialogListener() {
+                        @Override
+                        public void emojiClick() {
+                            startActivity(new Intent(getActivity(), EmojiActivity.class));
+                        }
+                        @Override
+                        public void atClick() {
+                        }
+                        @Override
+                        public void commentClick() {
+                            startActivity(new Intent(getActivity(), EmojiActivity.class));
+                        }
+                    });
+                    builder.show();
+                }
             }
 
             @Override

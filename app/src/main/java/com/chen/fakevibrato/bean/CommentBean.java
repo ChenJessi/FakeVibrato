@@ -44,6 +44,6 @@ public class CommentBean implements BaseExpandableRecyclerViewAdapter.BaseGroupB
 
     @Override
     public boolean isExpandable() {
-        return true;
+        return getChildCount() > 0;
     }
 }
