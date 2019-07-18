@@ -5,6 +5,6 @@ package com.chen.fakevibrato.utils;
  * @email 188669@163.com
  */
 public class Constants {
-
+    //退出
     public static final int QUIT_ACTION = 0;
 }

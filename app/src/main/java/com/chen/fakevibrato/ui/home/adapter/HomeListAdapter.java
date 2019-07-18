@@ -4,70 +4,47 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Point;
-import android.text.TextPaint;
-import android.text.method.BaseMovementMethod;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.view.animation.CycleInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chen.fakevibrato.MainActivity;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.CommentSpan;
-
-
 import com.chen.fakevibrato.widget.HeartLayout;
 import com.chen.fakevibrato.widget.emojiview.EmojiconTextView;
 import com.like.LikeButton;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 
-import java.lang.annotation.Repeatable;
 import java.util.List;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.TimeUnit;
-
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.RecyclerView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
 
 /**
- * @author Created by CHEN on 2019/6/11
+ * @author Created by CHEN on 2019/7/18
  * @email 188669@163.com
  */
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder> {
     private Context mContext;
     private List<String> mDatas;
     private OnItemClickListener onItemClickListener;
 
-    public HomeAdapter(Context mContext, List<String> mDatas) {
+    public HomeListAdapter(Context mContext, List<String> mDatas) {
         this.mContext = mContext;
         this.mDatas = mDatas;
     }
@@ -168,7 +145,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
 
     private void iconAnim(ImageView ivIcom, ImageView ivIcom2) {
-
+        //右下角音符动画
         AnimatorSet animator = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.icon_anim);
         animator.setTarget(ivIcom);
         animator.start();
@@ -186,12 +163,18 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     private void recordAnim(ImageView ivRecord) {
+        //唱片旋转动画
         AnimatorSet animator = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.record);
         animator.setInterpolator(new LinearInterpolator());
         animator.setTarget(ivRecord);
         animator.start();
     }
 
+    /**
+     * 关注动画
+     * @param ivAttention
+     * @param ivAttentionBg
+     */
     private void attentionAnim(QMUIRadiusImageView ivAttention, QMUIRadiusImageView ivAttentionBg) {
         AnimatorSet animator = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.attention);
         AnimatorSet animator2 = (AnimatorSet) AnimatorInflater.loadAnimator(mContext, R.animator.attention2);
@@ -227,6 +210,10 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         });
     }
 
+    /**
+     * 内容span点击监听
+     * @param sp
+     */
     private void contentClick(CommentSpan sp) {
         sp.setOnSpanClick(new CommentSpan.OnSpanClick() {
             @Override

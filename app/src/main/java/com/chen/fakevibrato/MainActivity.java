@@ -12,6 +12,7 @@ import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.ui.home.contract.MainContract;
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
 import com.chen.fakevibrato.ui.home.view.HomeFragment;
+import com.chen.fakevibrato.ui.home.view.HomeListFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
 
 import com.chen.fakevibrato.widget.emojipanel.EmojiActivity;
@@ -39,6 +40,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private MyPagerAdapter adapter;
     private List<Fragment> mFragments = new ArrayList<Fragment>();
+    String[] mTitles = new String[]{"首页", "关注", "", "消息", "我"};
 
     @Override
     protected int getLayoutId() {
@@ -50,16 +52,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         return new MainPresenter();
     }
 
-    String[] mTitles = new String[]{"首页", "关注", "", "消息", "我"};
-
     @Override
     protected void initView() {
 
         mFragments.add(new HomeFragment());
-        mFragments.add(new HomeFragment());
-        mFragments.add(new HomeFragment());
-        mFragments.add(new HomeFragment());
-        mFragments.add(new HomeFragment());
+        mFragments.add(new HomeListFragment());
+        mFragments.add(new HomeListFragment());
+        mFragments.add(new HomeListFragment());
+        mFragments.add(new HomeListFragment());
         adapter = new MyPagerAdapter(getSupportFragmentManager(), mFragments);
         viewPager.setAdapter(adapter);
         viewPager.setSwipeable(false);
@@ -85,17 +85,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             });
         }
         mTabLayout.setTabData(mTabEntities);
-        swipeLayout.setRightSwipeEnabled(true);
-        swipeLayout.setLeftSwipeEnabled(true);
+        swipeLayout.setRightSwipeEnabled(false);
+        swipeLayout.setLeftSwipeEnabled(false);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.random_shoot));
-
-
-
-            String s = "https://wenku.baidu.com/view/e109601f52d380eb62946d75.html?rec_flag=default&mark_pay_doc=2&mark_rec_page=1&mark_rec_position=4&mark_rec=view_r_1&clear_uda_param=1\n" ;
-            List<String> strs = new ArrayList<String>();
-            String aaa = "#测试@朋友 $#话题@a#s ";
-//        CommentSpan sb = new CommentSpan(aaa);
 
     }
     @Override
@@ -114,19 +107,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 TextPaint textPaint = textView.getPaint();
                 int textPaintWidth = (int) textPaint.measureText(text);
                 mTabLayout.setIndicatorWidth(DisplayUtils.px2dp(MainActivity.this, textPaintWidth));
-                if (position == 0 || position == 1){
-                    swipeLayout.setLeftSwipeEnabled(true);
-                    swipeLayout.setRightSwipeEnabled(true);
-                    swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
-                    swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.random_shoot));
-                }else if (position == 4){
-                    swipeLayout.setLeftSwipeEnabled(false);
-                    swipeLayout.setRightSwipeEnabled(true);
-                    swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.side_right));
-                }else if (position == 3){
-                    swipeLayout.setLeftSwipeEnabled(false);
-                    swipeLayout.setRightSwipeEnabled(false);
-                }
+//                if (position == 0 || position == 1){
+//                    swipeLayout.setLeftSwipeEnabled(true);
+//                    swipeLayout.setRightSwipeEnabled(true);
+//                    swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
+//                    swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.random_shoot));
+//                }else if (position == 4){
+//                    swipeLayout.setLeftSwipeEnabled(false);
+//                    swipeLayout.setRightSwipeEnabled(true);
+//                    swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.side_right));
+//                }else if (position == 3){
+//                    swipeLayout.setLeftSwipeEnabled(false);
+//                    swipeLayout.setRightSwipeEnabled(false);
+//                }
             }
 
             @Override
@@ -144,7 +137,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @OnClick(R.id.ivBottom)
     public void onViewClicked() {
 //       startActivity(new Intent(MainActivity.this, Main3Activity.class));
-       startActivity(new Intent(MainActivity.this, EmojiActivity.class));
+//       startActivity(new Intent(MainActivity.this, EmojiActivity.class));
 //       startActivity(new Intent(MainActivity.this, Main2Activity.class));
     }
 

@@ -12,16 +12,18 @@
         <objectAnimator
             android:propertyName="translationX"
             android:valueFrom="0"
-            android:valueTo="-100f"
+            android:valueTo="-80f"
             android:duration="2000"
             android:repeatCount="-1"
+            android:interpolator="@android:anim/decelerate_interpolator"
             android:valueType="floatType"/>
         <objectAnimator
             android:propertyName="translationY"
             android:valueFrom="0"
-            android:valueTo="-200f"
+            android:valueTo="-150f"
             android:duration="2000"
             android:repeatCount="-1"
+            android:interpolator="@android:anim/accelerate_interpolator"
             android:valueType="floatType"/>
         <objectAnimator
             android:propertyName="alpha"
@@ -30,5 +32,21 @@
             android:repeatCount="-1"
             android:duration="2000"
             android:interpolator="@android:anim/accelerate_interpolator"
+            android:valueType="floatType"/>
+        <objectAnimator
+            android:propertyName="scaleX"
+            android:valueFrom="1"
+            android:valueTo="1.2f"
+            android:repeatCount="-1"
+            android:duration="2000"
+            android:interpolator="@android:anim/bounce_interpolator"
+            android:valueType="floatType"/>
+        <objectAnimator
+            android:propertyName="scaleY"
+            android:valueFrom="1"
+            android:valueTo="1.2f"
+            android:repeatCount="-1"
+            android:duration="2000"
+            android:interpolator="@android:anim/bounce_interpolator"
             android:valueType="floatType"/>
 </set>

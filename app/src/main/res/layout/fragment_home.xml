@@ -1,128 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:layout_height="match_parent">
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <!--<com.daimajia.swipe.SwipeLayout-->
+        <!--android:id="@+id/swipeLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/refreshLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <!--<include-->
+        <!--layout="@layout/layout_side_right"-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="match_parent"/>-->
+    <!--<include-->
+        <!--layout="@layout/layout_random_shoot"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+    <!--</com.daimajia.swipe.SwipeLayout>-->
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
         android:background="@color/gray"
-        app:srlAccentColor="@android:color/white"
-        app:srlEnableAutoLoadMore="false"
-        app:srlHeaderHeight="200dp"
-        app:srlDragRate="1"
-        app:srlEnablePreviewInEditMode="true">
-        <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
-        <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
-        <com.scwang.smartrefresh.header.MaterialHeader
-            android:layout_width="match_parent"
-            app:mhPrimaryColor="@color/black"
-            android:layout_height="wrap_content"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:background="@color/gray"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </androidx.recyclerview.widget.RecyclerView>
-        <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolBar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
-        app:contentInsetStart="0dp"
-        android:fitsSystemWindows="true"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <TextView
                 android:id="@+id/tvRandom"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="随拍"
+                android:layout_marginLeft="15dp"
+                android:drawableLeft="@mipmap/camera"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical"
+                android:text="随拍"
                 android:textColor="@color/gray1"
                 android:textSize="16sp"
-                android:drawablePadding="5dp"
                 android:textStyle="bold"
-                android:drawableLeft="@mipmap/camera"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <View
                 android:id="@+id/view"
                 android:layout_width="1dp"
                 android:layout_height="10dp"
                 android:background="@color/gray1"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-            <TextView
-                android:id="@+id/tvRecommend"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/view"
-                android:layout_marginRight="15dp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.flyco.tablayout.CommonTabLayout
+                android:id="@+id/mTabLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="推荐"
-                android:gravity="center_vertical"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:drawablePadding="5dp"
-                android:textStyle="bold"/>
-            <TextView
-                android:id="@+id/tvLocal"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="48dp"
+                android:background="@color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/view"
-                android:layout_marginLeft="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="本地"
-                android:gravity="center_vertical"
-                android:textColor="@color/gray1"
-                android:textSize="18sp"
-                android:drawablePadding="5dp"
-                android:textStyle="bold"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:tl_indicator_style="NORMAL"
+                app:tl_tab_padding="10dp"
+                tl:tl_iconVisible="false"
+                android:visibility="gone"
+                tl:tl_indicator_color="@color/white"
+                tl:tl_indicator_corner_radius="1.5dp"
+                tl:tl_indicator_height="2dp"
+                app:tl_textBold="BOTH"
+                tl:tl_textsize="18sp" />
+            <com.qmuiteam.qmui.widget.QMUITabSegment
+                android:id="@+id/tablayout"
+                android:layout_width="120dp"
+                android:layout_height="48dp"
+                android:visibility="visible"
+                android:background="@color/transparent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:qmui_tab_mode="fixed">
+
+            </com.qmuiteam.qmui.widget.QMUITabSegment>
             <ImageView
                 android:id="@+id/ivSearch"
                 android:layout_width="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/camera"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginRight="15dp"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/camera"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/ivLive"
                 android:layout_width="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/camera"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/ivSearch"
-                android:layout_marginRight="15dp"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/camera"/>
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.appcompat.widget.Toolbar>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

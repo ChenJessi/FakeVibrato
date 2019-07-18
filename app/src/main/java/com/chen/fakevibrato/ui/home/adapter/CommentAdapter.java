@@ -131,6 +131,7 @@ public class CommentAdapter extends BaseExpandableRecyclerViewAdapter<CommentBea
         ForegroundColorSpan colorSpan = new ForegroundColorSpan(Color.parseColor("#ABABAB"));
         timeStr.setSpan(sizeSpan, 0, timeStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         timeStr.setSpan(colorSpan, 0, timeStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+
         holder.tvContent.setMovementMethod(LinkMovementMethod.getInstance());
         holder.tvContent.setText("回复 ");
         holder.tvContent.append(replyStr);

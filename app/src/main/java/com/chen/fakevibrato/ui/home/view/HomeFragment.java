@@ -1,28 +1,36 @@
 package com.chen.fakevibrato.ui.home.view;
 
-import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.InputType;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.PagerSnapHelper;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import com.chen.fakevibrato.MainActivity;
 import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.base.BaseFragment;
-import com.chen.fakevibrato.ui.home.adapter.HomeAdapter;
+import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
 import com.chen.fakevibrato.ui.home.presenter.HomePresenter;
+import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.MyLog;
-import com.chen.fakevibrato.widget.CommentDialog;
-import com.chen.fakevibrato.widget.emojipanel.EmojiActivity;
-import com.chen.fakevibrato.widget.LoadingView;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,32 +38,27 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
+ * 首页fragment
  * @author Created by CHEN on 2019/6/11
  * @email 188669@163.com
  */
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
-    @BindView(R.id.refreshLayout)
-    SmartRefreshLayout refreshLayout;
     @BindView(R.id.tvRandom)
     TextView tvRandom;
-    @BindView(R.id.tvRecommend)
-    TextView tvRecommend;
-    @BindView(R.id.tvLocal)
-    TextView tvLocal;
     @BindView(R.id.ivSearch)
     ImageView ivSearch;
     @BindView(R.id.ivLive)
     ImageView ivLive;
-    @BindView(R.id.toolBar)
-    Toolbar toolBar;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+    @BindView(R.id.mTabLayout)
+    CommonTabLayout mTabLayout;
+    @BindView(R.id.tablayout)
+    QMUITabSegment tablayout;
 
-    private HomeAdapter adapter;
-    private List<String> mList = new ArrayList<>();
-    private PagerSnapHelper helper;
+    private MyPagerAdapter adapter;
 
-    private CommentDialog.Builder builder;
+    String[] mTitles = new String[]{"关注", "推荐"};
 
     @Override
     protected int setView() {
@@ -69,64 +72,72 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
     @Override
     protected void initView(View view) {
+        ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
+        mFragments.add(new HomeListFragment());
+        mFragments.add(new HomeListFragment());
+        adapter = new MyPagerAdapter(getChildFragmentManager(), mFragments);
+        viewPager.setAdapter(adapter);
+        ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+        for (int i = 0; i < mTitles.length; i++) {
+            int finalI = i;
+            mTabEntities.add(new CustomTabEntity() {
+                @Override
+                public String getTabTitle() {
+                    return mTitles[finalI];
+                }
 
-        adapter = new HomeAdapter(getActivity(), mList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);
-        helper = new PagerSnapHelper();
-        helper.attachToRecyclerView(recyclerView);
+                @Override
+                public int getTabSelectedIcon() {
+                    return 0;
+                }
+
+                @Override
+                public int getTabUnselectedIcon() {
+                    return 0;
+                }
+            });
+
+            SpannableString sp = new SpannableString(mTitles[i]);
+            sp.setSpan(new StyleSpan(Typeface.BOLD),0, sp.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            QMUITabSegment.Tab tab = new QMUITabSegment.Tab(sp);
+            tab.setText(sp);
+            tab.setTextColor(Color.parseColor("#A9A9A9"), Color.WHITE);
+            tablayout.addTab(tab);
+        }
+//        mTabLayout.setTabData(mTabEntities);
+
+        tablayout.setHasIndicator(true);  //是否需要显示indicator
+        tablayout.setIndicatorPosition(false);//true 时表示 indicator 位置在 Tab 的上方, false 时表示在下方
+        tablayout.setIndicatorWidthAdjustContent(true);//设置 indicator的宽度是否随内容宽度变化
+        tablayout.setupWithViewPager(viewPager,false);
+        tablayout.setupWithViewPager(viewPager,false);
+        tablayout.notifyDataChanged();
+        tablayout.selectTab(0,true,true);
 
         initListener();
     }
 
-    LoadingView loadingView;
 
     @Override
     protected void initData(Bundle savedInstanceState) {
 
-        // refreshLayout.setRefreshContent(recyclerView);
-
-        //        loadingView.stop();
-        //        refreshLayout.finishRefresh();//结束刷新
-        //        refreshLayout.setRefreshContent(recyclerView);
     }
 
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
-        loadingView = new LoadingView(getActivity());
-        loadingView.start();
-        if (refreshLayout != null) {
-            refreshLayout.setRefreshContent(loadingView);
-        }
-    }
 
-    int i = 0;
+    }
 
     @Override
     protected void Load() {
-        if (refreshLayout != null) {
-            loadingView.stop();
-            refreshLayout.finishRefresh();//结束刷新
-            refreshLayout.setRefreshContent(recyclerView);
-        }
 
-        Log.e("test", "load : " + i + " : " + isFirstVisible());
-        i++;
-        mList.add("aaaa");
-        mList.add("bbbb");
-        mList.add("cccc");
-        adapter.notifyItemRangeChanged(mList.size() - 3, 3);
     }
 
-    @OnClick({R.id.tvRandom, R.id.tvRecommend, R.id.tvLocal, R.id.ivSearch, R.id.ivLive})
+    @OnClick({R.id.tvRandom, R.id.ivSearch, R.id.ivLive})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvRandom:
-                break;
-            case R.id.tvRecommend:
-                break;
-            case R.id.tvLocal:
                 break;
             case R.id.ivSearch:
                 break;
@@ -136,44 +147,55 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     private void initListener() {
-        adapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
 
+        mTabLayout.setIndicatorWidth(30);
+        mTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                viewPager.setCurrentItem(position);
             }
 
             @Override
-            public void onLikes(int position) {
-
-            }
-
-            @Override
-            public void onComment(int position) {
-                MyLog.d("builder : "+builder);
-                if (builder != null){
-                    builder.show();
-                }else {
-                    builder = new CommentDialog.Builder(getActivity()).setOnDialogListener(new CommentDialog.Builder.OnDialogListener() {
-                        @Override
-                        public void emojiClick() {
-                            startActivity(new Intent(getActivity(), EmojiActivity.class));
-                        }
-                        @Override
-                        public void atClick() {
-                        }
-                        @Override
-                        public void commentClick() {
-                            startActivity(new Intent(getActivity(), EmojiActivity.class));
-                        }
-                    });
-                    builder.show();
-                }
-            }
-
-            @Override
-            public void onReprinted(int position) {
+            public void onTabReselect(int position) {
 
             }
         });
+
+        tablayout.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(int index) {
+//                viewPager.setCurrentItem(index);
+            }
+            @Override
+            public void onTabUnselected(int index) {
+
+            }
+            @Override
+            public void onTabReselected(int index) {
+
+            }
+
+            @Override
+            public void onDoubleTap(int index) {
+
+            }
+        });
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+////                mTabLayout.setCurrentTab(position);
+//                tablayout.selectTab(position);
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
     }
 }

@@ -118,9 +118,17 @@
         app:layout_constraintLeft_toLeftOf="@id/ivRecord"
         app:layout_constraintTop_toTopOf="@id/ivRecord"
         app:layout_constraintBottom_toBottomOf="@id/ivRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/add_red"/>
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:background="@mipmap/icon_music1"/>
+    <ImageView
+        android:id="@+id/ivIcom2"
+        app:layout_constraintLeft_toLeftOf="@id/ivRecord"
+        app:layout_constraintTop_toTopOf="@id/ivRecord"
+        app:layout_constraintBottom_toBottomOf="@id/ivRecord"
+        android:layout_width="13dp"
+        android:layout_height="13dp"
+        android:background="@mipmap/icon_music2"/>
     <ImageView
         android:id="@+id/ivRecord"
         app:layout_constraintRight_toRightOf="@id/ivHead"
