@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -19,16 +20,22 @@ import androidx.viewpager.widget.ViewPager;
 import com.chen.fakevibrato.MainActivity;
 import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.base.BaseFragment;
+import com.chen.fakevibrato.bean.SwipeBean;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
 import com.chen.fakevibrato.ui.home.presenter.HomePresenter;
+import com.chen.fakevibrato.ui.my.view.UserFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.MyLog;
+import com.daimajia.swipe.SwipeLayout;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.time.format.TextStyle;
 import java.util.ArrayList;
@@ -39,6 +46,7 @@ import butterknife.OnClick;
 
 /**
  * 首页fragment
+ *
  * @author Created by CHEN on 2019/6/11
  * @email 188669@163.com
  */
@@ -77,6 +85,13 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mFragments.add(new HomeListFragment());
         adapter = new MyPagerAdapter(getChildFragmentManager(), mFragments);
         viewPager.setAdapter(adapter);
+        ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(DisplayUtils.dp2px(getActivity(), 120),DisplayUtils.dp2px(getActivity(), 48));
+        lp.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+        lp.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID;
+        lp.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID;
+        lp.topMargin = QMUIDisplayHelper.getStatusBarHeight(getActivity());
+        tablayout.setLayoutParams(lp);
+
         ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
         for (int i = 0; i < mTitles.length; i++) {
             int finalI = i;
@@ -98,21 +113,21 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             });
 
             SpannableString sp = new SpannableString(mTitles[i]);
-            sp.setSpan(new StyleSpan(Typeface.BOLD),0, sp.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            sp.setSpan(new StyleSpan(Typeface.BOLD), 0, sp.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
             QMUITabSegment.Tab tab = new QMUITabSegment.Tab(sp);
             tab.setText(sp);
             tab.setTextColor(Color.parseColor("#A9A9A9"), Color.WHITE);
             tablayout.addTab(tab);
         }
-//        mTabLayout.setTabData(mTabEntities);
+        //        mTabLayout.setTabData(mTabEntities);
 
         tablayout.setHasIndicator(true);  //是否需要显示indicator
+//        tablayout.setIndicatorDrawable();
         tablayout.setIndicatorPosition(false);//true 时表示 indicator 位置在 Tab 的上方, false 时表示在下方
         tablayout.setIndicatorWidthAdjustContent(true);//设置 indicator的宽度是否随内容宽度变化
-        tablayout.setupWithViewPager(viewPager,false);
-        tablayout.setupWithViewPager(viewPager,false);
+        tablayout.setupWithViewPager(viewPager, false);
         tablayout.notifyDataChanged();
-        tablayout.selectTab(0,true,true);
+        tablayout.selectTab(0, true, true);
 
         initListener();
     }
@@ -126,11 +141,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
-
+        MyLog.d("HomeFragment :  isfirst");
     }
 
     @Override
     protected void Load() {
+        MyLog.d("HomeFragment :  load");
 
     }
 
@@ -161,41 +177,43 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             }
         });
 
-        tablayout.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
+        //        tablayout.addOnTabSelectedListener(new QMUITabSegment.OnTabSelectedListener() {
+        //            @Override
+        //            public void onTabSelected(int index) {
+        //                //                viewPager.setCurrentItem(index);
+        //            }
+        //
+        //            @Override
+        //            public void onTabUnselected(int index) {
+        //
+        //            }
+        //
+        //            @Override
+        //            public void onTabReselected(int index) {
+        //
+        //            }
+        //
+        //            @Override
+        //            public void onDoubleTap(int index) {
+        //
+        //            }
+        //        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onTabSelected(int index) {
-//                viewPager.setCurrentItem(index);
-            }
-            @Override
-            public void onTabUnselected(int index) {
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
             }
-            @Override
-            public void onTabReselected(int index) {
 
+            @Override
+            public void onPageSelected(int position) {
+                MyLog.d("position : "+position);
+                EventBus.getDefault().post(new SwipeBean(position));
             }
 
             @Override
-            public void onDoubleTap(int index) {
+            public void onPageScrollStateChanged(int state) {
 
             }
         });
-//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-//            @Override
-//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//            }
-//
-//            @Override
-//            public void onPageSelected(int position) {
-////                mTabLayout.setCurrentTab(position);
-//                tablayout.selectTab(position);
-//            }
-//
-//            @Override
-//            public void onPageScrollStateChanged(int state) {
-//
-//            }
-//        });
     }
 }

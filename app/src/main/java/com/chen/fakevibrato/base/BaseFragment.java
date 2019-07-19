@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.chen.fakevibrato.utils.MyLog;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -35,7 +37,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     /**
      * 设置是否使用 view 的复用，默认开启
      */
-    private boolean isReuseView;
+    private boolean isReuseView = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,13 +86,13 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         if (mRootView == null) {
             return;
         }
-
-        if (isFirstVisible && isVisibleToUser) {
+        boolean isVisible = getUserVisibleHint();
+        if (isFirstVisible && isVisible) {
             onFragmentFirstVisible();
             isFirstVisible = false;
             return;
         }
-        if (isVisibleToUser) {
+        if (isVisible) {
             isFragmentVisible = true;
             onFragmentVisibleChange(true);
             return;

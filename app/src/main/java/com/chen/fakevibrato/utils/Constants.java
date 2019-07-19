@@ -6,5 +6,5 @@ package com.chen.fakevibrato.utils;
  */
 public class Constants {
     //退出
-    public static final int QUIT_ACTION = 0;
+    public static final int QUIT_ACTION = -1;
 }

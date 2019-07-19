@@ -8,8 +8,11 @@
     <color name="gray">#4d4d4d</color>
     <color name="gray1">#A9A9A9</color>
     <color name="gray2">#ABABAB</color>
-    橘色
+    <!--橘色-->
     <color name="orange">#FFA500</color>
+
+    <!--黄色-->
+    <color name="yellow">#FFD700</color>
 
     <color name="white">#ffffffff</color>
     <color name="red1">#ff476b</color>

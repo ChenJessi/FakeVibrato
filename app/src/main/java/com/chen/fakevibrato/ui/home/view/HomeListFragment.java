@@ -71,6 +71,7 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
     @Override
     protected void onFragmentFirstVisible() {
         super.onFragmentFirstVisible();
+        MyLog.d("HomeListFragment :  isfirst");
         loadingView = new LoadingView(getActivity());
         loadingView.start();
         if (refreshLayout != null) {
@@ -80,6 +81,7 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
 
     @Override
     protected void Load() {
+        MyLog.d("HomeListFragment :  load");
         if (refreshLayout != null) {
             loadingView.stop();
             refreshLayout.finishRefresh();//结束刷新
@@ -90,6 +92,11 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
         mList.add("chen");
         mList.add("chen");
         adapter.notifyItemRangeChanged(mList.size() - 3, 3);
+    }
+
+    @Override
+    protected void stopLoad() {
+        super.stopLoad();
     }
 
     private void initListener(){
