@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -128,7 +129,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         tablayout.setupWithViewPager(viewPager, false);
         tablayout.notifyDataChanged();
         tablayout.selectTab(0, true, true);
-
+        EventBus.getDefault().post(new SwipeBean(viewPager.getCurrentItem()));
         initListener();
     }
 
@@ -147,8 +148,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @Override
     protected void Load() {
         MyLog.d("HomeFragment :  load");
-
     }
+
 
     @OnClick({R.id.tvRandom, R.id.ivSearch, R.id.ivLive})
     public void onViewClicked(View view) {

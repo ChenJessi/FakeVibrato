@@ -15,6 +15,7 @@ import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
 import com.chen.fakevibrato.ui.home.view.HomeFragment;
 import com.chen.fakevibrato.ui.home.view.HomeListFragment;
 import com.chen.fakevibrato.ui.my.view.UserFragment;
+import com.chen.fakevibrato.ui.my.view.UserVideoListFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
 
 import com.chen.fakevibrato.utils.MyLog;
@@ -91,10 +92,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             });
         }
         mTabLayout.setTabData(mTabEntities);
-        swipeLayout.setRightSwipeEnabled(false);
-        swipeLayout.setLeftSwipeEnabled(true);
         swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
         swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.random_shoot));
+        swipeLayout.setLeftSwipeEnabled(true);
+        swipeLayout.setRightSwipeEnabled(false);
 
     }
     @Override
@@ -107,16 +108,37 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
+                MyLog.d("viewPager: "+position + "   "  +viewPager );
                 viewPager.setCurrentItem(position);
                 TextView textView = mTabLayout.getTitleView(position);
                 String text = textView.getText().toString().trim();
                 TextPaint textPaint = textView.getPaint();
                 int textPaintWidth = (int) textPaint.measureText(text);
                 mTabLayout.setIndicatorWidth(DisplayUtils.px2dp(MainActivity.this, textPaintWidth));
-                if (position != 0){
+                if (position == 0){     //首页
+                    if (childPosition == 0){
+                        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
+                        swipeLayout.setLeftSwipeEnabled(true);
+                        swipeLayout.setRightSwipeEnabled(false);
+                    }else if (childPosition == 1){
+                        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
+                        swipeLayout.setLeftSwipeEnabled(false);
+                        swipeLayout.setRightSwipeEnabled(true);
+                    }
+                }else if (position == 4){   //我的
+                    if (childPosition == 2){
+                        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.side_right));
+                        swipeLayout.setLeftSwipeEnabled(false);
+                        swipeLayout.setRightSwipeEnabled(true);
+                    }else {
+                        swipeLayout.setLeftSwipeEnabled(false);
+                        swipeLayout.setRightSwipeEnabled(false);
+                    }
+                }else {
                     swipeLayout.setLeftSwipeEnabled(false);
                     swipeLayout.setRightSwipeEnabled(false);
                 }
+
             }
 
             @Override
@@ -130,22 +152,41 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     protected void initData() {
 
     }
-
+    private int childPosition = 0;
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void swipeStatus(SwipeBean swipeBean){
-        int position = swipeBean.getPosition();
-        MyLog.d("positionces : "+position);
-        if (position == 0) {
-            swipeLayout.setLeftSwipeEnabled(true);
-            swipeLayout.setRightSwipeEnabled(false);
-            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
-        } else if (position == 1) {
-            swipeLayout.setLeftSwipeEnabled(false);
-            swipeLayout.setRightSwipeEnabled(true);
-            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
-        } else {
-            swipeLayout.setLeftSwipeEnabled(false);
-            swipeLayout.setRightSwipeEnabled(false);
+       childPosition = swipeBean.getPosition();
+        MyLog.d("viewPager test : "+childPosition + "   "  +viewPager);
+        MyLog.d("positionces : "+childPosition);
+        if (viewPager.getCurrentItem() == 0){
+            if (childPosition == 0) {
+                swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
+                swipeLayout.setLeftSwipeEnabled(true);
+                swipeLayout.setRightSwipeEnabled(false);
+            } else if (childPosition == 1) {
+                swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
+                swipeLayout.setLeftSwipeEnabled(false);
+                swipeLayout.setRightSwipeEnabled(true);
+            } else {
+                swipeLayout.setLeftSwipeEnabled(false);
+                swipeLayout.setRightSwipeEnabled(false);
+            }
+        }else if (viewPager.getCurrentItem() == 4){
+            if (childPosition == 2 || swipeBean.isOpen()){
+                swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.side_right));
+                swipeLayout.setLeftSwipeEnabled(false);
+                swipeLayout.setRightSwipeEnabled(true);
+                if (swipeBean.isOpen()){
+                    if (swipeLayout.getOpenStatus() == SwipeLayout.Status.Open){
+                        swipeLayout.close(true);
+                    }else {
+                        swipeLayout.open(true, swipeBean.getDragEdge());
+                    }
+                }
+            }else {
+                swipeLayout.setLeftSwipeEnabled(false);
+                swipeLayout.setRightSwipeEnabled(false);
+            }
         }
     }
     @OnClick(R.id.ivBottom)
@@ -155,4 +196,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 //       startActivity(new Intent(MainActivity.this, Main2Activity.class));
     }
 
+    @Override
+    public void onBackPressed() {
+        if (swipeLayout.getOpenStatus() == SwipeLayout.Status.Open){
+            swipeLayout.close();
+            return;
+        }
+        super.onBackPressed();
+    }
 }

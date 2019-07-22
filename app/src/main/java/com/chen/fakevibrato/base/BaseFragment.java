@@ -86,6 +86,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         if (mRootView == null) {
             return;
         }
+
         boolean isVisible = getUserVisibleHint();
         if (isFirstVisible && isVisible) {
             onFragmentFirstVisible();
