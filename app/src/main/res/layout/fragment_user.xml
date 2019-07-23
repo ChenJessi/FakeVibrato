@@ -135,8 +135,11 @@
             android:layout_marginRight="20dp"
             android:id="@+id/ivMore"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/camera"/>
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:background="@drawable/black1_circle"
+            android:src="@mipmap/more2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -15,7 +15,8 @@ import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
 import com.chen.fakevibrato.ui.home.view.HomeFragment;
 import com.chen.fakevibrato.ui.home.view.HomeListFragment;
 import com.chen.fakevibrato.ui.my.view.UserFragment;
-import com.chen.fakevibrato.ui.my.view.UserVideoListFragment;
+
+import com.chen.fakevibrato.ui.samecity.view.SameCityFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
 
 import com.chen.fakevibrato.utils.MyLog;
@@ -47,7 +48,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private MyPagerAdapter adapter;
     private List<Fragment> mFragments = new ArrayList<Fragment>();
-    String[] mTitles = new String[]{"首页", "关注", "", "消息", "我"};
+    String[] mTitles = new String[]{"首页", "同城", "", "消息", "我"};
 
     @Override
     protected int getLayoutId() {
@@ -63,9 +64,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     protected void initView() {
 
         mFragments.add(new HomeFragment());
-        mFragments.add(new HomeListFragment());
+        mFragments.add(new SameCityFragment());
         mFragments.add(new Fragment());
-        mFragments.add(new HomeListFragment());
+        mFragments.add(new Fragment());
         mFragments.add(new UserFragment());
         adapter = new MyPagerAdapter(getSupportFragmentManager(), mFragments);
         viewPager.setAdapter(adapter);
@@ -116,22 +117,22 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 int textPaintWidth = (int) textPaint.measureText(text);
                 mTabLayout.setIndicatorWidth(DisplayUtils.px2dp(MainActivity.this, textPaintWidth));
                 if (position == 0){     //首页
+                    swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
+                    swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.random_shoot));
                     if (childPosition == 0){
-                        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
                         swipeLayout.setLeftSwipeEnabled(true);
                         swipeLayout.setRightSwipeEnabled(false);
                     }else if (childPosition == 1){
-                        swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
                         swipeLayout.setLeftSwipeEnabled(false);
                         swipeLayout.setRightSwipeEnabled(true);
                     }
                 }else if (position == 4){   //我的
+                    MyLog.d("childPosition test");
+                    swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.side_right));
+                    swipeLayout.setLeftSwipeEnabled(false);
                     if (childPosition == 2){
-                        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.side_right));
-                        swipeLayout.setLeftSwipeEnabled(false);
                         swipeLayout.setRightSwipeEnabled(true);
                     }else {
-                        swipeLayout.setLeftSwipeEnabled(false);
                         swipeLayout.setRightSwipeEnabled(false);
                     }
                 }else {
@@ -159,12 +160,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         MyLog.d("viewPager test : "+childPosition + "   "  +viewPager);
         MyLog.d("positionces : "+childPosition);
         if (viewPager.getCurrentItem() == 0){
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
+            swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.random_shoot));
             if (childPosition == 0) {
-                swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
                 swipeLayout.setLeftSwipeEnabled(true);
                 swipeLayout.setRightSwipeEnabled(false);
             } else if (childPosition == 1) {
-                swipeLayout.addDrag(SwipeLayout.DragEdge.Left, findViewById(R.id.random_shoot));
                 swipeLayout.setLeftSwipeEnabled(false);
                 swipeLayout.setRightSwipeEnabled(true);
             } else {
@@ -172,10 +173,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 swipeLayout.setRightSwipeEnabled(false);
             }
         }else if (viewPager.getCurrentItem() == 4){
+            swipeLayout.setLeftSwipeEnabled(false);
             if (childPosition == 2 || swipeBean.isOpen()){
+
                 swipeLayout.addDrag(SwipeLayout.DragEdge.Right, findViewById(R.id.side_right));
-                swipeLayout.setLeftSwipeEnabled(false);
-                swipeLayout.setRightSwipeEnabled(true);
+                MyLog.d("childPosition : "+childPosition + "   "+swipeBean.isOpen() );
+                if (childPosition == 2){
+                    swipeLayout.setRightSwipeEnabled(true);
+                }else {
+                    swipeLayout.setRightSwipeEnabled(false);
+                }
                 if (swipeBean.isOpen()){
                     if (swipeLayout.getOpenStatus() == SwipeLayout.Status.Open){
                         swipeLayout.close(true);
@@ -184,7 +191,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     }
                 }
             }else {
-                swipeLayout.setLeftSwipeEnabled(false);
                 swipeLayout.setRightSwipeEnabled(false);
             }
         }

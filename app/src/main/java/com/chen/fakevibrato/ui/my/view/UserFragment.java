@@ -28,6 +28,7 @@ import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.ui.home.view.HomeListFragment;
 import com.chen.fakevibrato.ui.my.contract.UserContract;
 import com.chen.fakevibrato.ui.my.presenter.UserPresenter;
+import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.widget.anim.AnimtorUtils;
 import com.chen.fakevibrato.widget.emojiview.EmojiconTextView;
 import com.daimajia.swipe.SwipeLayout;
@@ -126,12 +127,21 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
         tvNameTool.setLayoutParams(lp1);
         tvNameTool.setPadding(0, QMUIDisplayHelper.getStatusBarHeight(getActivity()), 0, 0);
 
+        ConstraintLayout.LayoutParams lp2 = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp2.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+        lp2.bottomToBottom = ConstraintLayout.LayoutParams.PARENT_ID;
+        lp2.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID;;
+        lp2.rightMargin = DisplayUtils.dp2px(getActivity(),20);
+        lp2.topMargin = QMUIDisplayHelper.getStatusBarHeight(getActivity());
+        ivMore.setLayoutParams(lp2);
+//        ivMore.setPadding(0, QMUIDisplayHelper.getStatusBarHeight(getActivity()), 0, 0);
+
 //        viewPager.setPadding(0, 0, 0, QMUIDisplayHelper.getStatusBarHeight(getActivity()));
 
         ArrayList<Fragment> mFragments = new ArrayList<Fragment>();
-        mFragments.add(new UserVideoListFragment());
-        mFragments.add(new UserVideoListFragment());
-        mFragments.add(new UserVideoListFragment());
+        mFragments.add(new UserVideoFragment());
+        mFragments.add(new UserVideoFragment());
+        mFragments.add(new UserVideoFragment());
         adapter = new MyPagerAdapter(getChildFragmentManager(), mFragments);
         viewPager.setAdapter(adapter);
 

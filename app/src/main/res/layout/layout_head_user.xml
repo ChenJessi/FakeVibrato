@@ -20,7 +20,7 @@
         android:id="@+id/ivHead"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="15dp"
         android:background="@drawable/black_circle"
         android:src="@mipmap/head"
         app:layout_constraintLeft_toLeftOf="parent"
