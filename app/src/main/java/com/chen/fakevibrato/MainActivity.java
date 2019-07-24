@@ -14,6 +14,7 @@ import com.chen.fakevibrato.ui.home.contract.MainContract;
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
 import com.chen.fakevibrato.ui.home.view.HomeFragment;
 import com.chen.fakevibrato.ui.home.view.HomeListFragment;
+import com.chen.fakevibrato.ui.message.view.MessageFragment;
 import com.chen.fakevibrato.ui.my.view.UserFragment;
 
 import com.chen.fakevibrato.ui.samecity.view.SameCityFragment;
@@ -66,7 +67,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mFragments.add(new HomeFragment());
         mFragments.add(new SameCityFragment());
         mFragments.add(new Fragment());
-        mFragments.add(new Fragment());
+        mFragments.add(new MessageFragment());
         mFragments.add(new UserFragment());
         adapter = new MyPagerAdapter(getSupportFragmentManager(), mFragments);
         viewPager.setAdapter(adapter);

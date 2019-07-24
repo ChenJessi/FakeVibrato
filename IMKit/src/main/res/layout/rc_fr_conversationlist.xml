@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/rc_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/rc_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="#ffdfdf"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/rc_status_bar_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:indeterminateDrawable="@drawable/rc_notification_network_available"
+            android:paddingLeft="27dp" />
+
+        <TextView
+            android:id="@+id/rc_status_bar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="25dp"
+            android:text="@string/rc_notice_network_unavailable"
+            android:textColor="#776868"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <io.rong.imkit.widget.RongSwipeRefreshLayout
+        android:id="@+id/rc_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@id/rc_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/rc_status_bar"
+            android:background="@color/rc_text_color_primary_inverse"
+            android:divider="@null" />
+    </io.rong.imkit.widget.RongSwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/rc_conversation_list_empty_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="127dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rc_conversation_list_empty" />
+
+        <TextView
+            android:id="@+id/rc_empty_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rc_conversation_list_empty_prompt"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</RelativeLayout>

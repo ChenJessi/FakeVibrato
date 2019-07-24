@@ -1,0 +1,227 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:2:1-121:12
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:2:1-121:12
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:2:1-121:12
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:2:1-121:12
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:2:1-121:12
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:2:1-121:12
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:2:1-121:12
+	package
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:3:5-28
+		INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+		INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:2:1-121:12
+		INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:2:1-121:12
+		INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:6:5-80
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:6:22-77
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:8:5-81
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:8:22-78
+uses-permission#android.permission.CAMERA
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:10:5-65
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:10:22-62
+uses-permission#android.permission.WRITE_SETTINGS
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:12:5-73
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:12:22-70
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:14:5-78
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:14:22-75
+uses-permission#android.permission.INTERACT_ACROSS_USERS_FULL
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:15:5-85
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:15:22-82
+uses-permission#android.permission.CHANGE_WIFI_STATE
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:17:5-76
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:17:22-73
+uses-permission#android.permission.INTERNET
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:18:5-67
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:18:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:19:5-79
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:19:22-76
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:20:5-76
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:20:22-73
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:22:5-71
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:22:22-68
+uses-permission#android.permission.GET_TASKS
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:24:5-68
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:24:22-65
+uses-permission#android.permission.REQUEST_INSTALL_PACKAGES
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:26:5-83
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:26:22-80
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:28:5-81
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:28:22-78
+uses-permission#android.permission.VIBRATE
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:30:5-66
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:30:22-63
+application
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:32:5-119:19
+activity#io.rong.imkit.plugin.location.AMapLocationActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:34:9-36:52
+	android:screenOrientation
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:36:13-49
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:35:13-78
+activity#io.rong.imkit.plugin.location.AMapLocationActivity2D
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:37:9-39:52
+	android:screenOrientation
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:39:13-49
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:38:13-80
+activity#io.rong.imkit.plugin.location.AMapPreviewActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:41:9-86
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:41:19-83
+activity#io.rong.imkit.plugin.location.AMapPreviewActivity2D
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:42:9-88
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:42:19-85
+activity#io.rong.imkit.plugin.location.AMapRealTimeActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:44:9-87
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:44:19-84
+activity#io.rong.imkit.plugin.location.AMapRealTimeActivity2D
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:45:9-89
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:45:19-86
+activity#io.rong.imkit.plugin.location.SearchLocationActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:47:9-50:71
+	android:screenOrientation
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:49:13-49
+	android:windowSoftInputMode
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:50:13-68
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:48:13-80
+activity#io.rong.imkit.plugin.image.PictureSelectorActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:52:9-55:52
+	android:screenOrientation
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:55:13-49
+	android:configChanges
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:54:13-74
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:53:13-78
+activity#io.rong.imkit.plugin.image.PicturePreviewActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:57:9-59:52
+	android:screenOrientation
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:59:13-49
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:58:13-77
+activity#io.rong.imkit.tools.RongWebviewActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:62:9-70:20
+	android:screenOrientation
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:65:13-49
+	android:exported
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:64:13-37
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:63:13-67
+intent-filter#action:name:io.rong.imkit.intent.action.webview+category:name:android.intent.category.DEFAULT
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:66:13-69:29
+action#io.rong.imkit.intent.action.webview
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:67:17-78
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:67:25-75
+category#android.intent.category.DEFAULT
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:68:17-76
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:68:27-73
+activity#io.rong.imkit.widget.provider.TakingPicturesActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:72:9-75:52
+	android:screenOrientation
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:75:13-49
+	android:configChanges
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:74:13-63
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:73:13-80
+activity#io.rong.imkit.activity.PicturePagerActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:77:9-85:20
+	android:exported
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:79:13-37
+	android:theme
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:80:13-71
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:78:13-71
+intent-filter#action:name:io.rong.imkit.intent.action.picturepagerview+category:name:android.intent.category.DEFAULT
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:81:13-84:29
+action#io.rong.imkit.intent.action.picturepagerview
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:82:17-87
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:82:25-84
+activity#io.rong.imkit.mention.MemberMentionedActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:87:9-90:67
+	android:windowSoftInputMode
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:90:13-64
+	android:configChanges
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:89:13-63
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:88:13-73
+activity#io.rong.imkit.activity.FileManagerActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:91:9-79
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:91:19-76
+activity#io.rong.imkit.activity.FileListActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:92:9-76
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:92:19-73
+activity#io.rong.imkit.activity.FilePreviewActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:93:9-101:20
+	android:screenOrientation
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:96:13-49
+	android:exported
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:95:13-37
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:94:13-70
+intent-filter#action:name:io.rong.imkit.intent.action.openfile+category:name:android.intent.category.DEFAULT
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:97:13-100:29
+action#io.rong.imkit.intent.action.openfile
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:98:17-79
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:98:25-76
+activity#io.rong.imkit.activity.CSLeaveMessageActivity
+ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:103:9-106:52
+	android:screenOrientation
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:106:13-49
+	android:configChanges
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:105:13-63
+	android:name
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml:104:13-60
+uses-sdk
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+		INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+		ADDED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
+		INJECTED from D:\project\FakeVibrato\IMKit\src\main\AndroidManifest.xml
