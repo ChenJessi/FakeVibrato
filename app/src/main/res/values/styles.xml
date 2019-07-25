@@ -11,7 +11,24 @@
         <!--<item name="android:background">@color/gray</item>-->
         <item name="windowNoTitle">true</item>
         <item name="QMUITopBarStyle">@style/TopBarStyle</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAnimationStyle">@style/activityAnim</item>
     </style>
+
+    <!-- 使用style方式定义activity切换动画 -->
+    <style name="activityAnim" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/out_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/in_from_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/out_to_right</item>
+    </style>
+
+
+    <style name="splash" parent="AppTheme">
+        <item name="android:windowBackground">@mipmap/splash</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
 
     <!--继承Theme.AppCompat.NoActionBar，不显示标题栏-->
     <style name="TransparentTheme" parent="Theme.AppCompat.NoActionBar">

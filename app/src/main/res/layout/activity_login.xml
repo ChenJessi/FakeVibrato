@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_back"
+    tools:context=".LoginActivity"
+    android:id="@+id/constraintLayout">
+
+    <ImageView
+        android:id="@+id/ivClose"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/close_white"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/tvPsdLogin"
+        app:layout_constraintTop_toTopOf="@id/ivClose"
+        app:layout_constraintBottom_toBottomOf="@id/ivClose"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="密码登录"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginRight="20dp"/>
+    <TextView
+        android:id="@+id/tvHint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="手机号登录有助于您快速找到好友"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/white"/>
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/tvHint"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

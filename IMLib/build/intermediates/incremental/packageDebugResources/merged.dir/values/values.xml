@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="rc_reconnect_interval">
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>8</item>
+        <item>16</item>
+        <item>32</item>
+        <item>64</item>
+        <item>128</item>
+        <item>256</item>
+        <item>512</item>
+    </integer-array>
+    <bool name="rc_extension_history">false</bool>
+    <bool name="rc_typing_status">false</bool>
+    <integer name="rc_image_quality">85</integer>
+    <integer name="rc_image_size">960</integer>
+    <integer name="rc_max_original_image_size">200</integer>
+    <integer name="rc_resume_file_transfer_size_each_slice">1048576</integer>
+    <string name="push_heartbeat_timer">240000</string>
+    <string name="rc_heartbeat_timer">150000</string>
+    <string name="rc_init_failed">连接客服失败</string>
+    <string name="rc_location_sharing_ended">位置共享已结束</string>
+    <string name="rc_media_message_default_save_path">/RongCloud/Media/</string>
+    <string name="rc_notification_channel_name">新消息</string>
+    <string name="rc_notification_new_msg">%1$s发来了%2$d条消息</string>
+    <string name="rc_notification_new_plural_msg">%1$d个联系人发来了%2$d条消息</string>
+    <string name="rc_notification_ticker_text">您有了一条新消息</string>
+    <string name="rc_quit_custom_service">客服已结束</string>
+</resources>

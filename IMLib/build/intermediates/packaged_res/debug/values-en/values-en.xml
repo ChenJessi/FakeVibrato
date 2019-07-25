@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="rc_init_failed">Failed Connect Custom Service</string>
+    <string name="rc_location_sharing_ended">Real-time Location session ended.</string>
+    <string name="rc_notification_channel_name">New Messages</string>
+    <string name="rc_notification_new_msg">%1$s sent %2$d messages</string>
+    <string name="rc_notification_new_plural_msg">%1$d contacts sent %2$d messages</string>
+    <string name="rc_notification_ticker_text">You have a new message</string>
+    <string name="rc_quit_custom_service">Custom Service Have Quit</string>
+</resources>
