@@ -40,7 +40,8 @@ public class SplashActivity extends BaseActivity<MainPresenter> {
                 if (aBoolean) {      //连接成功
                     toStart(MainActivity.class);
                 } else {
-                    toStart(LoginActivity.class);
+//                    toStart(LoginActivity.class);
+                    toStart(MainActivity.class);
                 }
             }
         });

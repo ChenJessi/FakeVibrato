@@ -64,6 +64,15 @@ public class EmojiconTextView extends TextView {
         super.setText(text, type);
     }
 
+    @Override
+    public void append(CharSequence text, int start, int end) {
+        if (!TextUtils.isEmpty(text)) {
+            SpannableStringBuilder builder = new SpannableStringBuilder(text);
+            EmojiconHandler.addEmojis(getContext(), builder, mEmojiconSize, mEmojiconTextSize, mTextStart, mTextLength, mUseSystemDefault);
+            text = builder;
+        }
+        super.append(text, start, end);
+    }
 
     /**
      * Set the size of emojicon in pixels.
