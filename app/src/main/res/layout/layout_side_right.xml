@@ -4,6 +4,7 @@
     android:layout_width="250dp"
     android:layout_height="match_parent"
     android:fillViewport="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +15,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/camera"
+            android:drawableLeft="@mipmap/card"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:padding="10dp"
@@ -25,25 +26,27 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/camera"
+            android:drawableLeft="@mipmap/pentagram"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:padding="10dp"
             android:text="我的收藏"
             android:textColor="@color/white"
             android:textSize="15sp" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/white"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/camera"
+            android:drawableLeft="@mipmap/pentagram"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:padding="10dp"
@@ -54,7 +57,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/camera"
+            android:drawableStart="@mipmap/order"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:padding="10dp"
@@ -65,28 +68,75 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/camera"
+            android:layout_marginRight="10dp"
+            android:drawableStart="@mipmap/pentagram"
+            android:drawableEnd="@mipmap/down_white"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:padding="10dp"
             android:text="服务"
-            android:drawableEnd="@mipmap/camera"
-            android:layout_marginRight="10dp"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="45dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="购物助手"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="生活服务订单"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="DOU+上热门"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:padding="10dp"
+                android:text="免流量看抖音"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/white"
+            android:layout_height="0.2dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:visibility="invisible"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/camera"
+            android:drawableStart="@mipmap/coupon"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:padding="10dp"
@@ -96,35 +146,37 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/white"
+            android:layout_height="0.2dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/camera"
+            android:drawableStart="@mipmap/umbrella"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:padding="10dp"
             android:text="未成年保护工具"
             android:textColor="@color/white"
             android:textSize="15sp" />
+
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/white"
+            android:layout_height="0.2dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/camera"
+            android:drawableStart="@mipmap/setting_white"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:padding="10dp"
@@ -134,24 +186,52 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/white"
+            android:layout_height="0.2dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableStart="@mipmap/camera"
+            android:layout_marginRight="10dp"
+            android:drawableStart="@mipmap/applets"
+            android:drawableEnd="@mipmap/down_white"
             android:drawablePadding="20dp"
             android:gravity="center_vertical"
             android:padding="10dp"
             android:text="小程序"
-            android:drawableEnd="@mipmap/camera"
-            android:layout_marginRight="10dp"
             android:textColor="@color/white"
             android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="45dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/headline"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="头条专栏"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@mipmap/headline"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:text="头条专栏"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+    </LinearLayout>
     </LinearLayout>
 </ScrollView>
