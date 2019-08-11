@@ -13,6 +13,7 @@
         android:paddingTop="60dp">
 
         <TextView
+            android:id="@+id/tvCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/card"
@@ -24,6 +25,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/tvPentagram"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/pentagram"
@@ -44,6 +46,7 @@
             android:background="@color/white" />
 
         <TextView
+            android:id="@+id/tvWallet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@mipmap/pentagram"
@@ -55,6 +58,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/tvOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@mipmap/order"
@@ -66,6 +70,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:id="@+id/tvService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -79,6 +84,7 @@
             android:textSize="15sp" />
 
         <LinearLayout
+            android:id="@+id/llService"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -86,6 +92,7 @@
 
 
             <TextView
+                android:id="@+id/tvShop"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -95,6 +102,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp" />
             <TextView
+                android:id="@+id/tvLifeOrder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -104,6 +112,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp" />
             <TextView
+                android:id="@+id/tvDOU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -113,6 +122,7 @@
                 android:textColor="@color/white"
                 android:textSize="15sp" />
             <TextView
+                android:id="@+id/tvFlow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
@@ -124,6 +134,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/viewService"
             android:layout_width="match_parent"
             android:layout_height="0.2dp"
             android:layout_marginLeft="10dp"
@@ -134,6 +145,7 @@
             android:visibility="invisible"/>
 
         <TextView
+            android:id="@+id/tvCoupon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@mipmap/coupon"
@@ -154,6 +166,7 @@
             android:background="@color/white" />
 
         <TextView
+            android:id="@+id/tvMinor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@mipmap/umbrella"
@@ -174,6 +187,7 @@
             android:background="@color/white" />
 
         <TextView
+            android:id="@+id/tvSetting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@mipmap/setting_white"
@@ -194,6 +208,7 @@
             android:background="@color/white" />
 
         <TextView
+            android:id="@+id/tvApplets"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
@@ -207,12 +222,14 @@
             android:textSize="15sp" />
 
     <LinearLayout
+        android:id="@+id/llApplets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="45dp">
 
         <TextView
+            android:id="@+id/tvHeadline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@mipmap/headline"
