@@ -1,5 +1,6 @@
 package com.chen.fakevibrato.bean;
 
+
 import com.daimajia.swipe.SwipeLayout;
 
 /**

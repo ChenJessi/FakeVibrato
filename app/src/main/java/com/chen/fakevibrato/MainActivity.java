@@ -285,6 +285,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     llService.setVisibility(View.GONE);
                     viewService.setVisibility(View.VISIBLE);
                 }
+
                 break;
             case R.id.tvApplets:
                 if (llApplets.getVisibility() == View.GONE) {
