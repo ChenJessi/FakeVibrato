@@ -1,5 +1,6 @@
 package com.chen.fakevibrato;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.chen.fakevibrato.ui.home.contract.MainContract;
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
 import com.chen.fakevibrato.ui.home.view.HomeFragment;
 import com.chen.fakevibrato.ui.message.view.MessageFragment;
+import com.chen.fakevibrato.ui.my.view.EditMessageActivity;
 import com.chen.fakevibrato.ui.my.view.UserFragment;
 import com.chen.fakevibrato.ui.samecity.view.SameCityFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
@@ -242,7 +244,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @OnClick(R.id.ivBottom)
     public void onViewClicked() {
-//       startActivity(new Intent(MainActivity.this, Main3Activity.class));
+//       startActivity(new Intent(MainActivity.this, EditMessageActivity.class));
 //       startActivity(new Intent(MainActivity.this, EmojiActivity.class));
 //       startActivity(new Intent(MainActivity.this, Main2Activity.class));
     }

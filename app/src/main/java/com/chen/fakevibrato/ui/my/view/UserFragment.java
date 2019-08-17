@@ -1,5 +1,6 @@
 package com.chen.fakevibrato.ui.my.view;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -20,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.chen.fakevibrato.MainActivity;
 import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.base.BaseFragment;
 import com.chen.fakevibrato.bean.SwipeBean;
@@ -233,6 +235,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
             case R.id.ivHead:
                 break;
             case R.id.tvEdit:
+                startActivity(new Intent(getActivity(), EditMessageActivity.class));
                 break;
             case R.id.tvFriend:
                 break;
