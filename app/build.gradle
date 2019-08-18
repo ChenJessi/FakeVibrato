@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 27
     defaultConfig {
         applicationId "com.chen.fakevibrato"
         minSdkVersion 26

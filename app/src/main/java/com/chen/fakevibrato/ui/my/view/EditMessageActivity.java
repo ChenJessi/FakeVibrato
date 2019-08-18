@@ -1,5 +1,7 @@
 package com.chen.fakevibrato.ui.my.view;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,7 +13,9 @@ import com.chen.fakevibrato.ui.my.contract.EditMessageContract;
 import com.chen.fakevibrato.ui.my.presenter.EditMessagePresenter;
 import com.chen.fakevibrato.widget.glide.GlideApp;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
+import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -42,11 +46,14 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
     TextView tvBirthday;
     @BindView(R.id.tvArea)
     TextView tvArea;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_edit_message;
     }
+
 
     @Override
     protected EditMessagePresenter initPresenter() {
@@ -55,6 +62,7 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
 
     @Override
     protected void initView() {
+        initToolbar(toolbar);
         GlideApp.with(EditMessageActivity.this)
                 .load(R.mipmap.logo)
                 .transform(new ColorFilterTransformation(0x79000000))
@@ -79,8 +87,10 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
                 finish();
                 break;
             case R.id.ivHead:
+                showHeadDialog();
                 break;
             case R.id.tvName:
+//                startEdit();
                 break;
             case R.id.tvNumber:
                 break;
@@ -89,11 +99,49 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
             case R.id.tvSchool:
                 break;
             case R.id.tvGender:
+                showGenderDialog();
                 break;
             case R.id.tvBirthday:
                 break;
             case R.id.tvArea:
                 break;
         }
+    }
+
+
+    private void showHeadDialog() {
+        final String[] items = new String[]{"拍一张", "相册选择", "查看大图", "取消"};
+        new QMUIDialog.MenuDialogBuilder(EditMessageActivity.this)
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+                })
+                .create().show();
+    }
+
+    private void showGenderDialog() {
+        final String[] items = new String[]{"男", "女", "不显示"};
+        new QMUIDialog.MenuDialogBuilder(EditMessageActivity.this)
+                .addItems(items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+                })
+                .create().show();
+    }
+
+    /**
+     * 编辑
+     *
+     * @param type
+     */
+    private void startEdit(int type) {
+        Intent intent = new Intent(EditMessageActivity.this, EditNormalActivtiy.class);
+        startActivity(intent);
     }
 }

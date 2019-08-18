@@ -6,17 +6,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.chen.fakevibrato.App;
 import com.chen.fakevibrato.utils.Constants;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -103,4 +108,11 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     protected abstract void initData();
 
+
+    protected void initToolbar(Toolbar toolbar){
+        ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        lp.height = QMUIDisplayHelper.getActionBarHeight(this) + QMUIDisplayHelper.getStatusBarHeight(this);
+        toolbar.setLayoutParams(lp);
+        toolbar.setPadding(0, QMUIDisplayHelper.getStatusBarHeight(this), 0, 0);
+    }
 }
