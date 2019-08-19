@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black1"
     tools:context=".ui.my.view.EditNormalActivtiy">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -24,7 +25,7 @@
                 android:padding="10dp"
                 android:src="@mipmap/arrow_left"/>
             <TextView
-                android:id="@+id/tvToolBar"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -42,8 +43,8 @@
                 android:layout_alignParentRight="true"
                 android:paddingRight="10dp"
                 android:text="保存"
-                android:textColor="@color/red1"
-                android:textSize="18sp"/>
+                android:textColor="@color/red1_50a"
+                android:textSize="16sp"/>
             <View
                 android:layout_width="match_parent"
                 android:background="@color/gray"
@@ -51,4 +52,56 @@
                 android:layout_height="1dp"/>
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+<TextView
+    android:id="@+id/tvHint"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/toolbar"
+    android:text="我的昵称"
+    android:textSize="13sp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:textColor="@color/gray1"/>
+<com.chen.fakevibrato.widget.ClearWriteEditText
+    android:id="@+id/editText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_bottom_edit_gray"
+    android:text=""
+    android:textColor="@color/white"
+    android:gravity="center_vertical"
+    android:textSize="13sp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:maxLines="1"
+    android:maxLength="20"
+    app:layout_constraintTop_toBottomOf="@id/tvHint" />
+
+    <TextView
+        android:id="@+id/tvNote"
+        app:layout_constraintTop_toBottomOf="@id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="13sp"
+        android:textColor="@color/gray1"
+        android:text="/20 "/>
+<EditText
+    android:id="@+id/editLines"
+    android:background="@color/black2"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:maxLength="100"
+    android:layout_marginTop="10dp"
+    android:hint="填写个人简介更容易获得别人关注哦"
+    android:gravity="top|left"
+    android:textSize="13sp"
+    android:padding="15dp"
+    android:textColorHint="@color/gray1"
+    android:textColor="@color/white"
+    app:layout_constraintTop_toBottomOf="@id/tvHint"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

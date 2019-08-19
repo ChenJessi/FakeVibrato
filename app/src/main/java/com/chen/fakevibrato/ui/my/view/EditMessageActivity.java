@@ -90,11 +90,13 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
                 showHeadDialog();
                 break;
             case R.id.tvName:
-//                startEdit();
+                startEdit(EditNormalActivtiy.Companion.getEDIT_NAME());
                 break;
             case R.id.tvNumber:
+                startEdit(EditNormalActivtiy.Companion.getEDIT_NUM());
                 break;
             case R.id.tvIntroduction:
+                startEdit(EditNormalActivtiy.Companion.getEDIT_INTRODUCTION());
                 break;
             case R.id.tvSchool:
                 break;
@@ -142,6 +144,7 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
      */
     private void startEdit(int type) {
         Intent intent = new Intent(EditMessageActivity.this, EditNormalActivtiy.class);
+        intent.putExtra(EditNormalActivtiy.Companion.getEDIT_TYPE(), type);
         startActivity(intent);
     }
 }

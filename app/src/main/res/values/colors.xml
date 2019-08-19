@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="black">#FF000000</color>
     <color name="black1">#1C1F28</color>
+    <color name="black2">#262832</color>
 
     <color name="gray">#4d4d4d</color>
     <color name="gray1">#A9A9A9</color>
@@ -16,7 +17,9 @@
     <color name="yellow">#FFD700</color>
 
     <color name="white">#ffffffff</color>
-    <color name="red1">#ff476b</color>
+
+    <color name="red1">#ffff476b</color>
+    <color name="red1_50a">#80ff476b</color>
 
     <color name="black_overlay">#66000000</color>
     <color name="transparent">#00000000</color>

@@ -7,4 +7,11 @@ package com.chen.fakevibrato.utils;
 public class Constants {
     //退出
     public static final int QUIT_ACTION = -1;
+
+
+
+
+
+    public static  String USER_NAME = "哦哦哦";
+
 }
