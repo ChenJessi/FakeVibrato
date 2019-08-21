@@ -1,5 +1,7 @@
 package com.chen.fakevibrato.utils;
 
+import com.chen.fakevibrato.bean.UserInfo;
+
 /**
  * @author Created by CHEN on 2019/6/10
  * @email 188669@163.com
@@ -12,6 +14,6 @@ public class Constants {
 
 
 
-    public static  String USER_NAME = "哦哦哦";
+   public static UserInfo userInfo = new UserInfo();
 
 }
