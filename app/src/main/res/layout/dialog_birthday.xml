@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/top_radius_wihte"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvHint"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="不展示"
+        android:textSize="18sp"
+        android:textColor="@color/black2"
+        android:padding="20dp"/>
+    <Switch
+        android:id="@+id/switchBtn"
+        app:layout_constraintTop_toTopOf="@id/tvHint"
+        app:layout_constraintLeft_toRightOf="@id/tvHint"
+        app:layout_constraintBottom_toBottomOf="@id/tvHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:thumb="@drawable/switch_thumb_selector"
+        android:track="@drawable/switch_track_selector"
+        android:checked="true"/>
+
+
+    <TextView
+        android:id="@+id/tvConfirm"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:textColor="@color/red1"
+        android:textSize="18sp"
+        android:padding="20dp"/>
+    <LinearLayout
+        android:id="@+id/timepicker"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvHint"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/year"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/month"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1"/>
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/day"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1" />
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/hour"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1" />
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/min"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1" />
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/second"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.1" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@
     <color name="gray">#4d4d4d</color>
     <color name="gray1">#A9A9A9</color>
     <color name="gray2">#ABABAB</color>
+    <color name="gray3">#E3E3E3</color>
     <!--橘色-->
     <color name="orange">#FFA500</color>
 
@@ -24,5 +25,9 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="transparent">#00000000</color>
-    <color name="tranent">#79000000</color>
+    <!--<color name="tranent">#79000000</color>-->
+
+
+    <color name="green">#10DC9C</color>
+    <color name="green1">#8EF1D1</color>
 </resources>
