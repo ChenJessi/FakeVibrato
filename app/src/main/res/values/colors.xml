@@ -19,6 +19,7 @@
     <color name="yellow1">#FACE17</color>
 
     <color name="white">#ffffffff</color>
+    <color name="white_50a">#80ffffff</color>
 
     <color name="red1">#ffff476b</color>
     <color name="red1_50a">#80ff476b</color>

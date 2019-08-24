@@ -3,8 +3,11 @@ package com.chen.fakevibrato.utils;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
+import java.util.Date;
+
 /**
  * 屏幕辅助类
+ *
  * @author Created by CHEN on 2019/6/12
  * @email 188669@163.com
  */
@@ -19,7 +22,8 @@ public class DisplayUtils {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (px / scale + 0.5f);
     }
-    public static int  getWidth(Context context){
+
+    public static int getWidth(Context context) {
         DisplayMetrics metric = context.getResources().getDisplayMetrics();
         int width = metric.widthPixels;     // 屏幕宽度（像素）
         int height = metric.heightPixels;   // 屏幕高度（像素）
@@ -27,5 +31,6 @@ public class DisplayUtils {
         int densityDpi = metric.densityDpi;  // 屏幕密度DPI（120 / 160 / 240）
         return width;
     }
+
 
 }

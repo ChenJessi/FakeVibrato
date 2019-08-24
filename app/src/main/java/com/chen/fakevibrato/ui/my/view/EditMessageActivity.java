@@ -9,8 +9,11 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -22,6 +25,7 @@ import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.base.BaseActivity;
 import com.chen.fakevibrato.ui.my.contract.EditMessageContract;
 import com.chen.fakevibrato.ui.my.presenter.EditMessagePresenter;
+import com.chen.fakevibrato.utils.DateUtils;
 import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.glide.GlideApp;
 import com.contrarywind.view.WheelView;
@@ -32,6 +36,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -171,42 +176,50 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
      * 选择生日
      */
     private void initBirthday() {
-
         Calendar selectedDate = Calendar.getInstance();//系统当前时间
         Calendar startDate = Calendar.getInstance();
         startDate.set(2014, 1, 23);
         Calendar endDate = Calendar.getInstance();
         endDate.set(2027, 2, 28);
-        //时间选择器 ，自定义布局
+        //时间选择器
         pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
-//                btn_CustomTime.setText(getTime(date));
+                tvBirthday.setText(DateUtils.INSTANCE.dateToYMD(date));
             }
         })
-                /*.setType(TimePickerView.Type.ALL)//default is all
-                .setCancelText("Cancel")
-                .setSubmitText("Sure")
-                .setContentTextSize(18)
-                .setTitleSize(20)
-                .setTitleText("Title")
-                .setTitleColor(Color.BLACK)
-               /*.setDividerColor(Color.WHITE)//设置分割线的颜色
-                .setTextColorCenter(Color.LTGRAY)//设置选中项的颜色
-                .setLineSpacingMultiplier(1.6f)//设置两横线之间的间隔倍数
-                .setTitleBgColor(Color.DKGRAY)//标题背景颜色 Night mode
-                .setBgColor(Color.BLACK)//滚轮背景颜色 Night mode
-                .setSubmitColor(Color.WHITE)
-                .setCancelColor(Color.WHITE)*/
-                /*.animGravity(Gravity.RIGHT)// default is center*/
                 .setDate(selectedDate)
                 .setRangDate(startDate, endDate)
                 .setLayoutRes(R.layout.dialog_birthday, new CustomListener() {
 
                     @Override
                     public void customLayout(View v) {
-                        WheelView wlYear = v.findViewById(R.id.year);
-                        wlYear.setCurrentItem(3);
+                        ConstraintLayout constraintLayout = v.findViewById(R.id.constraintLayout);
+                        TextView tvConfirm = v.findViewById(R.id.tvConfirm);
+                        View view = v.findViewById(R.id.view);
+                        View viewBg = v.findViewById(R.id.viewBg);
+                        Switch switchBtn = v.findViewById(R.id.switchBtn);
+                        constraintLayout.setOnClickListener(v13 -> {});
+                        view.setOnClickListener(v1 -> {});
+                        viewBg.setOnClickListener(v14 -> {});
+                        if (!TextUtils.equals("不显示", tvBirthday.getText().toString())){
+                            switchBtn.setChecked(false);
+                        }
+                        switchBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                            if (isChecked) {
+                                viewBg.setVisibility(View.VISIBLE);
+                            } else {
+                                viewBg.setVisibility(View.GONE);
+                            }
+                        });
+                        tvConfirm.setOnClickListener(v12 -> {
+                            if (switchBtn.isChecked()){
+                                tvBirthday.setText("不显示");
+                            } else {
+                                pvTime.returnData();
+                            }
+                            pvTime.dismiss();
+                        });
 //                        final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
 //                        ImageView ivCancel = (ImageView) v.findViewById(R.id.iv_cancel);
 //                        tvSubmit.setOnClickListener(new View.OnClickListener() {
@@ -227,11 +240,11 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
                 .setContentTextSize(18)
                 .setType(new boolean[]{true, true, true, false, false, false})
                 .setLabel("", "", "", "", "", "")
-                .setLineSpacingMultiplier(1.8f)
+                .setLineSpacingMultiplier(2.2f)
                 .setGravity(Gravity.CENTER)
                 .isCenterLabel(true) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
                 .setDividerColor(0xFF4d4d4d)
-                .setDividerType(WheelView.DividerType.WRAP)
+                .setDividerType(WheelView.DividerType.FILL)
                 .build();
         // pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
 
