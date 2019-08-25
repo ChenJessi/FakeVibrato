@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black1"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:visibility="visible"
+        app:contentInsetStart="0dp"
+        android:background="@color/black1">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:src="@mipmap/arrow_left"/>
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:text="添加学校"
+                android:textColor="@color/white"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/tvSave"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:text="保存"
+                android:enabled="false"
+                android:textColor="@color/red1_50a"
+                android:textSize="16sp"/>
+            <View
+                android:layout_width="match_parent"
+                android:background="@color/gray"
+                android:layout_alignParentBottom="true"
+                android:layout_height="0.2dp"/>
+        </RelativeLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="学校"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+    <TextView
+        android:id="@+id/tvSchool"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical|right"
+        android:paddingRight="15dp"
+        android:text="点击设置"
+        android:textColor="@color/gray1"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/text1"
+        app:layout_constraintLeft_toRightOf="@id/text1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text1" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="院系"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text1" />
+
+    <TextView
+        android:id="@+id/tvDepartment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical|right"
+        android:paddingRight="15dp"
+        android:text="点击设置"
+        android:textColor="@color/gray1"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/text2"
+        app:layout_constraintLeft_toRightOf="@id/text2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text2" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="入学时间"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text2" />
+
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical|right"
+        android:paddingRight="15dp"
+        android:text="点击设置"
+        android:textColor="@color/gray1"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/text3"
+        app:layout_constraintLeft_toRightOf="@id/text3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text3" />
+
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="学历"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text3" />
+
+    <TextView
+        android:id="@+id/tvEducation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical|right"
+        android:paddingRight="15dp"
+        android:text="点击设置"
+        android:textColor="@color/gray1"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/text4"
+        app:layout_constraintLeft_toRightOf="@id/text4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text4" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/text4"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_height="0.2dp"/>
+    <TextView
+        android:id="@+id/text5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:text="展示范围"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
+
+    <TextView
+        android:id="@+id/tvRange"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical|right"
+        android:paddingRight="15dp"
+        android:text="点击设置"
+        android:textColor="@color/gray1"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@id/text5"
+        app:layout_constraintLeft_toRightOf="@id/text5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text5" />
+</androidx.constraintlayout.widget.ConstraintLayout>

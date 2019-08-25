@@ -23,8 +23,10 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.base.BaseActivity;
+import com.chen.fakevibrato.bean.UserInfo;
 import com.chen.fakevibrato.ui.my.contract.EditMessageContract;
 import com.chen.fakevibrato.ui.my.presenter.EditMessagePresenter;
+import com.chen.fakevibrato.utils.Constants;
 import com.chen.fakevibrato.utils.DateUtils;
 import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.glide.GlideApp;
@@ -32,11 +34,16 @@ import com.contrarywind.view.WheelView;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.Calendar;
 import java.util.Date;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Constraints;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -87,9 +94,11 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
     protected void initView() {
         initToolbar(toolbar);
         GlideApp.with(EditMessageActivity.this)
-                .load(R.mipmap.logo)
+                .load(Constants.userInfo.getUrl())
+                .error(R.mipmap.logo)
                 .transform(new ColorFilterTransformation(0x79000000))
                 .into(ivHead);
+        setMessage();
         initBirthday();
     }
 
@@ -102,6 +111,7 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
     protected void initData() {
 
     }
+
 
     @OnClick({R.id.ivBack, R.id.ivHead, R.id.tvName, R.id.tvNumber, R.id.tvIntroduction, R.id.tvSchool, R.id.tvGender, R.id.tvBirthday, R.id.tvArea})
     public void onViewClicked(View view) {
@@ -122,6 +132,7 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
                 startEdit(EditNormalActivtiy.Companion.getEDIT_INTRODUCTION());
                 break;
             case R.id.tvSchool:
+                startActivity(new Intent(EditMessageActivity.this, AddSchoolActivity.class));
                 break;
             case R.id.tvGender:
                 showGenderDialog();
@@ -134,7 +145,20 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
         }
     }
 
-
+    private void setMessage(){
+        tvName.setText(Constants.userInfo.getName());
+        tvNumber.setText(Constants.userInfo.getNumber());
+        tvIntroduction.setText(Constants.userInfo.getIntroduction());
+        tvGender.setText(Constants.userInfo.getGender());
+        tvSchool.setText(Constants.userInfo.getSchool());
+        tvArea.setText(Constants.userInfo.getArea());
+        tvBirthday.setText(Constants.userInfo.getBirthd());
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN )
+    public void refreshInfo(UserInfo userInfo){
+        MyLog.d("userInfo ： "+userInfo);
+        setMessage();
+    }
     private void showHeadDialog() {
         final String[] items = new String[]{"拍一张", "相册选择", "查看大图", "取消"};
         new QMUIDialog.MenuDialogBuilder(EditMessageActivity.this)
@@ -154,7 +178,8 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
                 .addItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        Constants.userInfo.setGender(items[which]);
+                        tvGender.setText(items[which]);
                         dialog.dismiss();
                     }
                 })
@@ -220,21 +245,6 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
                             }
                             pvTime.dismiss();
                         });
-//                        final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
-//                        ImageView ivCancel = (ImageView) v.findViewById(R.id.iv_cancel);
-//                        tvSubmit.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                pvTime.returnData();
-//                                pvTime.dismiss();
-//                            }
-//                        });
-//                        ivCancel.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                pvTime.dismiss();
-//                            }
-//                        });
                     }
                 })
                 .setContentTextSize(18)
@@ -246,7 +256,10 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
                 .setDividerColor(0xFF4d4d4d)
                 .setDividerType(WheelView.DividerType.FILL)
                 .build();
-        // pvTime.setDate(Calendar.getInstance());//注：根据需求来决定是否使用该方法（一般是精确到秒的情况），此项可以在弹出选择器的时候重新设置当前时间，避免在初始化之后由于时间已经设定，导致选中时间与当前时间不匹配的问题。
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

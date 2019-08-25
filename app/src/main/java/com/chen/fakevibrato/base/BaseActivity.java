@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.chen.fakevibrato.App;
+import com.chen.fakevibrato.bean.UserInfo;
 import com.chen.fakevibrato.utils.Constants;
+import com.chen.fakevibrato.utils.MyLog;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
@@ -71,7 +73,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
             finish();
         }
     }
-
     //    public class MyBaseActiviy_Broad extends BroadcastReceiver {
     //
     //        public void onReceive(Context arg0, Intent intent) {

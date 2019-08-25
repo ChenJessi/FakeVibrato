@@ -9,12 +9,13 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
         android:layout_height="48dp"
+        android:background="@color/black1"
         android:visibility="visible"
         app:contentInsetStart="0dp"
-        android:background="@color/black1">
+        app:layout_constraintTop_toTopOf="parent">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -24,265 +25,273 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:padding="10dp"
-                android:src="@mipmap/arrow_left"/>
+                android:src="@mipmap/arrow_left" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_centerInParent="true"
+                android:gravity="center"
                 android:text="编辑个人资料"
                 android:textColor="@color/white"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
+
             <View
                 android:layout_width="match_parent"
-                android:background="@color/gray"
+                android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_height="1dp"/>
+                android:background="@color/gray" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <com.qmuiteam.qmui.widget.QMUIRadiusImageView
         android:id="@+id/ivHead"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="@id/toolbar"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="40dp"
-        app:qmui_is_circle="true"/>
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="@id/toolbar"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:qmui_is_circle="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="true"
+        android:src="@mipmap/camera2"
         app:layout_constraintBottom_toBottomOf="@id/ivHead"
-        app:layout_constraintTop_toTopOf="@id/ivHead"
         app:layout_constraintLeft_toLeftOf="@id/ivHead"
         app:layout_constraintRight_toRightOf="@id/ivHead"
-        android:enabled="true"
-        android:src="@mipmap/camera2"/>
+        app:layout_constraintTop_toTopOf="@id/ivHead" />
+
     <TextView
         android:id="@+id/text1"
-        app:layout_constraintTop_toBottomOf="@id/ivHead"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray1"
+        android:layout_marginTop="10dp"
         android:gravity="center"
+        android:text="点击更换头像"
+        android:textColor="@color/gray1"
 
         android:textSize="13sp"
-        android:text="点击更换头像"/>
+        app:layout_constraintTop_toBottomOf="@id/ivHead" />
 
     <View
         android:id="@+id/view1"
-        app:layout_constraintTop_toBottomOf="@id/text1"
         android:layout_width="match_parent"
-        android:background="@color/gray"
-        android:layout_marginTop="10dp"
+        android:layout_height="1dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:layout_height="1dp"/>
+        android:background="@color/gray"
+        app:layout_constraintTop_toBottomOf="@id/text1" />
 
     <TextView
         android:id="@+id/text2"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@color/white"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="昵称"/>
+        android:text="昵称"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view1" />
 
     <TextView
         android:id="@+id/tvName"
-        app:layout_constraintTop_toTopOf="@id/text2"
-        app:layout_constraintBottom_toBottomOf="@id/text2"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/text2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="@color/gray1"
         android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
         android:gravity="center_vertical|right"
         android:paddingRight="15dp"
-        android:drawablePadding="10dp"
+        android:text="哦哦哦"
+        android:textColor="@color/gray1"
         android:textSize="15sp"
-        android:text="哦哦哦"/>
+        app:layout_constraintBottom_toBottomOf="@id/text2"
+        app:layout_constraintLeft_toRightOf="@id/text2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text2" />
 
     <TextView
         android:id="@+id/text3"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@color/white"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="抖音号"/>
+        android:text="抖音号"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text2" />
+
     <TextView
         android:id="@+id/tvNumber"
-        app:layout_constraintTop_toTopOf="@id/text3"
-        app:layout_constraintBottom_toBottomOf="@id/text3"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/text3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="@color/gray1"
         android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
         android:gravity="center_vertical|right"
         android:paddingRight="15dp"
-        android:drawablePadding="10dp"
+        android:text="88888888"
+        android:textColor="@color/gray1"
         android:textSize="15sp"
-        android:text="88888888"/>
+        app:layout_constraintBottom_toBottomOf="@id/text3"
+        app:layout_constraintLeft_toRightOf="@id/text3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text3" />
 
     <TextView
         android:id="@+id/text4"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@color/white"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="简介"/>
+        android:text="简介"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text3" />
 
     <TextView
         android:id="@+id/tvIntroduction"
-        app:layout_constraintTop_toTopOf="@id/text4"
-        app:layout_constraintBottom_toBottomOf="@id/text4"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/text4"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="@color/gray1"
         android:drawableRight="@mipmap/arrow_right"
-        android:gravity="center_vertical|right"
-        android:paddingRight="15dp"
         android:drawablePadding="10dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical|right"
+        android:maxLength="16"
+        android:paddingRight="15dp"
+        android:singleLine="true"
+        android:text="填写个人简介更容易获得别人关注哦"
+        android:textColor="@color/gray1"
         android:textSize="15sp"
-        android:text="填写个人简介更容易获得别人关注哦"/>
+        app:layout_constraintBottom_toBottomOf="@id/text4"
+        app:layout_constraintLeft_toRightOf="@id/text4"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text4" />
 
     <TextView
         android:id="@+id/text5"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@color/white"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="学校"/>
+        android:text="学校"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text4" />
 
     <TextView
         android:id="@+id/tvSchool"
-        app:layout_constraintTop_toTopOf="@id/text5"
-        app:layout_constraintBottom_toBottomOf="@id/text5"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/text5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="@color/gray1"
         android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
         android:gravity="center_vertical|right"
         android:paddingRight="15dp"
-        android:drawablePadding="10dp"
+        android:text=""
+        android:textColor="@color/gray1"
         android:textSize="15sp"
-        android:text=""/>
+        app:layout_constraintBottom_toBottomOf="@id/text5"
+        app:layout_constraintLeft_toRightOf="@id/text5"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text5" />
 
     <TextView
         android:id="@+id/text6"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@color/white"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="性别"/>
+        android:text="性别"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text5" />
 
     <TextView
         android:id="@+id/tvGender"
-        app:layout_constraintTop_toTopOf="@id/text6"
-        app:layout_constraintBottom_toBottomOf="@id/text6"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/text6"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="@color/gray1"
         android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
         android:gravity="center_vertical|right"
         android:paddingRight="15dp"
-        android:drawablePadding="10dp"
+        android:text="不显示"
+        android:textColor="@color/gray1"
         android:textSize="15sp"
-        android:text="不显示"/>
+        app:layout_constraintBottom_toBottomOf="@id/text6"
+        app:layout_constraintLeft_toRightOf="@id/text6"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text6" />
 
     <TextView
         android:id="@+id/text7"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@color/white"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="生日"/>
+        android:text="生日"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text6" />
+
     <TextView
         android:id="@+id/tvBirthday"
-        app:layout_constraintTop_toTopOf="@id/text7"
-        app:layout_constraintBottom_toBottomOf="@id/text7"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/text7"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="@color/gray1"
         android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
         android:gravity="center_vertical|right"
         android:paddingRight="15dp"
-        android:drawablePadding="10dp"
+        android:text="不显示"
+        android:textColor="@color/gray1"
         android:textSize="15sp"
-        android:text="不显示"/>
+        app:layout_constraintBottom_toBottomOf="@id/text7"
+        app:layout_constraintLeft_toRightOf="@id/text7"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text7" />
 
 
     <TextView
         android:id="@+id/text8"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@color/white"
         android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
-        android:text="地区"/>
+        android:text="地区"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text7" />
 
     <TextView
         android:id="@+id/tvArea"
-        app:layout_constraintTop_toTopOf="@id/text8"
-        app:layout_constraintBottom_toBottomOf="@id/text8"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/text8"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:textColor="@color/gray1"
         android:drawableRight="@mipmap/arrow_right"
+        android:drawablePadding="10dp"
         android:gravity="center_vertical|right"
         android:paddingRight="15dp"
-        android:drawablePadding="10dp"
+        android:text="不显示"
+        android:textColor="@color/gray1"
         android:textSize="15sp"
-        android:text="不显示"/>
+        app:layout_constraintBottom_toBottomOf="@id/text8"
+        app:layout_constraintLeft_toRightOf="@id/text8"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text8" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
