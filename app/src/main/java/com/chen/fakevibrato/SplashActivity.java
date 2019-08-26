@@ -42,6 +42,7 @@ public class SplashActivity extends BaseActivity<MainPresenter> {
                 } else {
 //                    toStart(LoginActivity.class);
                     toStart(MainActivity.class);
+
                 }
             }
         });

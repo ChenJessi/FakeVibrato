@@ -152,7 +152,6 @@ class EditNormalActivtiy : BaseActivity<EditNormalPresenter>(), View.OnClickList
     override fun onClick(v: View?) {
         when(v){
             tvSave->{
-                MyLog.d(" save  =====")
                 when(type){
                     EDIT_NAME -> {
                        Constants.userInfo.name = editText.text.toString()
