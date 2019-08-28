@@ -238,6 +238,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 startActivity(new Intent(getActivity(), EditMessageActivity.class));
                 break;
             case R.id.tvFriend:
+                startActivity(new Intent(getActivity(), ContactActivity.class));
                 break;
             case R.id.llTakePhoto:
                 break;

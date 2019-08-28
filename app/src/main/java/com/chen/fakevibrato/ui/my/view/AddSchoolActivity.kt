@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.Switch
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.CustomListener
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
@@ -15,6 +16,7 @@ import com.bigkoo.pickerview.view.TimePickerView
 import com.chen.fakevibrato.MainActivity
 import com.chen.fakevibrato.R
 import com.chen.fakevibrato.base.BaseActivity
+import com.chen.fakevibrato.bean.UserInfo
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.my.presenter.EditNormalPresenter
 import com.chen.fakevibrato.utils.Constants
@@ -23,6 +25,7 @@ import com.chen.fakevibrato.utils.ToastUtils
 import com.contrarywind.view.WheelView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import kotlinx.android.synthetic.main.activity_add_school.*
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 /**
@@ -46,6 +49,7 @@ class AddSchoolActivity : BaseActivity<MainPresenter>(), View.OnClickListener {
     }
 
     override fun initListener() {
+        tvSave.setOnClickListener(this)
         tvDepartment.setOnClickListener(this)
         tvSchool.setOnClickListener(this)
         tvTime.setOnClickListener(this)
@@ -64,6 +68,8 @@ class AddSchoolActivity : BaseActivity<MainPresenter>(), View.OnClickListener {
         when (v) {
             tvSchool -> {
                 tvSchool.text = "ta"
+                tvSave.isEnabled =  true
+                tvSave.setTextColor(ContextCompat.getColor(this@AddSchoolActivity, R.color.red1))
             }
             tvDepartment -> {
                 if (TextUtils.equals(tvSchool.text, "点击设置")) {
@@ -87,6 +93,11 @@ class AddSchoolActivity : BaseActivity<MainPresenter>(), View.OnClickListener {
                 }
             }
             tvRange -> {
+            }
+            tvSave->{
+                Constants.userInfo.school = tvSchool.text.toString()
+                EventBus.getDefault().post(UserInfo())
+                finish()
             }
         }
     }

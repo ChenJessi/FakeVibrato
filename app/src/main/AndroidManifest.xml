@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.my.view.ContactActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".ui.my.view.AddSchoolActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"></activity>

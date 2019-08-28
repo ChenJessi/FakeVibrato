@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="line">
+    android:shape="rectangle">
     <corners android:radius="2dp" />
-    <stroke
-        android:width="2dp"
-        android:color="@color/yellow"
-        android:dashWidth="5dp"
-        android:dashGap="0sp" />
+    <solid
+        android:color="@color/yellow"/>
+    <size
+        android:height="4dp"/>
     <padding
         android:left="10dp"
-        android:right="100dp" />
+        android:right="10dp" />
 </shape>
 
