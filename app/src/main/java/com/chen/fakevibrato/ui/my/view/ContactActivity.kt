@@ -5,13 +5,17 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.chen.fakevibrato.R
 import com.chen.fakevibrato.base.BaseActivity
+import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
+import com.chen.fakevibrato.ui.home.view.HomeListFragment
 import com.chen.fakevibrato.utils.DisplayUtils
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.QMUITabSegment
 import kotlinx.android.synthetic.main.activity_contact.*
+import java.util.ArrayList
 
 /**
  * @author Created by CHEN on 2019/8/28
@@ -20,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_contact.*
  * 好友列表 and 发现好友
  */
 class ContactActivity : BaseActivity<MainPresenter>() {
+    private var adapter: MyPagerAdapter? = null
     override fun getLayoutId(): Int {
         return R.layout.activity_contact
     }
@@ -33,6 +38,12 @@ class ContactActivity : BaseActivity<MainPresenter>() {
         lp.height = DisplayUtils.dp2px(this@ContactActivity, 48f) + QMUIDisplayHelper.getStatusBarHeight(this)
         toolbar.setLayoutParams(lp)
         toolbar.setPadding(0, QMUIDisplayHelper.getStatusBarHeight(this), 0, 0)
+
+        val mFragments = ArrayList<Fragment>()
+        mFragments.add(FriendFragment())
+        mFragments.add(FindFriendFragment())
+        adapter = MyPagerAdapter(supportFragmentManager, mFragments)
+        viewPager.adapter = adapter
 
         var tab = QMUITabSegment.Tab(" 好友列表 ")
         tab.setTextColor(Color.parseColor("#A9A9A9"), Color.WHITE)
@@ -48,7 +59,7 @@ class ContactActivity : BaseActivity<MainPresenter>() {
         tabLayout.setIndicatorPosition(false)//true 时表示 indicator 位置在 Tab 的上方, false 时表示在下方
         tabLayout.setIndicatorWidthAdjustContent(true)//设置 indicator的宽度是否随内容宽度变化
         tabLayout.setIndicatorDrawable(drawable)
-//        tabLayout.setupWithViewPager(viewPager, false)
+        tabLayout.setupWithViewPager(viewPager, false)
         tabLayout.notifyDataChanged()
         tabLayout.selectTab(0, true, true)
     }

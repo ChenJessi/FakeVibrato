@@ -24,8 +24,10 @@ import com.chen.fakevibrato.utils.DateUtils
 import com.chen.fakevibrato.utils.ToastUtils
 import com.contrarywind.view.WheelView
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import kotlinx.android.synthetic.main.activity_add_school.*
 import org.greenrobot.eventbus.EventBus
+import java.security.AccessController.getContext
 import java.util.*
 
 /**
@@ -34,7 +36,6 @@ import java.util.*
  */
 class AddSchoolActivity : BaseActivity<MainPresenter>(), View.OnClickListener {
     private var pvTime: TimePickerView? = null
-
     override fun getLayoutId(): Int {
         return R.layout.activity_add_school
     }

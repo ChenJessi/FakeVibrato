@@ -40,6 +40,7 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
@@ -106,6 +107,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     private AppBarStateChangeListener.State state = AppBarStateChangeListener.State.EXPANDED;
 
     private MyPagerAdapter adapter;
+
     @Override
     protected int setView() {
         return R.layout.fragment_user;
@@ -233,6 +235,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivHead:
+
                 break;
             case R.id.tvEdit:
                 startActivity(new Intent(getActivity(), EditMessageActivity.class));
