@@ -21,7 +21,6 @@ import com.bigkoo.pickerview.configure.PickerOptions;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
-import com.bumptech.glide.Glide;
 import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.base.BaseActivity;
 import com.chen.fakevibrato.bean.UserInfo;

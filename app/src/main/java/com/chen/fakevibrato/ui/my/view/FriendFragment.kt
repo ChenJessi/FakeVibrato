@@ -28,7 +28,6 @@ class FriendFragment :BaseFragment<MainPresenter>() {
     }
 
     override fun initView(view: View?) {
-        mList.add("taeta")
         adapter = activity?.let { FriendAdapter(it, mList) }
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
