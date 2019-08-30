@@ -4,8 +4,13 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.chen.fakevibrato.R
+
+
 
 /**
  * @author Created by CHEN on 2019/8/29
@@ -21,10 +26,16 @@ class FriendAdapter(var mContext : Context, private var mList : List<String>) : 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Glide.with(mContext)
+                .load(R.mipmap.logo)
+                .circleCrop()
+                .into(holder.ivHead)
     }
 
-    class ViewHolder(view : View) : RecyclerView.ViewHolder(view) {
-
+    class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
+        var ivHead : ImageView = view.findViewById(R.id.ivHead)
+        var tvName : TextView = view.findViewById(R.id.tvName)
+        var ivEdit : ImageView = view.findViewById(R.id.ivEdit)
+        var tvMessage : ImageView = view.findViewById(R.id.tvMessage)
     }
 }
