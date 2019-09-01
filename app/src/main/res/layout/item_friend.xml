@@ -24,14 +24,14 @@
         android:text="哦哦哦"/>
     <ImageView
         android:id="@+id/ivEdit"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_margin="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/edit_white"/>
     <ImageView
         android:id="@+id/tvMessage"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_margin="15dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
