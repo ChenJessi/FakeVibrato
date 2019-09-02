@@ -12,3 +12,5 @@ gradle
 build/
 /captures
 .externalNativeBuild
+/IMKit
+/IMLib

@@ -32,7 +32,7 @@ class FriendAdapter(var mContext : Context, private var mList : List<String>) : 
     }
 
     override fun getItemCount(): Int {
-        return 20
+        return mList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

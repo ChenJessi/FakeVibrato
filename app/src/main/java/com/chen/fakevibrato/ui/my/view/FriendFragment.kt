@@ -89,7 +89,7 @@ class FriendFragment : BaseFragment<MainPresenter>() {
                 .addAction("取消") { dialog, index -> dialog.dismiss() }
                 .addAction("确定") { dialog, index ->
                     val text = builder.editText.text
-                    if (text != null && text.length > 0) {
+                    if (text != null && text.isNotEmpty()) {
 
                         dialog.dismiss()
                     } else {

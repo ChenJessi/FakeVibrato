@@ -123,8 +123,8 @@
     <!--dialog-->
 
     <style name="dialogTheme" parent="QMUI.Dialog">
-        <!--<item name="qmui_dialog_min_width">260dp</item>-->
-        <!--<item name="qmui_dialog_max_width">304dp</item>-->
+        <item name="qmui_dialog_min_width">260dp</item>
+        <item name="qmui_dialog_max_width">304dp</item>
         <!--<item name="qmui_dialog_bg">@drawable/qmui_dialog_bg</item>-->
         <!--<item name="qmui_dialog_radius">@dimen/qmui_dialog_radius</item>-->
         <!--<item name="qmui_dialog_margin_vertical">20dp</item>-->
@@ -161,6 +161,7 @@
         <item name="android:singleLine">false</item>
         <item name="android:lineSpacingExtra">3dp</item>
     </style>
+<!--    底部按钮布局-->
     <style name="DialogTheme2ActionContainerStyle">
         <item name="android:paddingLeft">0dp</item>
         <item name="android:paddingRight">0dp</item>
@@ -169,9 +170,13 @@
         <item name="qmui_dialog_action_container_justify_content">stretch</item>
         <item name="qmui_dialog_action_height">56dp</item>
         <item name="qmui_dialog_action_space">8dp</item>
+        <!-- 顶部分割线颜色-->
         <item name="qmui_topDividerColor">?attr/qmui_config_color_separator</item>
+        <!-- 顶部分割线高度-->
         <item name="qmui_topDividerHeight">1px</item>
+
     </style>
+    <!--    按钮样式-->
     <style name="DialogTheme2ActionStyle">
         <item name="android:textColor">?attr/qmui_config_color_blue</item>
         <item name="android:textSize">15sp</item>
