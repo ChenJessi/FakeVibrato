@@ -1,6 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black1"
+    android:fillViewport="true">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/edittext"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="0dp"
+        android:drawableLeft="@mipmap/search"
+        android:background="@color/white_20a"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/tvSearch"/>
+
+        <TextView
+            android:id="@+id/tvSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+           android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            app:layout_constraintTop_toTopOf="@id/edittext"
+            app:layout_constraintBottom_toBottomOf="@id/edittext"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/red1"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:text="搜索"/>
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加好友"
+        android:textSize="15sp"
+        android:textColor="@color/gray1"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="@id/edittext"
+        app:layout_constraintTop_toBottomOf="@id/edittext"/>
+
+    <ImageView
+        android:id="@+id/ivContact"
+        app:layout_constraintTop_toBottomOf="@id/text1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/ivPassword"
+        android:layout_width="50dp"
+        android:layout_marginTop="20dp"
+        android:src="@mipmap/card"
+        android:layout_height="50dp" />
+
+    <ImageView
+        android:id="@+id/ivPassword"
+        app:layout_constraintTop_toTopOf="@id/ivContact"
+        app:layout_constraintLeft_toRightOf="@id/ivContact"
+        app:layout_constraintRight_toLeftOf="@id/ivScan"
+        android:layout_width="50dp"
+        android:src="@mipmap/card"
+        android:layout_height="50dp"/>
+
+    <ImageView
+        android:id="@+id/ivScan"
+        app:layout_constraintTop_toTopOf="@id/ivContact"
+        app:layout_constraintLeft_toRightOf="@id/ivPassword"
+        app:layout_constraintRight_toLeftOf="@id/ivFace"
+        android:layout_width="50dp"
+        android:src="@mipmap/card"
+        android:layout_height="50dp"/>
+
+    <ImageView
+        android:id="@+id/ivFace"
+        app:layout_constraintTop_toTopOf="@id/ivContact"
+        app:layout_constraintLeft_toRightOf="@id/ivScan"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="50dp"
+        android:src="@mipmap/card"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:id="@+id/tvContact"
+        app:layout_constraintTop_toBottomOf="@id/ivContact"
+        app:layout_constraintLeft_toLeftOf="@id/ivContact"
+        app:layout_constraintRight_toRightOf="@id/ivContact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:text="通讯录"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/tvPassword"
+        app:layout_constraintTop_toTopOf="@id/tvContact"
+        app:layout_constraintLeft_toLeftOf="@id/ivPassword"
+        app:layout_constraintRight_toRightOf="@id/ivPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="站外好友口令"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/tvScan"
+        app:layout_constraintTop_toTopOf="@id/tvContact"
+        app:layout_constraintLeft_toLeftOf="@id/ivScan"
+        app:layout_constraintRight_toRightOf="@id/ivScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="扫一扫"
+        android:textColor="@color/white"/>
+    <TextView
+        android:id="@+id/tvFace"
+        app:layout_constraintTop_toTopOf="@id/tvContact"
+        app:layout_constraintLeft_toLeftOf="@id/ivFace"
+        app:layout_constraintRight_toRightOf="@id/ivFace"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="面对面"
+        android:textColor="@color/white"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

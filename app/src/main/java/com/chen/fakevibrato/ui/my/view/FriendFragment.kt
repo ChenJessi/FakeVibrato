@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_friend.*
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import android.text.InputType.TYPE_CLASS_TEXT
-
+import android.widget.Toast
 
 
 /**
@@ -37,6 +37,11 @@ class FriendFragment : BaseFragment<MainPresenter>() {
     }
 
     override fun initView(view: View?) {
+        mList.add("哦哦哦")
+        mList.add("哦哦哦")
+        mList.add("哦哦哦")
+        mList.add("哦哦哦")
+        mList.add("哦哦哦")
         mList.add("哦哦哦")
         mList.add("哦哦哦")
         adapter = activity?.let { FriendAdapter(it, mList) }
@@ -72,7 +77,7 @@ class FriendFragment : BaseFragment<MainPresenter>() {
             }
 
             override fun onRemark(position: Int) {
-                showEditTextDialog()
+                showEditTextDialog(position)
             }
 
             override fun onMessage(position: Int) {
@@ -81,7 +86,7 @@ class FriendFragment : BaseFragment<MainPresenter>() {
         })
     }
 
-    private fun showEditTextDialog() {
+    private fun showEditTextDialog(position :Int) {
         val builder = QMUIDialog.EditTextDialogBuilder(activity)
         builder.setTitle("修改备注名")
                 .setPlaceholder("在此输入备注名")
@@ -90,9 +95,11 @@ class FriendFragment : BaseFragment<MainPresenter>() {
                 .addAction("确定") { dialog, index ->
                     val text = builder.editText.text
                     if (text != null && text.isNotEmpty()) {
-
+                        mList[position] = text.toString()
+                        adapter?.notifyItemChanged(position)
                         dialog.dismiss()
                     } else {
+                        Toast.makeText(activity, "请输入备注名", Toast.LENGTH_SHORT).show()
                     }
                 }
                 .create(R.style.dialogTheme).show()
