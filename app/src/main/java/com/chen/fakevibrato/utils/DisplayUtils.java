@@ -3,8 +3,6 @@ package com.chen.fakevibrato.utils;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
-import java.util.Date;
-
 /**
  * 屏幕辅助类
  *
@@ -32,5 +30,14 @@ public class DisplayUtils {
         return width;
     }
 
+    public static int getScreenWidth(Context context) {
+        DisplayMetrics metric = context.getResources().getDisplayMetrics();
+        return metric.widthPixels;
+    }
+
+    public static int getScreenHeight(Context context) {
+        DisplayMetrics metric = context.getResources().getDisplayMetrics();
+        return metric.heightPixels;
+    }
 
 }
