@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
+import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.graphics.YuvImage;
@@ -140,7 +141,7 @@ public class CyCamera implements Camera.PreviewCallback {
         options.inPreferredConfig = Bitmap.Config.RGB_565;
         Bitmap bitmap = BitmapFactory.decodeByteArray(rawImage, 0, rawImage.length, options);
 
-        saveImageToGallery(bitmap);
+        saveImageToGallery(rotateBitmap(bitmap));
         bitmap.recycle();
         bitmap = null;
 
@@ -187,4 +188,13 @@ public class CyCamera implements Camera.PreviewCallback {
         }
         return -1;
     }
+
+
+    private Bitmap rotateBitmap(Bitmap bitmap){
+        Matrix matrix = new Matrix();
+        matrix.postRotate(270);
+        matrix.postScale(-1, 1);   //镜像水平翻转
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
 }
