@@ -2,9 +2,14 @@ package com.chen.fakevibrato.ui.my.view
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.chen.fakevibrato.R
 import com.chen.fakevibrato.base.BaseFragment
+import com.chen.fakevibrato.bean.TitleBean
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
+import com.chen.fakevibrato.ui.my.adapter.FindFriendAdapter
+import com.chen.fakevibrato.widget.decoration.TitleItemDecoration
+import kotlinx.android.synthetic.main.fragment_find_friend.*
 
 /**
  * @author Created by CHEN on 2019/8/29
@@ -12,6 +17,8 @@ import com.chen.fakevibrato.ui.home.presenter.MainPresenter
  * 发现好友
  */
 class FindFriendFragment :BaseFragment<MainPresenter>() {
+    var adapter : FindFriendAdapter? = null
+    var mList = ArrayList<TitleBean>()
     override fun setView(): Int {
         return R.layout.fragment_find_friend
     }
@@ -21,7 +28,12 @@ class FindFriendFragment :BaseFragment<MainPresenter>() {
     }
 
     override fun initView(view: View?) {
+        adapter = activity?.let { FindFriendAdapter(it, mList) }
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.adapter = adapter
+        recyclerView.addItemDecoration( TitleItemDecoration(activity, mList))
 
+        initListener()
     }
 
     override fun initData(savedInstanceState: Bundle?) {
@@ -30,5 +42,14 @@ class FindFriendFragment :BaseFragment<MainPresenter>() {
 
     override fun Load() {
 
+    }
+
+    fun initListener(){
+        adapter?.onItemClickListener = object : FindFriendAdapter.OnItemClickListener{
+            override fun onItemClick(position: Int) {
+
+            }
+
+        }
     }
 }
