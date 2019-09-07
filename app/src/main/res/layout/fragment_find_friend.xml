@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black1"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:fillViewport="true">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -32,7 +34,7 @@
             app:layout_constraintBottom_toBottomOf="@id/edittext"
             app:layout_constraintRight_toRightOf="parent"
             android:textColor="@color/red1"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:gravity="center"
             android:text="搜索"/>
 
@@ -41,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="添加好友"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:textColor="@color/gray1"
         android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="@id/edittext"
@@ -92,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:text="通讯录"
         android:textColor="@color/white"/>
 
@@ -103,7 +105,7 @@
         app:layout_constraintRight_toRightOf="@id/ivPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:text="站外好友口令"
         android:textColor="@color/white"/>
 
@@ -114,7 +116,7 @@
         app:layout_constraintRight_toRightOf="@id/ivScan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:text="扫一扫"
         android:textColor="@color/white"/>
     <TextView
@@ -124,7 +126,7 @@
         app:layout_constraintRight_toRightOf="@id/ivFace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
+        android:textSize="13sp"
         android:text="面对面"
         android:textColor="@color/white"/>
 
@@ -133,6 +135,14 @@
         app:layout_constraintTop_toBottomOf="@id/tvContact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
+    <TextView
+        app:layout_constraintTop_toBottomOf="@id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="@color/gray1"
+        android:padding="20dp"
+        android:gravity="center"
+        android:text="没有更多了~"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

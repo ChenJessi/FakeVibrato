@@ -31,7 +31,7 @@ class FindFriendFragment :BaseFragment<MainPresenter>() {
         adapter = activity?.let { FindFriendAdapter(it, mList) }
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
-        recyclerView.addItemDecoration( TitleItemDecoration(activity, mList))
+//        recyclerView.addItemDecoration( TitleItemDecoration(activity, mList))
 
         initListener()
     }
