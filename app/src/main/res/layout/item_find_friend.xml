@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -62,7 +63,7 @@
             app:layout_constraintLeft_toLeftOf="@id/tvName"
             android:background="@color/gray"
             android:textColor="@color/gray2"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:layout_marginTop="5dp"
             android:padding="2dp"
             android:text="男"/>
@@ -74,7 +75,7 @@
         app:layout_constraintLeft_toRightOf="@id/tvGender"
         android:background="@color/gray"
         android:textColor="@color/gray2"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingTop="2dp"

@@ -1,11 +1,14 @@
 package com.chen.fakevibrato.ui.my.adapter
 
 import android.content.Context
+import android.graphics.Color
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.chen.fakevibrato.R
@@ -26,14 +29,20 @@ class FindFriendAdapter(var mContext : Context, private var mList : List<TitleBe
     }
 
     override fun getItemCount(): Int {
-       return 20
+       return mList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        var title = mList[position]
         Glide.with(mContext)
                 .load(R.mipmap.logo)
                 .circleCrop()
                 .into(holder.ivHead)
+        if (TextUtils.equals(title.initial,"new")){
+            holder.constraintLayout.setBackgroundColor(Color.parseColor("#24272C"))
+        }else {
+            holder.constraintLayout.setBackgroundColor(Color.parseColor("#1C1F28"))
+        }
     }
 
     class ViewHolder (view : View) : RecyclerView.ViewHolder(view){
@@ -44,6 +53,7 @@ class FindFriendAdapter(var mContext : Context, private var mList : List<TitleBe
         var tvGender : TextView = view.findViewById(R.id.tvGender)
         var tvCity : TextView = view.findViewById(R.id.tvCity)
         var tvSource : TextView = view.findViewById(R.id.tvSource)
+        var constraintLayout : ConstraintLayout = view.findViewById(R.id.constraintLayout)
 
 
     }

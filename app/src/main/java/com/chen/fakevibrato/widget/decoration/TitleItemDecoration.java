@@ -1,16 +1,28 @@
 package com.chen.fakevibrato.widget.decoration;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextUtils;
+import android.text.style.ImageSpan;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.bean.TitleBean;
+import com.chen.fakevibrato.utils.DisplayUtils;
+import com.qmuiteam.qmui.util.QMUIDrawableHelper;
 
 import java.util.List;
 
@@ -21,25 +33,35 @@ import java.util.List;
 
 public class TitleItemDecoration extends RecyclerView.ItemDecoration {
     private static final String TAG = "TitleItemDecoration";
+    private Context context;
     private List<TitleBean> mData;
     private Paint mPaint;
     private Rect mBounds;
 
     private int mTitleHeight;
-    private static int TITLE_BG_COLOR = Color.parseColor("#FFDFDFDF");
-    private static int TITLE_TEXT_COLOR = Color.parseColor("#FF000000");
+    private static int TITLE_BG_COLOR = Color.parseColor("#1C1F28");
+    private static int TITLE_BG_COLOR_NEW = Color.parseColor("#24272C");
+    private static int TITLE_TEXT_COLOR = Color.parseColor("#ABABAB");
     private static int mTitleTextSize;
+
+    private Rect mSrcRect, mDestRect;
+    private Paint mBitPaint;
 
 
     public TitleItemDecoration(Context context, List<TitleBean> data) {
         super();
+        this.context = context;
         mData = data;
         mPaint = new Paint();
         mBounds = new Rect();
         mTitleHeight = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 30, context.getResources().getDisplayMetrics());
-        mTitleTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, context.getResources().getDisplayMetrics());
+        mTitleTextSize = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, context.getResources().getDisplayMetrics());
         mPaint.setTextSize(mTitleTextSize);
         mPaint.setAntiAlias(true);
+
+        mBitPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mBitPaint.setFilterBitmap(true);
+        mBitPaint.setDither(true);
     }
 
     @Override
@@ -78,14 +100,33 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
      * @param position
      */
     private void drawTitle(Canvas c, int left, int right, View child, RecyclerView.LayoutParams params, int position) {
-        mPaint.setColor(TITLE_BG_COLOR);
-        c.drawRect(left, child.getTop() - params.topMargin - mTitleHeight, right, child.getTop() - params.topMargin, mPaint);
-        mPaint.setColor(TITLE_TEXT_COLOR);
 
-        mPaint.getTextBounds(mData.get(position).getInitial(), 0, mData.get(position).getInitial().length(), mBounds);
-        c.drawText(mData.get(position).getInitial(),
-                child.getPaddingLeft(),
-                child.getTop() - params.topMargin - (mTitleHeight / 2 - mBounds.height() / 2), mPaint);
+        mPaint.setColor(TextUtils.equals(mData.get(position).getInitial(), "new") ? TITLE_BG_COLOR_NEW : TITLE_BG_COLOR);
+        c.drawRect(left, child.getTop() - params.topMargin - mTitleHeight, right, child.getTop() - params.topMargin, mPaint);
+
+        mPaint.setColor(TITLE_TEXT_COLOR);
+        String str = TextUtils.equals(mData.get(position).getInitial(), "new") ? "新好友推荐" : "全部推荐";
+
+        mPaint.getTextBounds(str, 0, mData.get(position).getInitial().length(), mBounds);
+//        Paint.FontMetrics fontMetrics = mPaint.getFontMetrics();
+//        float height1 = fontMetrics.descent - fontMetrics.ascent;
+//        float height2 = fontMetrics.bottom - fontMetrics.top;
+        c.drawText(str,
+                child.getPaddingLeft() + DisplayUtils.dp2px(context, 15),
+                child.getTop() - params.topMargin - (mTitleHeight / 2 - mBounds.height() / 2  ) , mPaint);
+
+        if (!TextUtils.equals(mData.get(position).getInitial(), "new")){
+            Bitmap bitmap = QMUIDrawableHelper.drawableToBitmap(ContextCompat.getDrawable(context, R.mipmap.prompt));
+            int mBitWidth = bitmap.getWidth();
+            int mBitHeight = bitmap.getHeight();
+            mSrcRect = new Rect(0, 0, mBitWidth, mBitHeight);
+            float measuredWidth = mPaint.measureText(str);
+
+            int bitleft = (int) (child.getPaddingLeft() + DisplayUtils.dp2px(context, 15) + measuredWidth) + DisplayUtils.dp2px(context, 5);
+
+            mDestRect = new Rect(bitleft,  child.getTop() - params.topMargin - (mTitleHeight / 2 + mBitHeight / 2),bitleft + mBitWidth, child.getTop() - params.topMargin - (mTitleHeight / 2  + mBitHeight / 2) + mBitHeight);
+            c.drawBitmap(bitmap, mSrcRect, mDestRect  , mBitPaint);
+        }
     }
 
     /**

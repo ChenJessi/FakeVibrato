@@ -28,10 +28,24 @@ class FindFriendFragment :BaseFragment<MainPresenter>() {
     }
 
     override fun initView(view: View?) {
+        var bean = TitleBean()
+        bean.initial = "new";
+        var bean1 = TitleBean()
+        bean1.initial = "all";
+        mList.add(bean)
+        mList.add(bean)
+        mList.add(bean)
+        mList.add(bean1)
+        mList.add(bean1)
+        mList.add(bean1)
+        mList.add(bean1)
+        mList.add(bean1)
+        mList.add(bean1)
+        mList.add(bean1)
         adapter = activity?.let { FindFriendAdapter(it, mList) }
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
-//        recyclerView.addItemDecoration( TitleItemDecoration(activity, mList))
+        recyclerView.addItemDecoration( TitleItemDecoration(activity, mList))
 
         initListener()
     }
