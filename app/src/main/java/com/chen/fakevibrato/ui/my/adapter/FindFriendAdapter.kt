@@ -43,6 +43,17 @@ class FindFriendAdapter(var mContext : Context, private var mList : List<TitleBe
         }else {
             holder.constraintLayout.setBackgroundColor(Color.parseColor("#1C1F28"))
         }
+
+        holder.tvAttention.setOnClickListener {
+            onItemClickListener?.onAttention(position)
+        }
+
+        holder.ivClose.setOnClickListener {
+            onItemClickListener?.onClose(position)
+        }
+        holder.itemView.setOnClickListener {
+            onItemClickListener?.onItemClick(position)
+        }
     }
 
     class ViewHolder (view : View) : RecyclerView.ViewHolder(view){
@@ -60,6 +71,8 @@ class FindFriendAdapter(var mContext : Context, private var mList : List<TitleBe
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
+        fun onAttention(position: Int)
+        fun onClose(position: Int)
     }
 
 }

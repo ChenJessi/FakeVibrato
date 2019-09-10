@@ -61,7 +61,7 @@ class ContactActivity : BaseActivity<MainPresenter>() {
         tabLayout.setIndicatorDrawable(drawable)
         tabLayout.setupWithViewPager(viewPager, false)
         tabLayout.notifyDataChanged()
-        tabLayout.selectTab(0, true, true)
+        tabLayout.selectTab(1, true, true)
     }
 
     override fun initListener() {

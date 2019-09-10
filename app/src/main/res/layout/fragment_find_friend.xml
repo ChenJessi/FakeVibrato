@@ -22,7 +22,13 @@
         android:background="@color/white_20a"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/tvSearch"/>
+        app:layout_constraintRight_toLeftOf="@id/tvSearch"
+        android:textColorHint="@color/gray1"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:hint="搜索用户名/抖音号"/>
 
         <TextView
             android:id="@+id/tvSearch"

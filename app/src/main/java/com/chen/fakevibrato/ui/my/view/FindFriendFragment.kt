@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_find_friend.*
 class FindFriendFragment :BaseFragment<MainPresenter>() {
     var adapter : FindFriendAdapter? = null
     var mList = ArrayList<TitleBean>()
+    lateinit var titleItemDecoration : TitleItemDecoration
     override fun setView(): Int {
         return R.layout.fragment_find_friend
     }
@@ -45,7 +46,8 @@ class FindFriendFragment :BaseFragment<MainPresenter>() {
         adapter = activity?.let { FindFriendAdapter(it, mList) }
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = adapter
-        recyclerView.addItemDecoration( TitleItemDecoration(activity, mList))
+        titleItemDecoration = TitleItemDecoration(activity, mList)
+        recyclerView.addItemDecoration(titleItemDecoration)
 
         initListener()
     }
@@ -60,6 +62,16 @@ class FindFriendFragment :BaseFragment<MainPresenter>() {
 
     fun initListener(){
         adapter?.onItemClickListener = object : FindFriendAdapter.OnItemClickListener{
+            override fun onAttention(position: Int) {
+
+            }
+
+            override fun onClose(position: Int) {
+                mList.removeAt(position)
+                adapter?.notifyDataSetChanged()
+
+            }
+
             override fun onItemClick(position: Int) {
 
             }
