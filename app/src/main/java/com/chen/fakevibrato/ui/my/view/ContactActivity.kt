@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.chen.fakevibrato.R
 import com.chen.fakevibrato.base.BaseActivity
+import com.chen.fakevibrato.bean.ButtonBean
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeListFragment
@@ -15,6 +16,7 @@ import com.chen.fakevibrato.utils.DisplayUtils
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.QMUITabSegment
 import kotlinx.android.synthetic.main.activity_contact.*
+import org.greenrobot.eventbus.EventBus
 import java.util.ArrayList
 
 /**
@@ -70,5 +72,10 @@ class ContactActivity : BaseActivity<MainPresenter>() {
 
     override fun initData() {
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        EventBus.getDefault().post(ButtonBean("onBackPressed", "FindFriendFragment"))
     }
 }

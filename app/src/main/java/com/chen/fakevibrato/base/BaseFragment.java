@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment;
 
 import com.chen.fakevibrato.utils.MyLog;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -50,6 +52,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         View view = setView() == 0 ? null :inflater.inflate(setView(), container, false);
         //绑定到butterknife
         mUnbinder = ButterKnife.bind(this, view);
+
         mPresenter = initPresenter();
         if (mPresenter != null){
             mPresenter.attachView(this);

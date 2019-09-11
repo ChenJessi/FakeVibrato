@@ -5,11 +5,16 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chen.fakevibrato.R
 import com.chen.fakevibrato.base.BaseFragment
+import com.chen.fakevibrato.bean.ButtonBean
+import com.chen.fakevibrato.bean.SwipeBean
 import com.chen.fakevibrato.bean.TitleBean
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.my.adapter.FindFriendAdapter
+import com.chen.fakevibrato.utils.MyLog
 import com.chen.fakevibrato.widget.decoration.TitleItemDecoration
 import kotlinx.android.synthetic.main.fragment_find_friend.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * @author Created by CHEN on 2019/8/29
@@ -73,9 +78,19 @@ class FindFriendFragment :BaseFragment<MainPresenter>() {
             }
 
             override fun onItemClick(position: Int) {
-
+                edittext.clearFocus()
             }
 
         }
+
+        edittext.onFocusChangeListener = View.OnFocusChangeListener {
+            _, hasFocus -> MyLog.d("hasFocus  : $hasFocus")
+//            edittext.isFocused
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public fun buttonBean(buttonBean: ButtonBean){
+        MyLog.d("ButtonBean : $buttonBean")
     }
 }
