@@ -58,6 +58,7 @@ dependencies {
     implementation project(':IMLib')
 
     implementation 'com.contrarywind:Android-PickerView:4.1.8'
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.3.31"
 
 }
 repositories {

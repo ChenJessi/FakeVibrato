@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black1"
+    android:paddingBottom="15dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivHead"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="15dp"/>
+
+    <TextView
+        android:id="@+id/tvAttention"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="关注"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_radius_red"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivHead"
+        app:layout_constraintBottom_toBottomOf="@id/ivHead"
+        android:layout_marginRight="10dp"
+        android:textSize="13sp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"/>
+    <com.chen.fakevibrato.widget.emojiview.EmojiconTextView
+        android:id="@+id/tvName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/ivHead"
+        app:layout_constraintLeft_toRightOf="@id/ivHead"
+        app:layout_constraintRight_toLeftOf="@id/tvAttention"
+        app:layout_constraintBottom_toTopOf="@id/tvNickName"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:maxLines="1"
+        tools:text="哦哦哦"/>
+
+    <TextView
+        android:id="@+id/tvNickName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/tvName"
+        app:layout_constraintRight_toRightOf="@id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        app:layout_constraintBottom_toBottomOf="@id/ivHead"
+        android:maxLines="1"
+        android:textSize="13sp"
+        android:textColor="@color/gray1"
+        tools:text="哦哦哦"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.chen.fakevibrato.ui.my.view
 
 import android.graphics.Color
+import android.text.TextUtils
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -13,10 +14,14 @@ import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeListFragment
 import com.chen.fakevibrato.utils.DisplayUtils
+import com.chen.fakevibrato.utils.MyLog
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.widget.QMUITabSegment
 import kotlinx.android.synthetic.main.activity_contact.*
+import kotlinx.android.synthetic.main.fragment_find_friend.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.ArrayList
 
 /**
@@ -75,7 +80,22 @@ class ContactActivity : BaseActivity<MainPresenter>() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        EventBus.getDefault().post(ButtonBean("onBackPressed", "FindFriendFragment"))
+        if (hasFocus){
+            hasFocus = false
+            EventBus.getDefault().post(ButtonBean("onBackPressed", FindFriendFragment::class.simpleName.toString()))
+        }else{
+            super.onBackPressed()
+        }
+    }
+    var hasFocus = false
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public fun buttonBean(buttonBean: ButtonBean){
+        MyLog.d("ButtonBean : $buttonBean")
+        if (TextUtils.equals(buttonBean.type, "hasFocus")){
+            if (TextUtils.equals(buttonBean.position, TAG)){
+                hasFocus = true
+            }
+
+        }
     }
 }
