@@ -32,7 +32,7 @@ class PhoneContactAdapter(var mContext : Context, private var mList : List<Strin
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_TYPE_HEADER -> HeaderViewHolder(LayoutInflater.from(mContext).inflate(R.layout.header_phone, parent, false))
-            ITEM_TYPE_FOOTER -> ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.footer_phone, parent, false))
+            ITEM_TYPE_FOOTER -> FooterViewHolder(LayoutInflater.from(mContext).inflate(R.layout.footer_phone, parent, false))
             else -> ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_phone_contact, parent, false))
         }
     }
@@ -51,14 +51,15 @@ class PhoneContactAdapter(var mContext : Context, private var mList : List<Strin
         }
     }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        var data = mList[position]
 
         if (holder is  ViewHolder){
+            var data = mList[position - 1]
             Glide.with(mContext)
                     .load(R.mipmap.logo)
                     .circleCrop()
                     .into(holder.ivHead)
         }
+
         holder.itemView.setOnClickListener {
             onItemClickListener?.onItemClick(position)
         }
@@ -68,10 +69,10 @@ class PhoneContactAdapter(var mContext : Context, private var mList : List<Strin
         var ivHead : ImageView = view.findViewById(R.id.ivHead)
     }
     class HeaderViewHolder (view : View) : RecyclerView.ViewHolder(view)
+    class FooterViewHolder (view : View) : RecyclerView.ViewHolder(view)
     interface OnItemClickListener {
         fun onItemClick(position: Int)
         fun onAttention(position: Int)
-        fun onClose(position: Int)
     }
 
 }

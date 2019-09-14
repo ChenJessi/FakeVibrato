@@ -1,5 +1,6 @@
 package com.chen.fakevibrato.ui.my.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -141,6 +142,9 @@ class FindFriendFragment :BaseFragment<MainPresenter>() {
                 loadingView.visibility = VISIBLE
                 loadingView.start()
             }
+        }
+        ivContact.setOnClickListener {
+            startActivity(Intent(activity, PhoneContactActivity::class.java))
         }
     }
 

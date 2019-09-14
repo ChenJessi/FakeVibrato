@@ -44,7 +44,7 @@
         android:textSize="15sp"
         android:textColor="@color/white"
         android:maxLines="1"
-        tools:text="哦哦哦"/>
+        android:text="哦哦哦"/>
 
     <TextView
         android:id="@+id/tvNickName"
@@ -57,5 +57,5 @@
         android:maxLines="1"
         android:textSize="13sp"
         android:textColor="@color/gray1"
-        tools:text="哦哦哦"/>
+        android:text="哦哦哦"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
