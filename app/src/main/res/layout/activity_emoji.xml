@@ -31,6 +31,9 @@
             android:textColor="@color/gray"
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:lines="1"
+            android:background="@color/white"
+            android:textCursorDrawable="@drawable/yellow_cursor"
             android:layout_height="50dp" />
         <ImageView
             android:id="@+id/ivAt"

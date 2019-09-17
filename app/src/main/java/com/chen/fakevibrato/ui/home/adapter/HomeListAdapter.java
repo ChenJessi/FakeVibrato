@@ -98,6 +98,23 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
                 }
             }
         });
+        holder.tvReprinted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null){
+                    onItemClickListener.onReprinted(position);
+                }
+            }
+        });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (onItemClickListener != null){
+                    onItemClickListener.onItemLongClick(position);
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -235,6 +252,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHo
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+        void onItemLongClick(int position);
 
         //点赞
         void onLikes(int position);

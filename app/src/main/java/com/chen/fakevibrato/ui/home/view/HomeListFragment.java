@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
@@ -18,6 +19,8 @@ import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.CommentDialog;
 import com.chen.fakevibrato.widget.LoadingView;
 import com.chen.fakevibrato.widget.emojipanel.EmojiActivity;
+import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.ArrayList;
@@ -107,6 +110,11 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
             }
 
             @Override
+            public void onItemLongClick(int position) {
+
+            }
+
+            @Override
             public void onLikes(int position) {
 
             }
@@ -136,8 +144,60 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
 
             @Override
             public void onReprinted(int position) {
-
+                showSimpleBottomSheetGrid();
             }
         });
+    }
+
+
+    /**
+     * 底部弹窗
+     */
+    private void showSimpleBottomSheetGrid() {
+        final int TAG_SHARE_WECHAT_FRIEND = 0;
+        final int TAG_SHARE_WECHAT_MOMENT = 1;
+        final int TAG_SHARE_WEIBO = 2;
+        final int TAG_SHARE_CHAT = 3;
+        final int TAG_SHARE_LOCAL = 4;
+        QMUIBottomSheet.BottomGridSheetBuilder builder = new QMUIBottomSheet.BottomGridSheetBuilder(getActivity());
+        builder.addItem(R.mipmap.douyin, "分享到微信", TAG_SHARE_WECHAT_FRIEND, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.douyin, "分享到朋友圈", TAG_SHARE_WECHAT_MOMENT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.douyin, "分享到微博", TAG_SHARE_WEIBO, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.douyin, "分享到私信", TAG_SHARE_CHAT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.douyin, "分享到私信", TAG_SHARE_CHAT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.douyin, "分享到私信", TAG_SHARE_CHAT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.douyin, "分享到私信", TAG_SHARE_CHAT, QMUIBottomSheet.BottomGridSheetBuilder.FIRST_LINE)
+                .addItem(R.mipmap.douyin, "保存到本地", TAG_SHARE_LOCAL, QMUIBottomSheet.BottomGridSheetBuilder.SECOND_LINE)
+                .addItem(R.mipmap.douyin, "保存到本地", TAG_SHARE_LOCAL, QMUIBottomSheet.BottomGridSheetBuilder.SECOND_LINE)
+                .addItem(R.mipmap.douyin, "保存到本地", TAG_SHARE_LOCAL, QMUIBottomSheet.BottomGridSheetBuilder.SECOND_LINE)
+                .addItem(R.mipmap.douyin, "保存到本地", TAG_SHARE_LOCAL, QMUIBottomSheet.BottomGridSheetBuilder.SECOND_LINE)
+                .addItem(R.mipmap.douyin, "保存到本地", TAG_SHARE_LOCAL, QMUIBottomSheet.BottomGridSheetBuilder.SECOND_LINE)
+
+                .setOnSheetItemClickListener(new QMUIBottomSheet.BottomGridSheetBuilder.OnSheetItemClickListener() {
+                    @Override
+                    public void onClick(QMUIBottomSheet dialog, View itemView) {
+                        dialog.dismiss();
+                        int tag = (int) itemView.getTag();
+                        switch (tag) {
+                            case TAG_SHARE_WECHAT_FRIEND:
+                                Toast.makeText(getActivity(), "分享到微信", Toast.LENGTH_SHORT).show();
+                                break;
+                            case TAG_SHARE_WECHAT_MOMENT:
+                                Toast.makeText(getActivity(), "分享到朋友圈", Toast.LENGTH_SHORT).show();
+                                break;
+                            case TAG_SHARE_WEIBO:
+                                Toast.makeText(getActivity(), "分享到微博", Toast.LENGTH_SHORT).show();
+                                break;
+                            case TAG_SHARE_CHAT:
+                                Toast.makeText(getActivity(), "分享到私信", Toast.LENGTH_SHORT).show();
+                                break;
+                            case TAG_SHARE_LOCAL:
+                                Toast.makeText(getActivity(), "保存到本地", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                    }
+                }).build().show();
+
+
     }
 }
