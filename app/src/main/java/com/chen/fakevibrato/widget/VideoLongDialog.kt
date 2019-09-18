@@ -2,37 +2,29 @@ package com.chen.fakevibrato.widget
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.TypedValue
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.IntDef
 import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat
-import com.qmuiteam.qmui.R
-import com.qmuiteam.qmui.util.QMUIDisplayHelper
-import com.qmuiteam.qmui.widget.QMUILoadingView
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
+import com.chen.fakevibrato.R
+import com.chen.fakevibrato.widget.anim.AnimtorUtils
+
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 
 /**
  * 长按弹窗
  */
-class VideoLongDialog @JvmOverloads constructor(context: Context, themeResId: Int = R.style.QMUI_TipDialog) : Dialog(context, themeResId) {
+class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.QMUI_TipDialog) : Dialog(context, themeResId) {
 
     init {
         setCanceledOnTouchOutside(false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initDialogWidth()
     }
@@ -42,12 +34,14 @@ class VideoLongDialog @JvmOverloads constructor(context: Context, themeResId: In
         if (window != null) {
             val wmLp = window.attributes
             wmLp.width = ViewGroup.LayoutParams.MATCH_PARENT
+            wmLp.height = ViewGroup.LayoutParams.MATCH_PARENT
             window.attributes = wmLp
+            window.setWindowAnimations(R.style.dialog_style)
         }
     }
 
     /**
-     * 生成默认的 [QMUITipDialog]
+     * 生成默认的 [VideoLongDialog]
      *
      *
      * 提供了一个图标和一行文字的样式, 其中图标有几种类型可选。见 [IconType]
@@ -91,55 +85,72 @@ class VideoLongDialog @JvmOverloads constructor(context: Context, themeResId: In
          * @return 创建的 Dialog
          */
         @JvmOverloads
-        fun create(cancelable: Boolean = true): QMUITipDialog {
-            val dialog = QMUITipDialog(mContext)
+        fun create(cancelable: Boolean = true): VideoLongDialog {
+            val dialog = VideoLongDialog(mContext)
             dialog.setCancelable(cancelable)
-            dialog.setContentView(R.layout.qmui_tip_dialog_layout)
+            dialog.setContentView(R.layout.dialog_video_long)
+//            dialog.setContentView(R.layout.qmui_tip_dialog_layout)
             val contentWrap = dialog.findViewById<View>(R.id.contentWrap) as ViewGroup
-
-            if (mCurrentIconType == ICON_TYPE_LOADING) {
-                val loadingView = QMUILoadingView(mContext)
-                loadingView.setColor(Color.WHITE)
-                loadingView.setSize(QMUIDisplayHelper.dp2px(mContext, 32))
-                val loadingViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                loadingView.layoutParams = loadingViewLP
-                contentWrap.addView(loadingView)
-
-            } else if (mCurrentIconType == ICON_TYPE_SUCCESS || mCurrentIconType == ICON_TYPE_FAIL || mCurrentIconType == ICON_TYPE_INFO) {
-                val imageView = ImageView(mContext)
-                val imageViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                imageView.layoutParams = imageViewLP
-
-                if (mCurrentIconType == ICON_TYPE_SUCCESS) {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_done))
-                } else if (mCurrentIconType == ICON_TYPE_FAIL) {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_error))
-                } else {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_info))
-                }
-
-                contentWrap.addView(imageView)
-
+            val  textView = dialog.findViewById<View>(R.id.textView) as TextView
+            contentWrap.setOnClickListener {
+                dialog.dismiss()
+            }
+            dialog.setOnShowListener{
+                AnimtorUtils.translation(textView, 0f, 100f, 300, 0).start()
+            }
+            dialog.setOnDismissListener {
+                AnimtorUtils.translation(textView, 100f, 0f, 300, 0).start()
             }
 
-            if (mTipWord != null && mTipWord!!.length > 0) {
-                val tipView = TextView(mContext)
-                val tipViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-
-                if (mCurrentIconType != ICON_TYPE_NOTHING) {
-                    tipViewLP.topMargin = QMUIDisplayHelper.dp2px(mContext, 12)
-                }
-                tipView.layoutParams = tipViewLP
-
-                tipView.ellipsize = TextUtils.TruncateAt.END
-                tipView.gravity = Gravity.CENTER
-                tipView.maxLines = 2
-                tipView.setTextColor(ContextCompat.getColor(mContext, R.color.qmui_config_color_white))
-                tipView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                tipView.text = mTipWord
-
-                contentWrap.addView(tipView)
-            }
+//
+//            if (mCurrentIconType == ICON_TYPE_LOADING) {
+//                val loadingView = QMUILoadingView(mContext)
+//                loadingView.setColor(Color.WHITE)
+//                loadingView.setSize(QMUIDisplayHelper.dp2px(mContext, 32))
+//
+////              val loadingView = LoadingView(mContext)
+////              loadingView.start()
+//                val loadingViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+//                loadingView.layoutParams = loadingViewLP
+//
+//
+//                contentWrap.addView(loadingView)
+//
+//            } else if (mCurrentIconType == ICON_TYPE_SUCCESS || mCurrentIconType == ICON_TYPE_FAIL || mCurrentIconType == ICON_TYPE_INFO) {
+//                val imageView = ImageView(mContext)
+//                val imageViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+//                imageView.layoutParams = imageViewLP
+//
+//                if (mCurrentIconType == ICON_TYPE_SUCCESS) {
+//                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_done))
+//                } else if (mCurrentIconType == ICON_TYPE_FAIL) {
+//                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_error))
+//                } else {
+//                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_info))
+//                }
+//
+//                contentWrap.addView(imageView)
+//
+//            }
+//
+//            if (mTipWord != null && mTipWord!!.isNotEmpty()) {
+//                val tipView = TextView(mContext)
+//                val tipViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+//
+//                if (mCurrentIconType != ICON_TYPE_NOTHING) {
+//                    tipViewLP.topMargin = QMUIDisplayHelper.dp2px(mContext, 12)
+//                }
+//                tipView.layoutParams = tipViewLP
+//
+//                tipView.ellipsize = TextUtils.TruncateAt.END
+//                tipView.gravity = Gravity.CENTER
+//                tipView.maxLines = 2
+//                tipView.setTextColor(ContextCompat.getColor(mContext, R.color.qmui_config_color_white))
+//                tipView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+//                tipView.text = mTipWord
+//
+//                contentWrap.addView(tipView)
+//            }
             return dialog
         }
 
@@ -184,8 +195,8 @@ class VideoLongDialog @JvmOverloads constructor(context: Context, themeResId: In
          *
          * @return 创建的 Dialog
          */
-        fun create(): QMUITipDialog {
-            val dialog = QMUITipDialog(mContext)
+        fun create(): VideoLongDialog {
+            val dialog = VideoLongDialog(mContext)
             dialog.setContentView(R.layout.qmui_tip_dialog_layout)
             val contentWrap = dialog.findViewById<View>(R.id.contentWrap) as ViewGroup
             LayoutInflater.from(mContext).inflate(mContentLayoutId, contentWrap, true)

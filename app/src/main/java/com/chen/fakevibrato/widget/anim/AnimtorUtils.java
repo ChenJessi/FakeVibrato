@@ -12,9 +12,17 @@ import android.view.animation.LinearInterpolator;
 public class AnimtorUtils {
 
     public static ObjectAnimator alpha(View view, float from, float to, long time, long delayTime) {
-        ObjectAnimator translation = ObjectAnimator.ofFloat(view
+        ObjectAnimator alpha = ObjectAnimator.ofFloat(view
                 , "alpha"
                 , from, to);
+        alpha.setInterpolator(new LinearInterpolator());
+        alpha.setStartDelay(delayTime);
+        alpha.setDuration(time);
+        return alpha;
+    }
+
+    public static ObjectAnimator translation(View view, float from, float to, long time, long delayTime)  {
+        ObjectAnimator translation = ObjectAnimator.ofFloat(view, "translationY", 0f, 1000f);
         translation.setInterpolator(new LinearInterpolator());
         translation.setStartDelay(delayTime);
         translation.setDuration(time);

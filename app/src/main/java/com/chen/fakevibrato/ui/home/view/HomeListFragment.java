@@ -18,6 +18,7 @@ import com.chen.fakevibrato.ui.home.presenter.HomeListPresenter;
 import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.CommentDialog;
 import com.chen.fakevibrato.widget.LoadingView;
+import com.chen.fakevibrato.widget.VideoLongDialog;
 import com.chen.fakevibrato.widget.emojipanel.EmojiActivity;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
@@ -111,7 +112,11 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
 
             @Override
             public void onItemLongClick(int position) {
-
+                VideoLongDialog videoLongDialog =  new VideoLongDialog.Builder(getContext())
+                        .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                        .setTipWord("正在加载")
+                        .create();
+                    videoLongDialog.show();
             }
 
             @Override
