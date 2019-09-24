@@ -4,13 +4,17 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.chen.fakevibrato.im.IMManager;
+import com.chen.fakevibrato.tangram.CustomHolderCell;
+import com.chen.fakevibrato.tangram.CustomViewHolder;
 import com.chen.fakevibrato.widget.glide.GlideApp;
 import com.tmall.wireless.tangram.TangramBuilder;
+import com.tmall.wireless.tangram.structure.viewcreator.ViewHolderCreator;
 import com.tmall.wireless.tangram.util.IInnerImageSetter;
 
 import io.rong.imkit.RongIM;

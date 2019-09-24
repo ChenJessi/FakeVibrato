@@ -1,18 +1,23 @@
 package com.chen.fakevibrato.ui.home.view
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.chen.fakevibrato.R
 import com.chen.fakevibrato.base.BaseActivity
-import com.chen.fakevibrato.tangram.CustomAnnotationView
-import com.chen.fakevibrato.tangram.CustomClickSupport
-import com.chen.fakevibrato.tangram.CustomInterfaceView
+import com.chen.fakevibrato.tangram.*
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.widget.glide.GlideApp
 import com.tmall.wireless.tangram.TangramBuilder
+import com.tmall.wireless.tangram.structure.viewcreator.ViewHolderCreator
 import com.tmall.wireless.tangram.support.ExposureSupport
 import com.tmall.wireless.tangram.support.SimpleClickSupport
 import com.tmall.wireless.tangram.support.async.CardLoadSupport
 import com.tmall.wireless.tangram.util.IInnerImageSetter
+import com.chen.fakevibrato.tangram.CustomViewHolder
+import com.chen.fakevibrato.tangram.CustomHolderCell
+
+
 
 /**
  * @author Created by CHEN on 2019/9/14
@@ -56,11 +61,12 @@ class SearchActivity : BaseActivity<MainPresenter>(){
 
         builder.registerCell("InterfaceCell", CustomInterfaceView::class.java)
         builder.registerCell("AnnotationCell", CustomAnnotationView::class.java)
-//        builder.registerCell("CustomCell", CustomCell::class.java, CustomCellView::class.java)
-//        builder.registerCell("HolderCell", CustomHolderCell::class.java,
-//                ViewHolderCreator(R.layout.item_holder, CustomViewHolder::class.java,
-//                        TextView::class.java))
-//        builder.registerCell("NoBackground", NoBackgroundView::class.java)
+        builder.registerCell("CustomCell", CustomCell::class.java, CustomCellView::class.java)
+
+        builder.registerCell<View>("HolderCell", CustomHolderCell::class.java,
+                ViewHolderCreator(R.layout.item_holder_tangram, CustomViewHolder::class.java,
+                        TextView::class.java))
+        builder.registerCell("NoBackground", NoBackgroundView::class.java)
 
 
 
