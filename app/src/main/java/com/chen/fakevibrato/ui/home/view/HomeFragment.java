@@ -1,46 +1,37 @@
 package com.chen.fakevibrato.ui.home.view;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.InputType;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextPaint;
 import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.chen.fakevibrato.MainActivity;
 import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.base.BaseFragment;
 import com.chen.fakevibrato.bean.SwipeBean;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
 import com.chen.fakevibrato.ui.home.presenter.HomePresenter;
-import com.chen.fakevibrato.ui.my.view.UserFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.MyLog;
-import com.daimajia.swipe.SwipeLayout;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.time.format.TextStyle;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -64,6 +55,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     CommonTabLayout mTabLayout;
     @BindView(R.id.tablayout)
     QMUITabSegment tablayout;
+    @BindView(R.id.view)
+    View view;
+    @BindView(R.id.swipeLayout)
+    ConstraintLayout swipeLayout;
 
     private MyPagerAdapter adapter;
 
@@ -86,7 +81,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         mFragments.add(new HomeListFragment());
         adapter = new MyPagerAdapter(getChildFragmentManager(), mFragments);
         viewPager.setAdapter(adapter);
-        ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(DisplayUtils.dp2px(getActivity(), 120),DisplayUtils.dp2px(getActivity(), 48));
+        ConstraintLayout.LayoutParams lp = new ConstraintLayout.LayoutParams(DisplayUtils.dp2px(getActivity(), 120), DisplayUtils.dp2px(getActivity(), 48));
         lp.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
         lp.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID;
         lp.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID;
@@ -157,6 +152,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             case R.id.tvRandom:
                 break;
             case R.id.ivSearch:
+                startActivity(new Intent(getActivity(), SearchActivity.class));
                 break;
             case R.id.ivLive:
                 break;
@@ -207,7 +203,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
             @Override
             public void onPageSelected(int position) {
-                MyLog.d("position : "+position);
+                MyLog.d("position : " + position);
                 EventBus.getDefault().post(new SwipeBean(position));
             }
 

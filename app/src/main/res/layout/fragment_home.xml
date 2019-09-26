@@ -73,7 +73,7 @@
     </com.qmuiteam.qmui.widget.QMUITabSegment>
 
     <ImageView
-        android:id="@+id/ivSearch"
+        android:id="@+id/ivLive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
@@ -83,13 +83,14 @@
         app:layout_constraintTop_toTopOf="@id/tablayout" />
 
     <ImageView
-        android:id="@+id/ivLive"
+
+        android:id="@+id/ivSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="15dp"
         android:background="@mipmap/search"
         app:layout_constraintBottom_toBottomOf="@id/tablayout"
-        app:layout_constraintRight_toLeftOf="@id/ivSearch"
+        app:layout_constraintRight_toLeftOf="@id/ivLive"
         app:layout_constraintTop_toTopOf="@id/tablayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

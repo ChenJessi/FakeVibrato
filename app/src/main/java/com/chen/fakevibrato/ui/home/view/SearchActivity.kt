@@ -5,11 +5,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.recyclerview.widget.RecyclerView
 import com.chen.fakevibrato.R
 import com.chen.fakevibrato.base.BaseActivity
 import com.chen.fakevibrato.tangram.*
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
-import com.chen.fakevibrato.widget.glide.GlideApp
+
 import com.tmall.wireless.tangram.TangramBuilder
 import com.tmall.wireless.tangram.structure.viewcreator.ViewHolderCreator
 import com.tmall.wireless.tangram.support.async.CardLoadSupport
@@ -25,13 +26,15 @@ import com.tmall.wireless.tangram.support.async.AsyncPageLoader
 import com.tmall.wireless.vaf.framework.VafContext
 import com.bumptech.glide.Glide
 import com.chen.fakevibrato.widget.glide.ImageTarget
+import com.tmall.wireless.tangram.TangramEngine
 import com.tmall.wireless.vaf.virtualview.Helper.ImageLoader
 import com.tmall.wireless.vaf.virtualview.view.image.ImageBase
 import com.tmall.wireless.vaf.virtualview.event.EventData
 import com.tmall.wireless.vaf.virtualview.event.IEventProcessor
 import com.tmall.wireless.vaf.virtualview.event.EventManager
-
-
+import kotlinx.android.synthetic.main.activity_search.*
+import org.json.JSONArray
+import org.json.JSONException as JSONException1
 
 
 /**
@@ -40,6 +43,7 @@ import com.tmall.wireless.vaf.virtualview.event.EventManager
  * 搜索
  */
 class SearchActivity : BaseActivity<MainPresenter>(){
+    lateinit var mEngine : TangramEngine
     override fun getLayoutId(): Int {
         return R.layout.activity_search
     }
@@ -67,7 +71,7 @@ class SearchActivity : BaseActivity<MainPresenter>(){
             override fun <IMAGE : ImageView> doLoadImageUrl(view: IMAGE,
                                                             url: String?) {
                 //加载图片
-                GlideApp.with(this@SearchActivity).load(url).into(view)
+                Glide.with(this@SearchActivity).load(url).into(view)
             }
         }, ImageView::class.java)
 
@@ -86,10 +90,10 @@ class SearchActivity : BaseActivity<MainPresenter>(){
         // 注册 VirtualView 版本的 Tangram 组件
         builder.registerVirtualView<View>("VVTest");
         // 生成TangramEngine实例
-        val mEngine = builder.build()
+         mEngine = builder.build()
         // 加载VirtualView模板数据
 //        mEngine.setVirtualViewTemplate(VVTEST.BIN);
-        mEngine.setVirtualViewTemplate(AssetsUtils.getAssetsFile(this, "VVTest.out"))
+        mEngine?.setVirtualViewTemplate(AssetsUtils.getAssetsFile(this, "VVTest.out"))
         // 绑定业务 support 类到 engine
         // 处理点击
         mEngine.addSimpleClickSupport(CustomClickSupport())
@@ -146,8 +150,42 @@ class SearchActivity : BaseActivity<MainPresenter>(){
             MyLog.d(TAG + "Exposure process: " + data.mVB.viewCache.componentData)
             true
         }
+
+          // 绑定 recyclerView
+        mEngine.bindView(recyclerView);
+        // 监听 recyclerView 的滚动事件
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                mEngine.onScrolled()
+            }
+        })
+
+        // 设置悬浮类型布局的偏移（可选）
+        mEngine.layoutManager.setFixOffset(0, 40, 0, 0)
+        // 设置卡片预加载的偏移量（可选）
+        mEngine.setPreLoadNumber(3)
+        // 加载数据并传递给 engine
+        val bytes = AssetsUtils.getAssetsFile(this, "data.json")
+        if (bytes != null) {
+            val json = String(bytes)
+            try {
+                val data = JSONArray(json)
+                mEngine.setData(data)
+            } catch (e: JSONException1) {
+                e.printStackTrace()
+            }
+
+        }
+
 //        mEngine.register(SimpleClickSupport::class.java,  CustomClickSupport());
 //        engine.register(CardLoadSupport::class.java,  XXCardLoadSupport());
 //        engine.register(ExposureSupport::class.java,  XXExposureSuport());
     }
+
+    override fun onDestroy() {
+        mEngine.destroy()
+        super.onDestroy()
+    }
+
 }

@@ -17,6 +17,10 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:name=".ui.home.view.SearchActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"></activity>
+        <activity
             android:name=".ui.my.view.ContactActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"></activity>
