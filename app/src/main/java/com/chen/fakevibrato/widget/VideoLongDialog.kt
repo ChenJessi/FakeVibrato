@@ -1,15 +1,24 @@
 package com.chen.fakevibrato.widget
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.IntDef
 import androidx.annotation.LayoutRes
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.chen.fakevibrato.R
+import com.chen.fakevibrato.utils.DisplayUtils
+import com.chen.fakevibrato.utils.ToastUtils
 import com.chen.fakevibrato.widget.anim.AnimtorUtils
 
 import java.lang.annotation.Retention
@@ -43,41 +52,10 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
     /**
      * 生成默认的 [VideoLongDialog]
      *
-     *
-     * 提供了一个图标和一行文字的样式, 其中图标有几种类型可选。见 [IconType]
-     *
-     *
      * @see CustomBuilder
      */
     class Builder(private val mContext: Context) {
-
-        @IconType
-        private var mCurrentIconType = ICON_TYPE_NOTHING
-
-        private var mTipWord: CharSequence? = null
-
-        @IntDef(ICON_TYPE_NOTHING, ICON_TYPE_LOADING, ICON_TYPE_SUCCESS, ICON_TYPE_FAIL, ICON_TYPE_INFO)
-        @Retention(RetentionPolicy.SOURCE)
-        annotation class IconType
-
-        /**
-         * 设置 icon 显示的内容
-         *
-         * @see IconType
-         */
-        fun setIconType(@IconType iconType: Int): Builder {
-            mCurrentIconType = iconType
-            return this
-        }
-
-        /**
-         * 设置显示的文案
-         */
-        fun setTipWord(tipWord: CharSequence): Builder {
-            mTipWord = tipWord
-            return this
-        }
-
+        private lateinit var ev : MotionEvent ;
         /**
          * 创建 Dialog, 但没有弹出来, 如果要弹出来, 请调用返回值的 [Dialog.show] 方法
          *
@@ -89,19 +67,53 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
             val dialog = VideoLongDialog(mContext)
             dialog.setCancelable(cancelable)
             dialog.setContentView(R.layout.dialog_video_long)
-//            dialog.setContentView(R.layout.qmui_tip_dialog_layout)
             val contentWrap = dialog.findViewById<View>(R.id.contentWrap) as ViewGroup
-            val  textView = dialog.findViewById<View>(R.id.textView) as TextView
+            val ivSave = dialog.findViewById<View>(R.id.ivSave) as ImageView
+            val ivCollect = dialog.findViewById<View>(R.id.ivCollect) as ImageView
+            val ivDislike = dialog.findViewById<View>(R.id.ivDislike) as ImageView
+            val  constraintLayout = dialog.findViewById<View>(R.id.constraintLayout) as ConstraintLayout
+
+            val  sHeight = DisplayUtils.getScreenHeight(mContext);
+            var start  = 0f
+            var stop  = 0f
+            if (ev.y < sHeight / 4){
+                start = (sHeight / 2).toFloat()
+                stop = (sHeight / 4).toFloat()
+            }else if (ev.y < sHeight / 2){
+                start = (sHeight / 4).toFloat()
+                stop = (sHeight / 2).toFloat()
+            }else if (ev.y < sHeight / 4 * 3){
+                start = (sHeight / 4 * 3).toFloat()
+                stop = (sHeight / 2).toFloat()
+            }else{
+                start = (sHeight / 2).toFloat()
+                stop = (sHeight / 4 * 3).toFloat()
+            }
+            start -= 100f
+            stop -= 300f
             contentWrap.setOnClickListener {
-                dialog.dismiss()
+//                dialog.dismiss()
+                var anim  = AnimtorUtils.translationY(constraintLayout, stop, start, 300, 0)
+                anim.addListener(object : AnimatorListenerAdapter(){
+                    override fun onAnimationEnd(animation: Animator?) {
+                        dialog.dismiss()
+                    }
+                })
+                anim.start()
             }
             dialog.setOnShowListener{
-                AnimtorUtils.translation(textView, 0f, 100f, 300, 0).start()
-            }
-            dialog.setOnDismissListener {
-                AnimtorUtils.translation(textView, 100f, 0f, 300, 0).start()
+                AnimtorUtils.translationY(constraintLayout, start, stop, 300, 0).start()
             }
 
+            ivSave.setOnClickListener {
+                Toast.makeText(mContext, "保存到本地", Toast.LENGTH_SHORT).show()
+            }
+            ivCollect.setOnClickListener {
+                Toast.makeText(mContext, "收藏", Toast.LENGTH_SHORT).show()
+            }
+            ivDislike.setOnClickListener {
+                Toast.makeText(mContext, "不感兴趣", Toast.LENGTH_SHORT).show()
+            }
 //
 //            if (mCurrentIconType == ICON_TYPE_LOADING) {
 //                val loadingView = QMUILoadingView(mContext)
@@ -154,53 +166,13 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
             return dialog
         }
 
-        companion object {
-            /**
-             * 不显示任何icon
-             */
-            const val ICON_TYPE_NOTHING = 0
-            /**
-             * 显示 Loading 图标
-             */
-            const val ICON_TYPE_LOADING = 1
-            /**
-             * 显示成功图标
-             */
-            const val ICON_TYPE_SUCCESS = 2
-            /**
-             * 显示失败图标
-             */
-            const val ICON_TYPE_FAIL = 3
-            /**
-             * 显示信息图标
-             */
-            const val ICON_TYPE_INFO = 4
-        }
-
-    }
-
-    /**
-     * 传入自定义的布局并使用这个布局生成 TipDialog
-     */
-    class CustomBuilder(private val mContext: Context) {
-        private var mContentLayoutId: Int = 0
-
-        fun setContent(@LayoutRes layoutId: Int): CustomBuilder {
-            mContentLayoutId = layoutId
+        public  fun setEvent(ev : MotionEvent): Builder {
+            this.ev = ev
             return this
         }
+        companion object {
 
-        /**
-         * 创建 Dialog, 但没有弹出来, 如果要弹出来, 请调用返回值的 [Dialog.show] 方法
-         *
-         * @return 创建的 Dialog
-         */
-        fun create(): VideoLongDialog {
-            val dialog = VideoLongDialog(mContext)
-            dialog.setContentView(R.layout.qmui_tip_dialog_layout)
-            val contentWrap = dialog.findViewById<View>(R.id.contentWrap) as ViewGroup
-            LayoutInflater.from(mContext).inflate(mContentLayoutId, contentWrap, true)
-            return dialog
         }
+
     }
 }

@@ -3,6 +3,7 @@ package com.chen.fakevibrato.ui.home.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,8 +25,11 @@ import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 
@@ -46,6 +50,7 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
 
     private CommentDialog.Builder builder;
     LoadingView loadingView;
+    private MotionEvent event;
     @Override
     protected int setView() {
         return R.layout.fragment_home_list;
@@ -104,6 +109,7 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
     }
 
     private void initListener(){
+
         adapter.setOnItemClickListener(new HomeListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
@@ -113,8 +119,7 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
             @Override
             public void onItemLongClick(int position) {
                 VideoLongDialog videoLongDialog =  new VideoLongDialog.Builder(getContext())
-                        .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
-                        .setTipWord("正在加载")
+                        .setEvent(event)
                         .create();
                     videoLongDialog.show();
             }
@@ -153,6 +158,12 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
             }
         });
     }
+
+    @Subscribe
+    public void getEvent(MotionEvent ev){
+        event = ev;
+    }
+
 
 
     /**

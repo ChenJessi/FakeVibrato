@@ -21,8 +21,8 @@ public class AnimtorUtils {
         return alpha;
     }
 
-    public static ObjectAnimator translation(View view, float from, float to, long time, long delayTime)  {
-        ObjectAnimator translation = ObjectAnimator.ofFloat(view, "translationY", 0f, 1000f);
+    public static ObjectAnimator translationY(View view, float from, float to, long time, long delayTime)  {
+        ObjectAnimator translation = ObjectAnimator.ofFloat(view, "translationY", from, to);
         translation.setInterpolator(new LinearInterpolator());
         translation.setStartDelay(delayTime);
         translation.setDuration(time);

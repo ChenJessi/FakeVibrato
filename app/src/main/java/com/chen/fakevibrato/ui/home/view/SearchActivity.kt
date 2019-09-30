@@ -143,6 +143,7 @@ class SearchActivity : BaseActivity<MainPresenter>(){
 
         // 注册VirtualView事件处理器
         vafContext.eventManager.register(EventManager.TYPE_Click) { data ->
+            MyLog.e("eventManager :    "  + data.mVB)
             Toast.makeText(this@SearchActivity, data.mVB.action, Toast.LENGTH_SHORT).show()
             true
         }

@@ -3,6 +3,7 @@ package com.chen.fakevibrato;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextPaint;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,6 +28,7 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -258,6 +260,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         super.onBackPressed();
     }
 
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() == MotionEvent.ACTION_DOWN){
+            EventBus.getDefault().post(ev);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
     /**
      * 右滑view
