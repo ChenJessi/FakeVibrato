@@ -10,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -77,23 +79,23 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
             var start  = 0f
             var stop  = 0f
             if (ev.y < sHeight / 4){
-                start = (sHeight / 2).toFloat()
                 stop = (sHeight / 4).toFloat()
+                start = stop + 300
             }else if (ev.y < sHeight / 2){
-                start = (sHeight / 4).toFloat()
                 stop = (sHeight / 2).toFloat()
+                start = stop - 300
             }else if (ev.y < sHeight / 4 * 3){
-                start = (sHeight / 4 * 3).toFloat()
                 stop = (sHeight / 2).toFloat()
+                start = stop + 300
             }else{
-                start = (sHeight / 2).toFloat()
                 stop = (sHeight / 4 * 3).toFloat()
+                start = stop - 300
             }
             start -= 100f
             stop -= 300f
             contentWrap.setOnClickListener {
 //                dialog.dismiss()
-                var anim  = AnimtorUtils.translationY(constraintLayout, stop, start, 300, 0)
+                var anim  = AnimtorUtils.translationY(constraintLayout, stop, start, 300, 0, AccelerateInterpolator())
                 anim.addListener(object : AnimatorListenerAdapter(){
                     override fun onAnimationEnd(animation: Animator?) {
                         dialog.dismiss()
@@ -102,7 +104,7 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
                 anim.start()
             }
             dialog.setOnShowListener{
-                AnimtorUtils.translationY(constraintLayout, start, stop, 300, 0).start()
+                AnimtorUtils.translationY(constraintLayout, start, stop, 300, 0, DecelerateInterpolator()).start()
             }
 
             ivSave.setOnClickListener {
@@ -114,55 +116,10 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
             ivDislike.setOnClickListener {
                 Toast.makeText(mContext, "不感兴趣", Toast.LENGTH_SHORT).show()
             }
-//
-//            if (mCurrentIconType == ICON_TYPE_LOADING) {
-//                val loadingView = QMUILoadingView(mContext)
-//                loadingView.setColor(Color.WHITE)
-//                loadingView.setSize(QMUIDisplayHelper.dp2px(mContext, 32))
-//
-////              val loadingView = LoadingView(mContext)
-////              loadingView.start()
-//                val loadingViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-//                loadingView.layoutParams = loadingViewLP
-//
-//
-//                contentWrap.addView(loadingView)
-//
-//            } else if (mCurrentIconType == ICON_TYPE_SUCCESS || mCurrentIconType == ICON_TYPE_FAIL || mCurrentIconType == ICON_TYPE_INFO) {
-//                val imageView = ImageView(mContext)
-//                val imageViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-//                imageView.layoutParams = imageViewLP
-//
-//                if (mCurrentIconType == ICON_TYPE_SUCCESS) {
-//                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_done))
-//                } else if (mCurrentIconType == ICON_TYPE_FAIL) {
-//                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_error))
-//                } else {
-//                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_info))
-//                }
-//
-//                contentWrap.addView(imageView)
-//
-//            }
-//
-//            if (mTipWord != null && mTipWord!!.isNotEmpty()) {
-//                val tipView = TextView(mContext)
-//                val tipViewLP = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-//
-//                if (mCurrentIconType != ICON_TYPE_NOTHING) {
-//                    tipViewLP.topMargin = QMUIDisplayHelper.dp2px(mContext, 12)
-//                }
-//                tipView.layoutParams = tipViewLP
-//
-//                tipView.ellipsize = TextUtils.TruncateAt.END
-//                tipView.gravity = Gravity.CENTER
-//                tipView.maxLines = 2
-//                tipView.setTextColor(ContextCompat.getColor(mContext, R.color.qmui_config_color_white))
-//                tipView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-//                tipView.text = mTipWord
-//
-//                contentWrap.addView(tipView)
-//            }
+
+            dialog.setOnDismissListener {
+                return@setOnDismissListener
+            }
             return dialog
         }
 
@@ -173,6 +130,10 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
         companion object {
 
         }
+    }
 
+    override fun dismiss() {
+
+        super.dismiss()
     }
 }

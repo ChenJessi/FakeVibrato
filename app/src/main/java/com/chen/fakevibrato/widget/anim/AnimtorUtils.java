@@ -2,6 +2,7 @@ package com.chen.fakevibrato.widget.anim;
 
 import android.animation.ObjectAnimator;
 import android.view.View;
+import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 
 /**
@@ -21,9 +22,9 @@ public class AnimtorUtils {
         return alpha;
     }
 
-    public static ObjectAnimator translationY(View view, float from, float to, long time, long delayTime)  {
+    public static ObjectAnimator translationY(View view, float from, float to, long time, long delayTime, Interpolator interpolator)  {
         ObjectAnimator translation = ObjectAnimator.ofFloat(view, "translationY", from, to);
-        translation.setInterpolator(new LinearInterpolator());
+        translation.setInterpolator(interpolator);
         translation.setStartDelay(delayTime);
         translation.setDuration(time);
         return translation;
