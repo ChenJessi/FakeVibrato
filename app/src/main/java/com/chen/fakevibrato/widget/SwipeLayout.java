@@ -757,10 +757,16 @@ public class SwipeLayout extends FrameLayout {
         }
         super.addView(child, index, params);
     }
-
+    private boolean isFirst = true;
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        updateBottomViews();
+        MyLog.e(" onLayout :  " + changed + "  "+l + " r "+ r +"  b "+b);
+        if (getOpenStatus() == Status.Close){
+//            if (isFirst){
+//                isFirst = false;
+                updateBottomViews();
+//            }
+        }
 
         if (mOnLayoutListeners != null) for (int i = 0; i < mOnLayoutListeners.size(); i++) {
             mOnLayoutListeners.get(i).onLayout(this);
@@ -1583,7 +1589,7 @@ public class SwipeLayout extends FrameLayout {
             layoutPullOut();
         else if (mShowMode == ShowMode.LayDown) layoutLayDown();
 
-        safeBottomView();
+//        safeBottomView();
     }
 }
 

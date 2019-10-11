@@ -22,7 +22,8 @@ import com.chen.fakevibrato.ui.my.view.UserFragment;
 import com.chen.fakevibrato.ui.samecity.view.SameCityFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.MyLog;
-import com.daimajia.swipe.SwipeLayout;
+
+import com.chen.fakevibrato.widget.SwipeLayout;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -246,6 +247,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @OnClick(R.id.ivBottom)
     public void onViewClicked() {
+       startActivity(new Intent(MainActivity.this, SwipeActivity.class));
 //       startActivity(new Intent(MainActivity.this, EditMessageActivity.class));
 //       startActivity(new Intent(MainActivity.this, EmojiActivity.class));
 //       startActivity(new Intent(MainActivity.this, Main2Activity.class));
@@ -282,7 +284,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tvCard:
-
                 break;
             case R.id.tvPentagram:
 

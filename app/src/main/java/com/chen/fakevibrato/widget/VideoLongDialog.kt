@@ -22,6 +22,7 @@ import com.chen.fakevibrato.R
 import com.chen.fakevibrato.utils.DisplayUtils
 import com.chen.fakevibrato.utils.ToastUtils
 import com.chen.fakevibrato.widget.anim.AnimtorUtils
+import org.greenrobot.eventbus.EventBus
 
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
@@ -30,6 +31,7 @@ import java.lang.annotation.RetentionPolicy
  * 长按弹窗
  */
 class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.QMUI_TipDialog) : Dialog(context, themeResId) {
+     var contentWrap : ViewGroup? = null
 
     init {
         setCanceledOnTouchOutside(false)
@@ -38,6 +40,7 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initDialogWidth()
+        contentWrap = findViewById<View>(R.id.contentWrap) as ViewGroup
     }
 
     private fun initDialogWidth() {
@@ -91,8 +94,8 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
                 stop = (sHeight / 4 * 3).toFloat()
                 start = stop - 300
             }
-            start -= 100f
-            stop -= 300f
+//            start -= 100f
+//            stop -= 300f
             contentWrap.setOnClickListener {
 //                dialog.dismiss()
                 var anim  = AnimtorUtils.translationY(constraintLayout, stop, start, 300, 0, AccelerateInterpolator())
@@ -103,6 +106,7 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
                 })
                 anim.start()
             }
+
             dialog.setOnShowListener{
                 AnimtorUtils.translationY(constraintLayout, start, stop, 300, 0, DecelerateInterpolator()).start()
             }
@@ -117,9 +121,6 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
                 Toast.makeText(mContext, "不感兴趣", Toast.LENGTH_SHORT).show()
             }
 
-            dialog.setOnDismissListener {
-                return@setOnDismissListener
-            }
             return dialog
         }
 
@@ -132,8 +133,9 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
         }
     }
 
-    override fun dismiss() {
+    override fun onBackPressed() {
+        contentWrap?.performClick()
 
-        super.dismiss()
     }
+
 }

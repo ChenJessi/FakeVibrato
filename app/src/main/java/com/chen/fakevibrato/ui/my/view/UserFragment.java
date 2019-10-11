@@ -31,9 +31,10 @@ import com.chen.fakevibrato.ui.home.view.HomeListFragment;
 import com.chen.fakevibrato.ui.my.contract.UserContract;
 import com.chen.fakevibrato.ui.my.presenter.UserPresenter;
 import com.chen.fakevibrato.utils.DisplayUtils;
+import com.chen.fakevibrato.widget.SwipeLayout;
 import com.chen.fakevibrato.widget.anim.AnimtorUtils;
 import com.chen.fakevibrato.widget.emojiview.EmojiconTextView;
-import com.daimajia.swipe.SwipeLayout;
+
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;

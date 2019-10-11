@@ -1,7 +1,7 @@
 package com.chen.fakevibrato.bean;
 
 
-import com.daimajia.swipe.SwipeLayout;
+import com.chen.fakevibrato.widget.SwipeLayout;
 
 /**
  * @author Created by CHEN on 2019/7/18
