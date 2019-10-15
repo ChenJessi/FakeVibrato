@@ -336,8 +336,10 @@ public abstract class BaseExpandableRecyclerViewAdapter
     protected void bindGroupViewHolder(final GroupViewHolder holder, final GroupBean groupBean, List<Object> payload) {
         if (payload != null && payload.size() != 0) {
             if (payload.contains(EXPAND_PAYLOAD)) {
+
                 holder.onExpandStatusChanged(BaseExpandableRecyclerViewAdapter.this, isGroupExpanding(groupBean));
                 if (payload.size() == 1) {
+                    onBindGroupViewHolder(holder, groupBean, isGroupExpanding(groupBean), payload);
                     return;
                 }
             }
@@ -382,7 +384,7 @@ public abstract class BaseExpandableRecyclerViewAdapter
                             mExpandGroupSet.add(groupBean);
                             notifyItemRangeInserted(adapterPosition + 1, groupBean.getChildCount());
                         }
-                    }else if (onItemClickListener != null){            //没有展开时，返回实践
+                    }else if (onItemClickListener != null){            //没有展开时，返回事件
                         onItemClickListener.onGroupClicked(groupBean);
                     }
                 }

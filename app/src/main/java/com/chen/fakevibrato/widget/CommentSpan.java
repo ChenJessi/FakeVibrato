@@ -47,7 +47,6 @@ public class CommentSpan {
         Matcher m = p.matcher(s);
         while(m.find()) {
             topicList.add(m.group());
-            Log.e("tag","group getTopic ： "+topicList.toString());
         }
 
     }
@@ -56,7 +55,6 @@ public class CommentSpan {
         Matcher m = p.matcher(s);
         while(m.find()) {
             atList.add(m.group());
-            Log.e("tag","group getAt ： "+atList.toString());
         }
     }
     private void getUrl(String s){
@@ -64,7 +62,6 @@ public class CommentSpan {
         Matcher m = p.matcher(s);
         while(m.find()) {
             httpList.add(m.group());
-            Log.e("tag","group getAt ： "+httpList.toString());
         }
     }
 

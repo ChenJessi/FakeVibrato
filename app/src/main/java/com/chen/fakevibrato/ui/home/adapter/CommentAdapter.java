@@ -91,7 +91,8 @@ public class CommentAdapter extends BaseExpandableRecyclerViewAdapter<CommentBea
         timeStr.setSpan(colorSpan, 0, timeStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         holder.tvContent.setMovementMethod(LinkMovementMethod.getInstance());
         holder.tvContent.setText(sp.setSpan(content,  Color.parseColor("#FFA500")).append(timeStr));
-        if (groupBean.isExpandable() && !isGroupExpanding(groupBean)){
+
+        if (!isExpand){
             holder.tvMore.setVisibility(View.VISIBLE);
         }else {
             holder.tvMore.setVisibility(View.GONE);
@@ -148,7 +149,7 @@ public class CommentAdapter extends BaseExpandableRecyclerViewAdapter<CommentBea
             @Override
             public void onClick(View v) {
                 holder.tvMore.setVisibility(View.GONE);
-                foldGroup(groupBean);
+                MyLog.e("测试Expand 关闭 =======  "+foldGroup(groupBean));;
                 if (onItemClickListener != null){
                     onItemClickListener.onMoreClick(groupBean);
                 }

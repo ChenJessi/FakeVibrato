@@ -127,7 +127,6 @@ public class SwipeLayout extends FrameLayout {
         vo.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
-                MyLog.d("onPreDraw    ");
 //                if (width == 0 || height == 0) {
 //                    width = mainView.getMeasuredWidth();
 //                    height = mainView.getMeasuredHeight();
