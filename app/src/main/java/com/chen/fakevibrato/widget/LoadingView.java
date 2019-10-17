@@ -303,12 +303,11 @@ public class LoadingView extends View {
             public void run() {
                 isAnimCanceled = false;
                 isLtr = false;
-//                if (anim == null) {
-//                    initAnim();
-//                }else {
-
+                if (anim == null) {
+                    initAnim();
+                }else {
                     anim.start();
-//                }
+                }
 
             }
         });

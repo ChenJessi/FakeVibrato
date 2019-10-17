@@ -247,7 +247,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @OnClick(R.id.ivBottom)
     public void onViewClicked() {
-       startActivity(new Intent(MainActivity.this, SwipeActivity.class));
+       startActivity(new Intent(MainActivity.this, MainHActivity.class));
+//       startActivity(new Intent(MainActivity.this, SwipeActivity.class));
+
 //       startActivity(new Intent(MainActivity.this, EditMessageActivity.class));
 //       startActivity(new Intent(MainActivity.this, EmojiActivity.class));
 //       startActivity(new Intent(MainActivity.this, Main2Activity.class));

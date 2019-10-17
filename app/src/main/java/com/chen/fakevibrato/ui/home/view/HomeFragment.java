@@ -198,7 +198,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                MyLog.d("position  onPageScrolled : " + position + positionOffset + positionOffsetPixels);
             }
 
             @Override
@@ -209,7 +209,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                MyLog.d("position  onPageScrollStateChanged : " + state);
             }
         });
     }
