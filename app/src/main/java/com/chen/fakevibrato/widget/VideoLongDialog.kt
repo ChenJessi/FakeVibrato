@@ -60,7 +60,7 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
      * @see CustomBuilder
      */
     class Builder(private val mContext: Context) {
-        private lateinit var ev : MotionEvent ;
+        private  var ev : MotionEvent? = null
         /**
          * 创建 Dialog, 但没有弹出来, 如果要弹出来, 请调用返回值的 [Dialog.show] 方法
          *
@@ -81,19 +81,30 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
             val  sHeight = DisplayUtils.getScreenHeight(mContext);
             var start  = 0f
             var stop  = 0f
-            if (ev.y < sHeight / 4){
-                stop = (sHeight / 4).toFloat()
-                start = stop + 300
-            }else if (ev.y < sHeight / 2){
-                stop = (sHeight / 2).toFloat()
-                start = stop - 300
-            }else if (ev.y < sHeight / 4 * 3){
-                stop = (sHeight / 2).toFloat()
-                start = stop + 300
+            if (ev != null){
+                when {
+                    ev!!.y < sHeight / 4 -> {
+                        stop = (sHeight / 4).toFloat()
+                        start = stop + 300
+                    }
+                    ev!!.y < sHeight / 2 -> {
+                        stop = (sHeight / 2).toFloat()
+                        start = stop - 300
+                    }
+                    ev!!.y < sHeight / 4 * 3 -> {
+                        stop = (sHeight / 2).toFloat()
+                        start = stop + 300
+                    }
+                    else -> {
+                        stop = (sHeight / 4 * 3).toFloat()
+                        start = stop - 300
+                    }
+                }
             }else{
-                stop = (sHeight / 4 * 3).toFloat()
+                stop = (sHeight / 2).toFloat()
                 start = stop - 300
             }
+
 //            start -= 100f
 //            stop -= 300f
             contentWrap.setOnClickListener {
@@ -124,13 +135,11 @@ class VideoLongDialog  constructor(context: Context, themeResId: Int = R.style.Q
             return dialog
         }
 
-        public  fun setEvent(ev : MotionEvent): Builder {
+        public  fun setEvent(ev : MotionEvent?): Builder {
             this.ev = ev
             return this
         }
-        companion object {
-
-        }
+        companion object
     }
 
     override fun onBackPressed() {

@@ -14,10 +14,15 @@ import com.chen.fakevibrato.utils.MyLog
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import java.util.ArrayList
 import kotlinx.android.synthetic.main.activity_main_h.*
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class MainHActivity : BaseActivity<MainPresenter>() {
+class MainHActivity : BaseActivity<MainPresenter>(), OnDispatchSwipeListener {
+    override fun isDispatchSwipe(dispatchSwipe: Boolean) {
+        viewPager.setSwipeable(dispatchSwipe)
+    }
+
     private var adapter: MyPagerAdapter? = null
     private val mFragments = ArrayList<Fragment>()
     private var childPosition = 0
@@ -32,7 +37,7 @@ class MainHActivity : BaseActivity<MainPresenter>() {
 
     override fun initView() {
         mFragments.add(SwipeFragment())
-        mFragments.add(MainFragment())
+        mFragments.add(MainFragment(this))
         mFragments.add(SwipeFragment())
 
         adapter = MyPagerAdapter(supportFragmentManager, mFragments)
@@ -41,32 +46,7 @@ class MainHActivity : BaseActivity<MainPresenter>() {
         viewPager.currentItem = 1
 
     }
-//    private var startX: Float = 0.toFloat()
-//    private var lastX: Float = 0.toFloat()
-//    override fun onTouchEvent(event: MotionEvent?): Boolean {
-//
-////        super.onTouchEvent(event)
-//        if (event != null) {
-//            when (event.action) {
-//                MotionEvent.ACTION_DOWN -> {
-//                    MyLog.e("onTouchEvent  down  :"+ event.x)
-//                    startX = event.x
-//                }
-//                MotionEvent.ACTION_MOVE -> {
-//                    lastX = event.x
-//                    MyLog.e("onTouchEvent  move : $lastX    $startX")
-//                    if (childPosition == 1){
-//                        this.onDispatchSwipeListener?.isDispatchSwipe(lastX > startX )
-//                        return true
-//                    }
-//
-//                }
-//                MotionEvent.ACTION_UP -> {
-//                }
-//            }
-//        }
-//        return super.onTouchEvent(event)
-//    }
+
 
     override fun initListener() {
 
@@ -76,9 +56,12 @@ class MainHActivity : BaseActivity<MainPresenter>() {
 
     }
 
-  public fun setOnDispatchSwipeListener(onDispatchSwipeListener : OnDispatchSwipeListener){
-      this.onDispatchSwipeListener = onDispatchSwipeListener
-  }
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (ev.action == MotionEvent.ACTION_DOWN) {
+            EventBus.getDefault().post(ev)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun swipeStatus(swipeBean: SwipeBean) {
