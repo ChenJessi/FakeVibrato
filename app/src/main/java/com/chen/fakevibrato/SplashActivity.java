@@ -2,9 +2,13 @@ package com.chen.fakevibrato;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import com.chen.fakevibrato.base.BaseActivity;
 import com.chen.fakevibrato.im.IMManager;
@@ -47,7 +51,6 @@ public class SplashActivity extends BaseActivity<MainPresenter> {
                 }
             }
         });
-
 
     }
 

@@ -23,6 +23,7 @@ import com.chen.fakevibrato.ui.samecity.view.SameCityFragment;
 import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.MyLog;
 
+
 import com.chen.fakevibrato.widget.SwipeLayout;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;

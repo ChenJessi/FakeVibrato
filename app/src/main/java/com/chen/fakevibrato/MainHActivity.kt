@@ -3,6 +3,7 @@ package com.chen.fakevibrato
 
 import android.view.MotionEvent
 import android.view.View
+import androidx.customview.widget.ViewDragHelper
 import androidx.fragment.app.Fragment
 import com.chen.fakevibrato.base.BaseActivity
 import com.chen.fakevibrato.bean.SwipeBean
@@ -25,8 +26,7 @@ class MainHActivity : BaseActivity<MainPresenter>(), OnDispatchSwipeListener {
 
     private var adapter: MyPagerAdapter? = null
     private val mFragments = ArrayList<Fragment>()
-    private var childPosition = 0
-    private var onDispatchSwipeListener : OnDispatchSwipeListener? = null
+
     override fun getLayoutId(): Int {
         return R.layout.activity_main_h
     }
@@ -44,6 +44,7 @@ class MainHActivity : BaseActivity<MainPresenter>(), OnDispatchSwipeListener {
         viewPager.adapter = adapter
         viewPager.setSwipeable(true)
         viewPager.currentItem = 1
+
 
     }
 
@@ -63,8 +64,4 @@ class MainHActivity : BaseActivity<MainPresenter>(), OnDispatchSwipeListener {
         return super.dispatchTouchEvent(ev)
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun swipeStatus(swipeBean: SwipeBean) {
-        childPosition = swipeBean.position
-    }
 }

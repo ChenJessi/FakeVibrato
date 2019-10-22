@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.chen.fakevibrato.widget.swipe.MySwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/drawerLayout"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/red1"
+    android:fitsSystemWindows="true"
     tools:context=".SwipeActivity">
 
-
-    <com.qmuiteam.qmui.widget.QMUIViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="match_parent">
-    </com.qmuiteam.qmui.widget.QMUIViewPager>
-
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:textSize="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="30sp"
         android:textColor="@color/white"
-        android:text="SwipeActivity"/>
-</LinearLayout>
+        android:text="content"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="left"
+
+        android:textSize="30sp"
+        android:background="@color/white"
+        android:textColor="@color/white"
+        android:text="left"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_gravity="right"
+        android:background="@color/white"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:text="right"/>
+</com.chen.fakevibrato.widget.swipe.MySwipeLayout>

@@ -1,5 +1,6 @@
 package com.chen.fakevibrato
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -71,7 +72,7 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
         initListener()
     }
 
-    private var i = 0;
+
     private fun initListener() {
         val textView = mTabLayout.getTitleView(0)
         val text = textView.text.toString().trim { it <= ' ' }
@@ -126,11 +127,6 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
                         }
 
 
-//                    if (sameCityFragment != null) mFragments.add(sameCityFragment!!) else  mFragments.add(SameCityFragment())
-//                    if (fragment != null) fragment else  mFragments.add(Fragment())
-//                    if (messageFragment != null) messageFragment else  mFragments.add(MessageFragment())
-//                    if (userFragment != null) userFragment else  mFragments.add(UserFragment())
-                        MyLog.e("mFragments  sadf: " + mFragments.size)
                         adapter?.notifyDataSetChanged()
                     }
                 }
@@ -143,16 +139,7 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
         })
 
         ivBottom.setOnClickListener {
-            MyLog.e("ivBottom  i===== :    $i")
-            if (i == 0) {
-                i++
-
-            } else if (i == 1) {
-
-
-                i = 0
-//                mFragments.add(HomeFragment())
-            }
+            activity?.startActivity(Intent(activity, SwipeActivity::class.java))
         }
     }
 
