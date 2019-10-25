@@ -15,13 +15,14 @@
         android:gravity="center"
         android:textSize="30sp"
         android:textColor="@color/white"
+
+        android:background="@color/white"
         android:text="content"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:layout_gravity="left"
-
         android:textSize="30sp"
         android:background="@color/white"
         android:textColor="@color/white"
