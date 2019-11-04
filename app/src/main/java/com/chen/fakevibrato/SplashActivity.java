@@ -16,11 +16,15 @@ import com.chen.fakevibrato.im.UserCache;
 import com.chen.fakevibrato.ui.home.contract.SplashContract;
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
 
+import org.reactivestreams.Subscriber;
+
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import io.rong.imlib.RongIMClient;
 
 import static io.rong.imkit.utils.SystemUtils.getCurProcessName;

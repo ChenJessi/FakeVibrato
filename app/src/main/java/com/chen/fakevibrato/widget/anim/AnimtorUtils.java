@@ -29,4 +29,13 @@ public class AnimtorUtils {
         translation.setDuration(time);
         return translation;
     }
+
+
+    public static ObjectAnimator translationX(View view, float from, float to, long time, long delayTime, Interpolator interpolator)  {
+        ObjectAnimator translation = ObjectAnimator.ofFloat(view, "translationX", from, to);
+        translation.setInterpolator(interpolator);
+        translation.setStartDelay(delayTime);
+        translation.setDuration(time);
+        return translation;
+    }
 }
