@@ -2,7 +2,9 @@ package com.chen.fakevibrato.widget.swipe;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -14,13 +16,17 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.Size;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.core.view.ViewCompat;
 import androidx.customview.widget.ViewDragHelper;
 
 import com.chen.fakevibrato.utils.ColorUtils;
+import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.EvaluateUtils;
 import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.anim.AnimtorUtils;
@@ -39,14 +45,13 @@ public class MySwipeLayout extends FrameLayout {
     private float mSensitivity = 0.8f;
     private int mHeight;
     private int mWidth;
-
+    private int leftWidth;
+    private int leftHeight;
     private boolean mToogle = true;
     private boolean first = true;
     private  int mRange ;
-    private int mXMLRange;
+    private float scale = 0.8f;
 
-    private GestureDetectorCompat mGestureDetectorCompat;
-    private Scroller mScroller;
 
     public MySwipeLayout(Context context) {
         this(context, null);
@@ -63,11 +68,14 @@ public class MySwipeLayout extends FrameLayout {
 
     private void init() {
         mDragHelper = ViewDragHelper.create(this, mSensitivity, mDragHelperCallback);
+        setScale(0.5f);
 
-//        mGestureDetectorCompat = new GestureDetectorCompat(getContext(), new XScrollDetector());
-//        mScroller = new Scroller(getContext(), sInterpolator);
     }
 
+
+    public void setScale(@FloatRange(from = 0.5f, to = 1) float scale) {
+        this.scale = scale;
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -75,7 +83,7 @@ public class MySwipeLayout extends FrameLayout {
         return true;
     }
 
-    // b.传递触摸事件
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         // 传递给mDragHelper
@@ -100,6 +108,11 @@ public class MySwipeLayout extends FrameLayout {
 
     }
 
+    @Override
+    public boolean getChildVisibleRect(View child, Rect r, Point offset) {
+        return super.getChildVisibleRect(child, r, offset);
+    }
+
     /**
      * 注意这个方法在onResume生命周期之后调用
      *
@@ -114,17 +127,13 @@ public class MySwipeLayout extends FrameLayout {
         //尺寸有变化的时候调用
         mHeight = getMeasuredHeight();
         mWidth = getMeasuredWidth();
+        leftWidth = mLeftContent.getMeasuredWidth();
+        leftHeight = mLeftContent.getMeasuredHeight();
 
         if (first) {
-            int defaultRange = (int) (mWidth * 0.6f);
-            if (mXMLRange != 0) {
-                defaultRange = mXMLRange;
-            }
             if (mRange == 0) {
-                mRange = defaultRange;
-//                mRange = mWidth;
+                mRange = (int) (mLeftContent.getMeasuredWidth() - (mMainContent.getMeasuredWidth() * (1 - scale) / 2));
             }
-
             first = false;
         }
     }
@@ -136,13 +145,11 @@ public class MySwipeLayout extends FrameLayout {
 
         @Override
         public boolean tryCaptureView(@NonNull View child, int pointerId) {
-            MyLog.d("SwipeLayout  tryCaptureView : " + child);
             return mToogle;
         }
 
         @Override
         public void onViewCaptured(@NonNull View capturedChild, int activePointerId) {
-            MyLog.d("SwipeLayout  onViewCaptured : " + capturedChild);
             // 当capturedChild被捕获时,调用.
             super.onViewCaptured(capturedChild, activePointerId);
         }
@@ -150,7 +157,6 @@ public class MySwipeLayout extends FrameLayout {
         @Override
         public int getViewHorizontalDragRange(@NonNull View child) {
             // 返回拖拽的范围, 不对拖拽进行真正的限制. 仅仅决定了动画执行速度
-            MyLog.d("SwipeLayout  getViewHorizontalDragRange : " + child);
             return mRange;
         }
 
@@ -161,8 +167,7 @@ public class MySwipeLayout extends FrameLayout {
             // child: 当前拖拽的View
             // left 新的位置的建议值, dx 位置变化量
             // left = oldLeft + dx;
-            MyLog.d("SwipeLayout    clampViewPositionHorizontal: "
-                    + "oldLeft: " + child.getLeft() + " dx: " + dx + " left: " + left);
+            MyLog.e("clampViewPositionHorizontal   : child  : "+ child  + "  left :  "+ left + "   dx  : "+dx);
             if (child == mMainContent) {
                 left = fixLeft(left);
             }
@@ -178,7 +183,7 @@ public class MySwipeLayout extends FrameLayout {
             // left 新的左边值
             // dx 水平方向变化量
             super.onViewPositionChanged(changedView, left, top, dx, dy);
-            MyLog.d("SwipeLayout  onViewPositionChanged : " + "left: " + left + " dx: " + dx);
+
             int newLeft = left;
             if (changedView == mLeftContent) {
                 // 把当前变化量传递给mMainContent
@@ -189,9 +194,10 @@ public class MySwipeLayout extends FrameLayout {
 
             if (changedView == mLeftContent) {
                 // 当左面板移动之后, 再强制放回去.
-                mLeftContent.layout(0, 0, 0 + mWidth, 0 + mHeight);
-                mMainContent.layout(newLeft, 0, newLeft + mWidth, 0 + mHeight);
+                mLeftContent.layout(0, 0, leftWidth,  leftHeight);
+                mMainContent.layout(newLeft, 0, newLeft + mWidth, mHeight);
             }
+
             // 更新状态,执行动画
             dispatchDragEvent(newLeft);
             // 为了兼容低版本, 每次修改值之后, 进行重绘
@@ -205,8 +211,6 @@ public class MySwipeLayout extends FrameLayout {
             // View releasedChild 被释放的子View
             // float xvel 水平方向的速度, 向右为+
             // float yvel 竖直方向的速度, 向下为+
-
-            MyLog.d("SwipeLayout   onViewReleased: " + "xvel: " + xvel + " yvel: " + yvel);
             super.onViewReleased(releasedChild, xvel, yvel);
 
             // 判断执行 关闭/开启
@@ -309,7 +313,6 @@ public class MySwipeLayout extends FrameLayout {
     private void dispatchDragEvent(int newLeft) {
         float percent = newLeft * 1.0f / mRange;
         //0.0f -> 1.0f
-        MyLog.d("SwipeLayout  percent: " + percent);
 
         if (mListener != null) {
             mListener.onDraging(percent);
@@ -349,25 +352,21 @@ public class MySwipeLayout extends FrameLayout {
 
     private void animViews(float percent) {
         //		> 1. 左面板: 缩放动画, 平移动画, 透明度动画
-        // 缩放动画 0.0 -> 1.0 >>> 0.5f -> 1.0f  >>> 0.5f * percent + 0.5f
-        //		mLeftContent.setScaleX(0.5f + 0.5f * percent);
-        //		mLeftContent.setScaleY(0.5f + 0.5f * percent);
-        // 平移动画: -mWidth / 2.0f -> 0.0f
-
-
+        MyLog.e("animViews  : " + percent);
         mLeftContent.setTranslationX(EvaluateUtils.INSTANCE.evaluate(percent, -mWidth / 2.0f, 0) );
         mLeftContent.setAlpha( EvaluateUtils.INSTANCE.evaluate(percent, 0.5f, 1.0f));
-        mLeftContent.setScaleX( EvaluateUtils.INSTANCE.evaluate(percent, 0.5f, 1.0f));
-        mLeftContent.setScaleY( 0.5f + 0.5f * percent);
+        mLeftContent.setScaleX( EvaluateUtils.INSTANCE.evaluate(percent, scale, 1.0f));
+        mLeftContent.setScaleY( EvaluateUtils.INSTANCE.evaluate(percent, scale, 1.0f));
 
-        //		> 2. 主面板: 缩放动画
-        mMainContent.setScaleX(EvaluateUtils.INSTANCE.evaluate(percent, 1.0f, 0.8f));
-        mMainContent.setScaleY(EvaluateUtils.INSTANCE.evaluate(percent, 1.0f, 0.8f));
+//        //		> 2. 主面板: 缩放动画
+        mMainContent.setScaleX(EvaluateUtils.INSTANCE.evaluate(percent, 1.0f, scale));
+        mMainContent.setScaleY(EvaluateUtils.INSTANCE.evaluate(percent, 1.0f, scale));
 
         //		> 3. 背景动画: 亮度变化 (颜色变化)
         getBackground().setColorFilter(
                 (Integer) ColorUtils.INSTANCE.evaluateColor(percent,
                         Color.BLACK, Color.TRANSPARENT), PorterDuff.Mode.SRC_OVER);
+
     }
 
 

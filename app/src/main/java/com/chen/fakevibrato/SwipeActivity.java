@@ -25,6 +25,8 @@ import java.util.List;
 
 public class SwipeActivity extends AppCompatActivity {
 
+    TextView text1;
+    TextView text2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
