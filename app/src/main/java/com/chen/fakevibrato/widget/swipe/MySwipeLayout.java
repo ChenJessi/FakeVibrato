@@ -112,6 +112,22 @@ public class MySwipeLayout extends FrameLayout {
     public boolean getChildVisibleRect(View child, Rect r, Point offset) {
         return super.getChildVisibleRect(child, r, offset);
     }
+    private boolean i=true;
+    private int mainLeft ;
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        if (mMainContent != null){
+            mMainContent.layout(mainLeft, 0, mainLeft + mWidth, mHeight);
+        }
+    }
+
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        MyLog.e("onMeasure  : 重绘");
+    }
 
     /**
      * 注意这个方法在onResume生命周期之后调用
@@ -124,6 +140,7 @@ public class MySwipeLayout extends FrameLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        MyLog.e("onSizeChanged  : 重绘");
         //尺寸有变化的时候调用
         mHeight = getMeasuredHeight();
         mWidth = getMeasuredWidth();
@@ -178,12 +195,11 @@ public class MySwipeLayout extends FrameLayout {
         // 此时,View已经发生了位置的改变
         @Override
         public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
-
             // changedView 改变位置的View
             // left 新的左边值
             // dx 水平方向变化量
             super.onViewPositionChanged(changedView, left, top, dx, dy);
-
+            MyLog.e("onViewPositionChanged   ： 重绘 ");
             int newLeft = left;
             if (changedView == mLeftContent) {
                 // 把当前变化量传递给mMainContent
@@ -191,7 +207,7 @@ public class MySwipeLayout extends FrameLayout {
             }
             // 进行修正
             newLeft = fixLeft(newLeft);
-
+            mainLeft = newLeft;
             if (changedView == mLeftContent) {
                 // 当左面板移动之后, 再强制放回去.
                 mLeftContent.layout(0, 0, leftWidth,  leftHeight);
@@ -240,6 +256,8 @@ public class MySwipeLayout extends FrameLayout {
             ViewCompat.postInvalidateOnAnimation(this);
         }
     }
+
+
 
     /**
      * 状态枚举

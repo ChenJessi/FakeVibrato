@@ -31,7 +31,19 @@ public class SwipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
+        text1 = findViewById(R.id.text1);
+        text2 = findViewById(R.id.text2);
+        text2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (text1.getVisibility() == View.GONE){
+                    text1.setVisibility(View.VISIBLE);
+                }else {
+                    text1.setVisibility(View.GONE);
+                }
 
+            }
+        });
     }
 
 }

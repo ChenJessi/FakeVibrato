@@ -68,7 +68,6 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
             })
         }
         mTabLayout.setTabData(mTabEntities)
-
         initListener()
     }
 
