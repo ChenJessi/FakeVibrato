@@ -6,6 +6,7 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,13 +34,13 @@ import com.chen.fakevibrato.widget.anim.AnimtorUtils;
 
 public class MySwipeLayout extends FrameLayout {
     private ViewDragHelper mDragHelper;
-
     //侧面板
     private ViewGroup mLeftContent;
     //主面板
     private ViewGroup mMainContent;
+    //右侧面板
+    private ViewGroup mRightContent;
     private OnDragStatusChangeListener mListener;
-    //当前抽屉开关的 状态
     private Status mStatus = Status.Close;
     //打开抽屉开关的难易程度，越小 越难打开，1.0f为normal
     private float mSensitivity = 0.8f;
@@ -47,11 +48,15 @@ public class MySwipeLayout extends FrameLayout {
     private int mWidth;
     private int leftWidth;
     private int leftHeight;
+    private int rightWidth;
+    private int rightHeight;
+
     private boolean mToogle = true;
     private boolean first = true;
     private  int mRange ;
     private float scale = 0.8f;
 
+    private DragEdge mDragEdge = DragEdge.Left;
 
     public MySwipeLayout(Context context) {
         this(context, null);
@@ -68,11 +73,12 @@ public class MySwipeLayout extends FrameLayout {
 
     private void init() {
         mDragHelper = ViewDragHelper.create(this, mSensitivity, mDragHelperCallback);
-        setScale(0.5f);
-
     }
 
-
+    public static enum DragEdge {
+        Left,
+        Right,
+    }
     public void setScale(@FloatRange(from = 0.5f, to = 1) float scale) {
         this.scale = scale;
     }
@@ -95,24 +101,38 @@ public class MySwipeLayout extends FrameLayout {
         super.onFinishInflate();
 
         // 容错性检查  子view不能少于2个
-        if (getChildCount() < 2) {
-            throw new IllegalStateException("Your ViewGroup must have 2 children at least.");
+        if (getChildCount() != 2 && getChildCount() != 3) {
+            throw new IllegalStateException("Your ViewGroup must have 2 or 3 children.");
         }
 
         if (!(getChildAt(0) instanceof ViewGroup && getChildAt(1) instanceof ViewGroup)) {
             throw new IllegalArgumentException("Your children must be an instance of ViewGroup");
         }
-
-        mLeftContent = (ViewGroup) getChildAt(0);
-        mMainContent = (ViewGroup) getChildAt(1);
-
+        if (getChildCount() == 3){
+            if (!(getChildAt(2) instanceof ViewGroup)){
+                throw new IllegalArgumentException("Your children must be an instance of ViewGroup");
+            }
+        }
+        if (getChildCount() == 3){
+            mLeftContent = (ViewGroup) getChildAt(0);
+            mMainContent = (ViewGroup) getChildAt(1);
+            mRightContent = (ViewGroup) getChildAt(2);
+        }else if (getChildCount() == 2){
+            if (mDragEdge == DragEdge.Left){
+                mLeftContent = (ViewGroup) getChildAt(0);
+                mMainContent = (ViewGroup) getChildAt(1);
+            }else {
+                mRightContent = (ViewGroup) getChildAt(0);
+                mMainContent = (ViewGroup) getChildAt(1);
+            }
+        }
     }
 
     @Override
     public boolean getChildVisibleRect(View child, Rect r, Point offset) {
         return super.getChildVisibleRect(child, r, offset);
     }
-    private boolean i=true;
+
     private int mainLeft ;
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
@@ -123,14 +143,8 @@ public class MySwipeLayout extends FrameLayout {
     }
 
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        MyLog.e("onMeasure  : 重绘");
-    }
 
     /**
-     * 注意这个方法在onResume生命周期之后调用
      *
      * @param w
      * @param h
@@ -140,16 +154,24 @@ public class MySwipeLayout extends FrameLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        MyLog.e("onSizeChanged  : 重绘");
         //尺寸有变化的时候调用
         mHeight = getMeasuredHeight();
         mWidth = getMeasuredWidth();
-        leftWidth = mLeftContent.getMeasuredWidth();
-        leftHeight = mLeftContent.getMeasuredHeight();
+        if (mDragEdge == DragEdge.Left){
+            leftWidth = mLeftContent.getMeasuredWidth();
+            leftHeight = mLeftContent.getMeasuredHeight();
+        }else if (mDragEdge == DragEdge.Right){
+            rightWidth = mRightContent.getMeasuredWidth();
+            rightHeight = mRightContent.getMeasuredHeight();
+        }
 
         if (first) {
             if (mRange == 0) {
-                mRange = (int) (mLeftContent.getMeasuredWidth() - (mMainContent.getMeasuredWidth() * (1 - scale) / 2));
+                if (mDragEdge == DragEdge.Left){
+                    mRange = (int) (mLeftContent.getMeasuredWidth() - (mMainContent.getMeasuredWidth() * (1 - scale) / 2));
+                }else {
+                    mRange = (int) (mRightContent.getMeasuredWidth() - (mMainContent.getMeasuredWidth() * (1 - scale) / 2));
+                }
             }
             first = false;
         }
@@ -184,9 +206,12 @@ public class MySwipeLayout extends FrameLayout {
             // child: 当前拖拽的View
             // left 新的位置的建议值, dx 位置变化量
             // left = oldLeft + dx;
-            MyLog.e("clampViewPositionHorizontal   : child  : "+ child  + "  left :  "+ left + "   dx  : "+dx);
             if (child == mMainContent) {
-                left = fixLeft(left);
+                if (mDragEdge == DragEdge.Left){
+                    left = fixLeft(left);
+                }else if (mDragEdge == DragEdge.Right){
+                    left = fixRight(left);
+                }
             }
             return left;
         }
@@ -199,21 +224,26 @@ public class MySwipeLayout extends FrameLayout {
             // left 新的左边值
             // dx 水平方向变化量
             super.onViewPositionChanged(changedView, left, top, dx, dy);
-            MyLog.e("onViewPositionChanged   ： 重绘 ");
             int newLeft = left;
-            if (changedView == mLeftContent) {
+            if (changedView == mLeftContent || changedView == mRightContent) {
                 // 把当前变化量传递给mMainContent
                 newLeft = mMainContent.getLeft() + dx;
             }
+
             // 进行修正
-            newLeft = fixLeft(newLeft);
+            if (mDragEdge == DragEdge.Left){
+                newLeft = fixLeft(newLeft);
+            }else if (mDragEdge == DragEdge.Right){
+                newLeft = fixRight(newLeft);
+            }
             mainLeft = newLeft;
             if (changedView == mLeftContent) {
                 // 当左面板移动之后, 再强制放回去.
                 mLeftContent.layout(0, 0, leftWidth,  leftHeight);
-                mMainContent.layout(newLeft, 0, newLeft + mWidth, mHeight);
+            }else if (changedView == mRightContent){
+                mRightContent.layout(0, 0, rightWidth,  rightHeight);
             }
-
+            mMainContent.layout(newLeft, 0, newLeft + mWidth, mHeight);
             // 更新状态,执行动画
             dispatchDragEvent(newLeft);
             // 为了兼容低版本, 每次修改值之后, 进行重绘
@@ -231,15 +261,25 @@ public class MySwipeLayout extends FrameLayout {
 
             // 判断执行 关闭/开启
             // 先考虑所有开启的情况,剩下的就都是关闭的情况
-            if (xvel == 0 && mMainContent.getLeft() > mRange / 2.0f) {
-                open();
-            } else if (xvel > 0) {
-                open();
-            } else {
-                close();
+            if (mDragEdge == DragEdge.Left){
+                if (xvel == 0 && mMainContent.getLeft() > mRange / 2.0f) {
+                    open();
+                } else if (xvel > 0) {
+                    open();
+                } else {
+                    close();
+                }
+            }else if (mDragEdge == DragEdge.Right){
+                if (xvel == 0 && mMainContent.getRight() > mRange / 2.0f) {
+                    close();
+                } else if (xvel > 0) {
+                    close();
+                } else {
+                    open();
+                }
             }
-        }
 
+        }
         @Override
         public void onViewDragStateChanged(int state) {
             // TODO Auto-generated method stub
@@ -256,8 +296,6 @@ public class MySwipeLayout extends FrameLayout {
             ViewCompat.postInvalidateOnAnimation(this);
         }
     }
-
-
 
     /**
      * 状态枚举
@@ -286,12 +324,15 @@ public class MySwipeLayout extends FrameLayout {
 
     public void open(boolean isSmooth) {
         int finalLeft = mRange;
+        if (mDragEdge == DragEdge.Right){
+            finalLeft = -mRange;
+        }
         if (isSmooth) {
             if (mDragHelper.smoothSlideViewTo(mMainContent, finalLeft, 0)) {
                 ViewCompat.postInvalidateOnAnimation(this);
             }
         } else {
-            mMainContent.layout(finalLeft, 0, finalLeft + mWidth, 0 + mHeight);
+            mMainContent.layout(finalLeft, 0, finalLeft + mWidth, mHeight);
         }
     }
 
@@ -308,7 +349,7 @@ public class MySwipeLayout extends FrameLayout {
                 ViewCompat.postInvalidateOnAnimation(this);
             }
         } else {
-            mMainContent.layout(finalLeft, 0, finalLeft + mWidth, 0 + mHeight);
+            mMainContent.layout(finalLeft, 0, finalLeft + mWidth, mHeight);
         }
     }
 
@@ -328,10 +369,19 @@ public class MySwipeLayout extends FrameLayout {
         return left;
     }
 
-    private void dispatchDragEvent(int newLeft) {
-        float percent = newLeft * 1.0f / mRange;
-        //0.0f -> 1.0f
+    private int fixRight(int left) {
+        if (left > 0) {
+            return 0;
+        } else if (left < -mRange) {
+            return -mRange;
+        }
+        return left;
+    }
 
+    private void dispatchDragEvent(int newLeft) {
+        float percent = Math.abs(newLeft * 1.0f / mRange);
+        //0.0f -> 1.0f
+        MyLog.e("dispatchDragEvent  : "+ newLeft + "  percent  "+percent);
         if (mListener != null) {
             mListener.onDraging(percent);
         }
@@ -370,11 +420,17 @@ public class MySwipeLayout extends FrameLayout {
 
     private void animViews(float percent) {
         //		> 1. 左面板: 缩放动画, 平移动画, 透明度动画
-        MyLog.e("animViews  : " + percent);
-        mLeftContent.setTranslationX(EvaluateUtils.INSTANCE.evaluate(percent, -mWidth / 2.0f, 0) );
-        mLeftContent.setAlpha( EvaluateUtils.INSTANCE.evaluate(percent, 0.5f, 1.0f));
-        mLeftContent.setScaleX( EvaluateUtils.INSTANCE.evaluate(percent, scale, 1.0f));
-        mLeftContent.setScaleY( EvaluateUtils.INSTANCE.evaluate(percent, scale, 1.0f));
+        if (mDragEdge == DragEdge.Left){
+            mLeftContent.setTranslationX(EvaluateUtils.INSTANCE.evaluate(percent, -mWidth / 2.0f, 0) );
+            mLeftContent.setAlpha( EvaluateUtils.INSTANCE.evaluate(percent, 0.5f, 1.0f));
+            mLeftContent.setScaleX( EvaluateUtils.INSTANCE.evaluate(percent, scale, 1.0f));
+            mLeftContent.setScaleY( EvaluateUtils.INSTANCE.evaluate(percent, scale, 1.0f));
+        }else if (mDragEdge == DragEdge.Right){
+            mRightContent.setTranslationX(EvaluateUtils.INSTANCE.evaluate(percent, mWidth / 2.0f, 0) );
+            mRightContent.setAlpha( EvaluateUtils.INSTANCE.evaluate(percent, 0.5f, 1.0f));
+            mRightContent.setScaleX( EvaluateUtils.INSTANCE.evaluate(percent, scale, 1.0f));
+            mRightContent.setScaleY( EvaluateUtils.INSTANCE.evaluate(percent, scale, 1.0f));
+        }
 
 //        //		> 2. 主面板: 缩放动画
         mMainContent.setScaleX(EvaluateUtils.INSTANCE.evaluate(percent, 1.0f, scale));

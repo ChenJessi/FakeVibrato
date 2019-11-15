@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.chen.fakevibrato.base.BaseFragment
 import com.chen.fakevibrato.interfaces.OnDispatchSwipeListener
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
@@ -73,11 +74,31 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
 
 
     private fun initListener() {
+
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+//                mTabLayout. setCurrentTab(position)
+                if (mTabLayout.currentTab != position){
+                    mTabLayout. setCurrentTab(position)
+                }
+            }
+        })
+
+
         val textView = mTabLayout.getTitleView(0)
         val text = textView.text.toString().trim { it <= ' ' }
         val textPaint = textView.paint
         val textPaintWidth = textPaint.measureText(text).toInt()
         mTabLayout.indicatorWidth = DisplayUtils.px2dp(activity, textPaintWidth.toFloat()).toFloat()
+
         mTabLayout.setOnTabSelectListener(object : OnTabSelectListener {
             override fun onTabSelect(position: Int) {
                 MyLog.d("viewPager: $position   $viewPager")
@@ -130,7 +151,11 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
                     }
                 }
 
-                viewPager.currentItem = position
+//                viewPager.currentItem = position
+                if (viewPager.currentItem != position){
+                    viewPager.currentItem = position
+                    viewPager.setCurrentItem(position, true)
+                }
             }
 
             override fun onTabReselect(position: Int) {
