@@ -52,11 +52,12 @@ public class MySwipeLayout extends FrameLayout {
     private int rightHeight;
 
     private boolean mToogle = true;
+
     private boolean first = true;
     private  int mRange ;
     private float scale = 0.8f;
 
-    private DragEdge mDragEdge = DragEdge.Left;
+    private DragEdge mDragEdge = DragEdge.Right;
 
     public MySwipeLayout(Context context) {
         this(context, null);
@@ -181,7 +182,6 @@ public class MySwipeLayout extends FrameLayout {
         // 1. 根据返回结果决定当前child是否可以拖拽
         // child 当前被拖拽的View
         // pointerId 区分多点触摸的id
-
         @Override
         public boolean tryCaptureView(@NonNull View child, int pointerId) {
             return mToogle;
@@ -236,12 +236,13 @@ public class MySwipeLayout extends FrameLayout {
             }else if (mDragEdge == DragEdge.Right){
                 newLeft = fixRight(newLeft);
             }
+
             mainLeft = newLeft;
             if (changedView == mLeftContent) {
                 // 当左面板移动之后, 再强制放回去.
                 mLeftContent.layout(0, 0, leftWidth,  leftHeight);
             }else if (changedView == mRightContent){
-                mRightContent.layout(0, 0, rightWidth,  rightHeight);
+                mRightContent.layout(mWidth - rightWidth, 0, mWidth,  mHeight);
             }
             mMainContent.layout(newLeft, 0, newLeft + mWidth, mHeight);
             // 更新状态,执行动画
@@ -366,6 +367,7 @@ public class MySwipeLayout extends FrameLayout {
         } else if (left > mRange) {
             return mRange;
         }
+
         return left;
     }
 
@@ -381,7 +383,6 @@ public class MySwipeLayout extends FrameLayout {
     private void dispatchDragEvent(int newLeft) {
         float percent = Math.abs(newLeft * 1.0f / mRange);
         //0.0f -> 1.0f
-        MyLog.e("dispatchDragEvent  : "+ newLeft + "  percent  "+percent);
         if (mListener != null) {
             mListener.onDraging(percent);
         }

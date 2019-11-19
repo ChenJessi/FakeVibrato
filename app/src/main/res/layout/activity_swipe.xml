@@ -10,10 +10,11 @@
     tools:context=".SwipeActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:orientation="vertical"
         android:layout_height="match_parent"
         android:background="@color/green"
+        android:layout_gravity="right"
         android:gravity="center">
 
         <TextView
@@ -35,7 +36,8 @@
     </LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:visibility="visible">
 
     <TextView
         android:layout_width="match_parent"
