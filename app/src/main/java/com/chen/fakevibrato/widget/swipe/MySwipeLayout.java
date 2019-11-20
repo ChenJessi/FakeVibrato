@@ -1,5 +1,6 @@
 package com.chen.fakevibrato.widget.swipe;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -11,6 +12,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
@@ -50,8 +52,8 @@ public class MySwipeLayout extends FrameLayout {
     private int leftHeight;
     private int rightWidth;
     private int rightHeight;
-
-    private boolean mToogle = true;
+    private int mainLeft ;
+    private boolean isSwipe = true;
 
     private boolean first = true;
     private  int mRange ;
@@ -80,9 +82,6 @@ public class MySwipeLayout extends FrameLayout {
         Left,
         Right,
     }
-    public void setScale(@FloatRange(from = 0.5f, to = 1) float scale) {
-        this.scale = scale;
-    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -90,11 +89,15 @@ public class MySwipeLayout extends FrameLayout {
         return true;
     }
 
-
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         // 传递给mDragHelper
-        return mDragHelper.shouldInterceptTouchEvent(ev);
+        return  mDragHelper.shouldInterceptTouchEvent(ev);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
@@ -134,7 +137,6 @@ public class MySwipeLayout extends FrameLayout {
         return super.getChildVisibleRect(child, r, offset);
     }
 
-    private int mainLeft ;
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
@@ -184,7 +186,7 @@ public class MySwipeLayout extends FrameLayout {
         // pointerId 区分多点触摸的id
         @Override
         public boolean tryCaptureView(@NonNull View child, int pointerId) {
-            return mToogle;
+            return isSwipe;
         }
 
         @Override
@@ -438,19 +440,31 @@ public class MySwipeLayout extends FrameLayout {
         mMainContent.setScaleY(EvaluateUtils.INSTANCE.evaluate(percent, 1.0f, scale));
 
         //		> 3. 背景动画: 亮度变化 (颜色变化)
+        if (getBackground() == null){
+            setBackgroundColor(Color.WHITE);
+        }
         getBackground().setColorFilter(
                 (Integer) ColorUtils.INSTANCE.evaluateColor(percent,
                         Color.BLACK, Color.TRANSPARENT), PorterDuff.Mode.SRC_OVER);
-
     }
 
-
-
-    public int getRange() {
-        return mRange;
+    public void setScale(@FloatRange(from = 0.5f, to = 1) float scale) {
+        this.scale = scale;
     }
 
-    public void setRange(int range) {
-        this.mRange = range;
+    public boolean isSwipe() {
+        return isSwipe;
     }
+
+    public void setSwipe(boolean swipe) {
+        isSwipe = swipe;
+    }
+
+    //    public int getRange() {
+//        return mRange;
+//    }
+//
+//    public void setRange(int range) {
+//        this.mRange = range;
+//    }
 }

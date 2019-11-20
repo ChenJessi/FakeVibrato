@@ -74,7 +74,8 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
 
 
     private fun initListener() {
-
+        swipeLayout.isSwipe = false
+        swipeLayout.setScale(1f)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
 
@@ -85,10 +86,10 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
             }
 
             override fun onPageSelected(position: Int) {
-//                mTabLayout. setCurrentTab(position)
                 if (mTabLayout.currentTab != position){
-                    mTabLayout. setCurrentTab(position)
+                    mTabLayout.currentTab = position
                 }
+                swipeLayout.isSwipe = position == 4
             }
         })
 
@@ -145,8 +146,6 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
                         } else {
                             userFragment?.let { mFragments.add(it) }
                         }
-
-
                         adapter?.notifyDataSetChanged()
                     }
                 }
