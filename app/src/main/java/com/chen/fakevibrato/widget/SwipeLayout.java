@@ -874,6 +874,7 @@ public class SwipeLayout extends FrameLayout {
         }
         mIsBeingDragged = !doNothing;
     }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         if (!isSwipeEnabled()) {

@@ -41,6 +41,9 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected P mPresenter;
     protected Context mContext;
 
+    public BaseActivity() {
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

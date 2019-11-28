@@ -86,19 +86,25 @@ public class MySwipeLayout extends FrameLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mDragHelper.processTouchEvent(event);
+        boolean b = super.onTouchEvent(event);
+        MyLog.e("onTouchEvent  onTouchEvent  b  :  "+ b);
         return true;
     }
+
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         // 传递给mDragHelper
-        return  mDragHelper.shouldInterceptTouchEvent(ev);
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                break;
+        }
+
+        return  mDragHelper.shouldInterceptTouchEvent(ev) ;
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return super.dispatchTouchEvent(ev);
-    }
 
     @Override
     protected void onFinishInflate() {

@@ -74,6 +74,7 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
 
 
     private fun initListener() {
+
         swipeLayout.isSwipe = false
         swipeLayout.setScale(1f)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
