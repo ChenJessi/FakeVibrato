@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.chen.baselibrary.BaseApplication;
+import com.chen.baselibrary.ContextProvider;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -21,7 +22,7 @@ public class ReceivedCookiesInterceptor implements Interceptor {
     private Context context;
     public ReceivedCookiesInterceptor() {
         super();
-        this.context = BaseApplication.context;
+        this.context = ContextProvider.Companion.getMInstance().getContext();
     }
 
     @Override

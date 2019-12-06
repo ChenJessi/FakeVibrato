@@ -3,6 +3,7 @@ package com.chen.baselibrary.retorfit;
 import android.content.Context;
 
 import com.chen.baselibrary.BaseApplication;
+import com.chen.baselibrary.ContextProvider;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -22,7 +23,7 @@ public class AddCookiesInterceptor implements Interceptor {
 
     public AddCookiesInterceptor() {
         super();
-        this.context = BaseApplication.context;
+        this.context = ContextProvider.Companion.getMInstance().getContext();
     }
 
     @Override

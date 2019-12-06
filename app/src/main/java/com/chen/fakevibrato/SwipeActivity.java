@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.chen.annotationutils.CheckNet;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.utils.MyLog;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
@@ -36,6 +37,8 @@ public class SwipeActivity extends AppCompatActivity {
         text2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyLog.e("点击执行了==========");
+                test();
                 if (text1.getVisibility() == View.GONE){
                     text1.setVisibility(View.VISIBLE);
                 }else {
@@ -45,5 +48,8 @@ public class SwipeActivity extends AppCompatActivity {
             }
         });
     }
-
+    @CheckNet
+    public void test(){
+      MyLog.e("点击执行了==========");
+    }
 }
