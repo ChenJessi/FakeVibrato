@@ -17,7 +17,6 @@ class FunctionManager {
     }
 
     companion object {
-//        lateinit var instance : FunctionManager<Any>
          val instance: FunctionManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             FunctionManager()
         }

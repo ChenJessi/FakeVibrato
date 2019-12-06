@@ -34,6 +34,8 @@ import com.chen.fakevibrato.utils.EvaluateUtils;
 import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.anim.AnimtorUtils;
 
+import java.lang.annotation.RetentionPolicy;
+
 public class MySwipeLayout extends FrameLayout {
     private ViewDragHelper mDragHelper;
     //侧面板
@@ -464,6 +466,10 @@ public class MySwipeLayout extends FrameLayout {
 
     public void setSwipe(boolean swipe) {
         isSwipe = swipe;
+    }
+
+    public Status getStatus() {
+        return mStatus;
     }
 
     //    public int getRange() {

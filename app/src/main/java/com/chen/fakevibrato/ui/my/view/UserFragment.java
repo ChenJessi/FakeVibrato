@@ -21,27 +21,27 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.chen.fakevibrato.MainActivity;
 import com.chen.fakevibrato.R;
 import com.chen.fakevibrato.base.BaseFragment;
 import com.chen.fakevibrato.bean.SwipeBean;
 import com.chen.fakevibrato.listener.AppBarStateChangeListener;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
-import com.chen.fakevibrato.ui.home.view.HomeListFragment;
 import com.chen.fakevibrato.ui.my.contract.UserContract;
 import com.chen.fakevibrato.ui.my.presenter.UserPresenter;
 import com.chen.fakevibrato.utils.DisplayUtils;
+import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.SwipeLayout;
 import com.chen.fakevibrato.widget.anim.AnimtorUtils;
 import com.chen.fakevibrato.widget.emojiview.EmojiconTextView;
 
+import com.chen.functionmanager.FunctionManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.chen.functionmanager.EventManager;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
@@ -222,6 +222,7 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
                 SwipeBean swipeBean = new SwipeBean(position);
                 swipeBean.setDragEdge(SwipeLayout.DragEdge.Right);
                 EventBus.getDefault().post(swipeBean);
+                FunctionManager.Companion.getInstance().invokeFunction("isSwipe", position);
             }
 
             @Override
@@ -247,10 +248,11 @@ public class UserFragment extends BaseFragment<UserPresenter> implements UserCon
             case R.id.llTakePhoto:
                 break;
             case R.id.ivMore:       //
-                SwipeBean swipeBean = new SwipeBean();
-                swipeBean.setOpen(true);
-                swipeBean.setDragEdge(SwipeLayout.DragEdge.Right);
-                EventBus.getDefault().post(swipeBean);
+                MyLog.e("点击了=====");
+//                new EventManager("openSwipe").post("openSwipe", true, "openSwipe");
+
+                FunctionManager.Companion.getInstance().invokeFunction("openSwipe", true);
+
                 break;
         }
     }

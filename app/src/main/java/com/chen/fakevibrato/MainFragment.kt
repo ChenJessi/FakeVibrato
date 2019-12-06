@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.viewpager.widget.ViewPager
 import com.chen.fakevibrato.base.BaseFragment
 import com.chen.fakevibrato.interfaces.OnDispatchSwipeListener
@@ -15,9 +17,12 @@ import com.chen.fakevibrato.ui.samecity.view.SameCityFragment
 import com.chen.fakevibrato.utils.DisplayUtils
 import com.chen.fakevibrato.utils.MyLog
 import com.chen.fakevibrato.widget.MyStatePagerAdapter
+import com.chen.fakevibrato.widget.swipe.MySwipeLayout
+import com.chen.functionmanager.*
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.android.synthetic.main.layout_side_right.*
 import java.util.*
 
 /**
@@ -31,6 +36,7 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
     private var fragment: Fragment? = null
     private var messageFragment: MessageFragment? = null
     private var userFragment: UserFragment? = null
+    private var userPosition  = 0
 
 
     override fun setView(): Int {
@@ -74,9 +80,24 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
 
 
     private fun initListener() {
-
         swipeLayout.isSwipe = false
         swipeLayout.setScale(1f)
+        FunctionManager.instance.addFunction(object : FunctionHasParamNoResult<Int>("isSwipe") {
+            override fun function(p: Int) {
+                userPosition = p
+                swipeLayout.isSwipe = viewPager.currentItem == 4 && userPosition == 2
+            }
+        })
+        FunctionManager.instance.addFunction(object : FunctionHasParamNoResult<Boolean>("openSwipe") {
+            override fun function(p: Boolean) {
+                if (swipeLayout.status == MySwipeLayout.Status.Open){
+                    swipeLayout.close()
+                }else{
+                    swipeLayout.open()
+                }
+            }
+        })
+
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {
 
@@ -90,7 +111,8 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
                 if (mTabLayout.currentTab != position){
                     mTabLayout.currentTab = position
                 }
-                swipeLayout.isSwipe = position == 4
+
+                swipeLayout.isSwipe = position == 4 && userPosition == 2
             }
         })
 
@@ -164,6 +186,15 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseF
 
         ivBottom.setOnClickListener {
             activity?.startActivity(Intent(activity, SwipeActivity::class.java))
+        }
+        tvService.setOnClickListener {
+            if (llService.visibility == View.GONE) {
+                llService.visibility = View.VISIBLE
+                viewService.visibility = View.INVISIBLE
+            } else {
+                llService.visibility = View.GONE
+                viewService.visibility = View.VISIBLE
+            }
         }
     }
 
