@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.viewpager.widget.ViewPager
-import com.chen.fakevibrato.base.BaseFragment
+import com.chen.fakevibrato.base.BaseSupportFragment
 import com.chen.fakevibrato.interfaces.OnDispatchSwipeListener
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeFragment
@@ -28,7 +26,7 @@ import java.util.*
 /**
  * home
  */
-class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseFragment<MainPresenter>() {
+class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseSupportFragment<MainPresenter>() {
     private var adapter: MyStatePagerAdapter? = null
     private val mFragments = ArrayList<Fragment>()
     internal var mTitles = arrayOf("首页", "同城", "", "消息", "我")

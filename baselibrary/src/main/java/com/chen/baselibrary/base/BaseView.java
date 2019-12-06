@@ -1,4 +1,4 @@
-package com.chen.fakevibrato.base;
+package com.chen.baselibrary.base;
 
 /**
  * @author Created by CHEN on 2019/6/11

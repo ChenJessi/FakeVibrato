@@ -1,1 +1,1 @@
-include ':app', ':viewutils', ':AnnotationUtils', "IMKit", "IMLib", ':FunctionManager'
+include ':app', ':viewutils', ':AnnotationUtils', "IMKit", "IMLib", ':FunctionManager', ':baselibrary'

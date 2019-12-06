@@ -10,14 +10,12 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chen.fakevibrato.R
-import com.chen.fakevibrato.base.BaseFragment
+import com.chen.fakevibrato.base.BaseSupportFragment
 import com.chen.fakevibrato.bean.ButtonBean
-import com.chen.fakevibrato.bean.SwipeBean
 import com.chen.fakevibrato.bean.TitleBean
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.my.adapter.FindFriendAdapter
 import com.chen.fakevibrato.utils.MyLog
-import com.chen.fakevibrato.widget.LoadingView
 import com.chen.fakevibrato.widget.decoration.TitleItemDecoration
 import kotlinx.android.synthetic.main.fragment_find_friend.*
 import org.greenrobot.eventbus.EventBus
@@ -29,7 +27,7 @@ import org.greenrobot.eventbus.ThreadMode
  * @email 188669@163.com
  * 发现好友
  */
-class FindFriendFragment :BaseFragment<MainPresenter>() {
+class FindFriendFragment : BaseSupportFragment<MainPresenter>() {
     var adapter : FindFriendAdapter? = null
     var mList = ArrayList<TitleBean>()
     lateinit var titleItemDecoration : TitleItemDecoration

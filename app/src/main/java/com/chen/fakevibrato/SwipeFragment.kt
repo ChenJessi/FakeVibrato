@@ -5,13 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import butterknife.ButterKnife
-import com.chen.fakevibrato.base.BaseFragment
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter
-import com.chen.fakevibrato.ui.home.presenter.MainPresenter
-import com.qmuiteam.qmui.widget.QMUIViewPager
 import kotlinx.android.synthetic.main.swipe_layout.*
-import org.greenrobot.eventbus.EventBus
 import java.util.ArrayList
 
 class SwipeFragment : Fragment(){

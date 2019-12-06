@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.chen.baselibrary.BaseApplication;
 import com.chen.fakevibrato.im.IMManager;
 import com.chen.fakevibrato.tangram.CustomHolderCell;
 import com.chen.fakevibrato.tangram.CustomViewHolder;
@@ -25,12 +26,13 @@ import io.rong.imlib.RongIMClient;
  * @author Created by CHEN on 2019/6/10
  * @email 188669@163.com
  */
-public class App extends Application {
-    private Context context;
+public class App extends BaseApplication {
+//    private Context context;
     @Override
     public void onCreate() {
         super.onCreate();
-        context = getApplicationContext();
+
+//        context = getApplicationContext();
         // 初始化融云IM SDK，初始化 SDK 仅需要在主进程中初始化一次
         IMManager.getInstance().init(this);
 

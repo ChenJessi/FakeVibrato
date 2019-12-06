@@ -67,6 +67,7 @@ dependencies {
     //通信接口
     implementation project(':FunctionManager')
     implementation project(':AnnotationUtils')
+    implementation project(':baselibrary')
 
 
     //暂时弃用

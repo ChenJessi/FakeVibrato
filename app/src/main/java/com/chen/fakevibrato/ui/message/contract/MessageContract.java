@@ -1,7 +1,7 @@
 package com.chen.fakevibrato.ui.message.contract;
 
-import com.chen.fakevibrato.base.BasePresenter;
-import com.chen.fakevibrato.base.BaseView;
+import com.chen.baselibrary.base.BasePresenter;
+import com.chen.baselibrary.base.BaseView;
 import com.chen.fakevibrato.ui.message.view.MessageFragment;
 import com.chen.fakevibrato.ui.samecity.view.SameCityFragment;
 

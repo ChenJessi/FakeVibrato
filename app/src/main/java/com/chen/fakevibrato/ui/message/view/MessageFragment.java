@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.widget.Toolbar;
 
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseFragment;
+import com.chen.fakevibrato.base.BaseSupportFragment;
 import com.chen.fakevibrato.ui.message.presenter.MessagePresenter;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
@@ -19,7 +19,7 @@ import butterknife.BindView;
  * @email 188669@163.com
  * 消息
  */
-public class MessageFragment extends BaseFragment<MessagePresenter> {
+public class MessageFragment extends BaseSupportFragment<MessagePresenter> {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @Override

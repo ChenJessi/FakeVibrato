@@ -2,27 +2,23 @@ package com.chen.fakevibrato.ui.my.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
-import com.bigkoo.pickerview.configure.PickerOptions;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseActivity;
+import com.chen.fakevibrato.base.BaseSupportActivity;
 import com.chen.fakevibrato.bean.UserInfo;
 import com.chen.fakevibrato.ui.my.contract.EditMessageContract;
 import com.chen.fakevibrato.ui.my.presenter.EditMessagePresenter;
@@ -34,27 +30,20 @@ import com.contrarywind.view.WheelView;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Calendar;
 import java.util.Date;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.Constraints;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.ColorFilterTransformation;
-import jp.wasabeef.glide.transformations.GrayscaleTransformation;
-import jp.wasabeef.glide.transformations.MaskTransformation;
 
 /**
  * 编辑个人资料
  */
-public class EditMessageActivity extends BaseActivity<EditMessagePresenter> implements EditMessageContract.View {
+public class EditMessageActivity extends BaseSupportActivity<EditMessagePresenter> implements EditMessageContract.View {
 
     @BindView(R.id.ivBack)
     ImageView ivBack;
@@ -77,6 +66,7 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+
     private TimePickerView pvTime;
 
     @Override
@@ -92,6 +82,7 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
 
     @Override
     protected void initView() {
+        MyLog.e("toolbar :  "+toolbar);
         initToolbar(toolbar);
         GlideApp.with(EditMessageActivity.this)
                 .load(Constants.userInfo.getUrl())
@@ -145,7 +136,7 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
         }
     }
 
-    private void setMessage(){
+    private void setMessage() {
         tvName.setText(Constants.userInfo.getName());
         tvNumber.setText(Constants.userInfo.getNumber());
         tvIntroduction.setText(Constants.userInfo.getIntroduction());
@@ -154,11 +145,13 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
         tvArea.setText(Constants.userInfo.getArea());
         tvBirthday.setText(Constants.userInfo.getBirthd());
     }
-    @Subscribe(threadMode = ThreadMode.MAIN )
-    public void refreshInfo(UserInfo userInfo){
-        MyLog.d("userInfo ： "+userInfo);
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshInfo(UserInfo userInfo) {
+        MyLog.d("userInfo ： " + userInfo);
         setMessage();
     }
+
     private void showHeadDialog() {
         final String[] items = new String[]{"拍一张", "相册选择", "查看大图", "取消"};
         new QMUIDialog.MenuDialogBuilder(EditMessageActivity.this)
@@ -224,10 +217,13 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
                         View view = v.findViewById(R.id.view);
                         View viewBg = v.findViewById(R.id.viewBg);
                         Switch switchBtn = v.findViewById(R.id.switchBtn);
-                        constraintLayout.setOnClickListener(v13 -> {});
-                        view.setOnClickListener(v1 -> {});
-                        viewBg.setOnClickListener(v14 -> {});
-                        if (!TextUtils.equals("不显示", tvBirthday.getText().toString())){
+                        constraintLayout.setOnClickListener(v13 -> {
+                        });
+                        view.setOnClickListener(v1 -> {
+                        });
+                        viewBg.setOnClickListener(v14 -> {
+                        });
+                        if (!TextUtils.equals("不显示", tvBirthday.getText().toString())) {
                             switchBtn.setChecked(false);
                         }
                         switchBtn.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -238,7 +234,7 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
                             }
                         });
                         tvConfirm.setOnClickListener(v12 -> {
-                            if (switchBtn.isChecked()){
+                            if (switchBtn.isChecked()) {
                                 tvBirthday.setText("不显示");
                             } else {
                                 pvTime.returnData();
@@ -262,4 +258,5 @@ public class EditMessageActivity extends BaseActivity<EditMessagePresenter> impl
     protected void onDestroy() {
         super.onDestroy();
     }
+
 }

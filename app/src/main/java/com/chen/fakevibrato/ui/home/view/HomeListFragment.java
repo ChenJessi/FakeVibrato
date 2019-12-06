@@ -2,7 +2,6 @@ package com.chen.fakevibrato.ui.home.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseFragment;
+import com.chen.fakevibrato.base.BaseSupportFragment;
 import com.chen.fakevibrato.ui.home.adapter.HomeListAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeListContract;
 import com.chen.fakevibrato.ui.home.presenter.HomeListPresenter;
@@ -22,14 +21,12 @@ import com.chen.fakevibrato.widget.LoadingView;
 import com.chen.fakevibrato.widget.VideoLongDialog;
 import com.chen.fakevibrato.widget.emojipanel.EmojiActivity;
 import com.qmuiteam.qmui.widget.dialog.QMUIBottomSheet;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.BindView;
 
@@ -38,7 +35,7 @@ import butterknife.BindView;
  * @author Created by CHEN on 2019/7/18
  * @email 188669@163.com
  */
-public class HomeListFragment extends BaseFragment<HomeListPresenter> implements HomeListContract.View {
+public class HomeListFragment extends BaseSupportFragment<HomeListPresenter> implements HomeListContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.refreshLayout)
@@ -67,6 +64,7 @@ public class HomeListFragment extends BaseFragment<HomeListPresenter> implements
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(adapter);
         helper = new PagerSnapHelper();
+        recyclerView.setOnFlingListener(null);
         helper.attachToRecyclerView(recyclerView);
 
         initListener();

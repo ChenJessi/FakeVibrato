@@ -1,35 +1,20 @@
 package com.chen.fakevibrato;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.widget.LinearLayout;
 
-import com.chen.fakevibrato.base.BaseActivity;
+import com.chen.fakevibrato.base.BaseSupportActivity;
 import com.chen.fakevibrato.im.IMManager;
-import com.chen.fakevibrato.im.UserCache;
-import com.chen.fakevibrato.ui.home.contract.SplashContract;
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
-
-import org.reactivestreams.Subscriber;
 
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-import io.rong.imlib.RongIMClient;
 
-import static io.rong.imkit.utils.SystemUtils.getCurProcessName;
-
-public class SplashActivity extends BaseActivity<MainPresenter> {
+public class SplashActivity extends BaseSupportActivity<MainPresenter> {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_splash;

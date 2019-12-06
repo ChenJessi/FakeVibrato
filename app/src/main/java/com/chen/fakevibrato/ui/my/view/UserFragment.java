@@ -22,7 +22,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseFragment;
+import com.chen.fakevibrato.base.BaseSupportFragment;
 import com.chen.fakevibrato.bean.SwipeBean;
 import com.chen.fakevibrato.listener.AppBarStateChangeListener;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
@@ -37,7 +37,6 @@ import com.chen.fakevibrato.widget.emojiview.EmojiconTextView;
 import com.chen.functionmanager.FunctionManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.chen.functionmanager.EventManager;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
@@ -57,7 +56,7 @@ import butterknife.OnClick;
  * @author Created by CHEN on 2019/7/18
  * @email 188669@163.com
  */
-public class UserFragment extends BaseFragment<UserPresenter> implements UserContract.View {
+public class UserFragment extends BaseSupportFragment<UserPresenter> implements UserContract.View {
     @BindView(R.id.ivBackGround)
     ImageView ivBackGround;
     @BindView(R.id.toolbar)

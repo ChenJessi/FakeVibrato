@@ -1,9 +1,9 @@
 package com.chen.fakevibrato.ui.home.contract;
 
-import com.chen.fakevibrato.MainActivity;
+
 import com.chen.fakevibrato.SplashActivity;
-import com.chen.fakevibrato.base.BasePresenter;
-import com.chen.fakevibrato.base.BaseView;
+import com.chen.baselibrary.base.BasePresenter;
+import com.chen.baselibrary.base.BaseView;
 
 /**
  * @author Created by CHEN on 2019/6/11

@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/IMKit" />
             <option value="$PROJECT_DIR$/IMLib" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/baselibrary" />
             <option value="$PROJECT_DIR$/viewutils" />
           </set>
         </option>

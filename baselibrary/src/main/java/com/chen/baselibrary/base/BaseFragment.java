@@ -1,24 +1,14 @@
-package com.chen.fakevibrato.base;
+package com.chen.baselibrary.base;
 
 
 import android.os.Bundle;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.chen.fakevibrato.utils.Constants;
-import com.chen.fakevibrato.utils.MyLog;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * @author Created by CHEN on 2019/6/11
@@ -30,7 +20,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     protected final String TAG = this.getClass().getSimpleName();
 
     protected P mPresenter;
-    private Unbinder mUnbinder;
     /**
      * 是否显示
      */
@@ -53,9 +42,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = setView() == 0 ? null :inflater.inflate(setView(), container, false);
-        //绑定到butterknife
-        mUnbinder = ButterKnife.bind(this, view);
-        EventBus.getDefault().register(this);
+
         mPresenter = initPresenter();
         if (mPresenter != null){
             mPresenter.attachView(this);
@@ -144,24 +131,11 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         initData(savedInstanceState);
     }
 
-
-
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
-        if (mUnbinder != Unbinder.EMPTY) mUnbinder.unbind();
     }
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(int event) {
-        if (event == Constants.QUIT_ACTION){
 
-        }
-    }
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -172,11 +146,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         isFirstVisible = true;
         isFragmentVisible = false;
         isReuseView = true;
-
         this.mPresenter = null;
         this.mActivity = null;
         this.mRootView = null;
-        this.mUnbinder = null;
     }
     /**
      * 是否是第一次加载

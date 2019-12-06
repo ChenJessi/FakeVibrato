@@ -1,8 +1,5 @@
 package com.chen.fakevibrato.ui.my.view
 
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.text.Editable
 import android.text.InputFilter
 import android.text.TextUtils
@@ -11,27 +8,22 @@ import android.text.method.DigitsKeyListener
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.chen.fakevibrato.R
-import com.chen.fakevibrato.base.BaseActivity
+import com.chen.fakevibrato.base.BaseSupportActivity
 import com.chen.fakevibrato.bean.UserInfo
 import com.chen.fakevibrato.ui.my.presenter.EditNormalPresenter
-import com.chen.fakevibrato.ui.my.presenter.UserVideoPresenter
 import com.chen.fakevibrato.utils.Constants
 import com.chen.fakevibrato.utils.Constants.*
 import com.chen.fakevibrato.utils.MyLog
 import kotlinx.android.synthetic.main.activity_edit_normal.*
 import org.greenrobot.eventbus.EventBus
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
-
 
 
 /**
  * 编辑页面
  */
-class EditNormalActivtiy : BaseActivity<EditNormalPresenter>(), View.OnClickListener {
+class EditNormalActivtiy : BaseSupportActivity<EditNormalPresenter>(), View.OnClickListener {
 
 
     companion object {

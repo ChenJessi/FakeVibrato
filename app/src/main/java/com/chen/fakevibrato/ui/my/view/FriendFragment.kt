@@ -1,21 +1,17 @@
 package com.chen.fakevibrato.ui.my.view
 
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.text.InputType
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chen.fakevibrato.R
-import com.chen.fakevibrato.base.BaseFragment
+import com.chen.fakevibrato.base.BaseSupportFragment
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.my.adapter.FriendAdapter
 import kotlinx.android.synthetic.main.fragment_friend.*
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
-import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
-import android.text.InputType.TYPE_CLASS_TEXT
 import android.widget.Toast
 
 
@@ -24,7 +20,7 @@ import android.widget.Toast
  * @email 188669@163.com
  * 好友
  */
-class FriendFragment : BaseFragment<MainPresenter>() {
+class FriendFragment : BaseSupportFragment<MainPresenter>() {
     var adapter: FriendAdapter? = null
 
     var mList = ArrayList<String>()

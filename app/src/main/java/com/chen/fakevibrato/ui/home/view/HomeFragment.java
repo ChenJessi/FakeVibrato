@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseFragment;
+import com.chen.fakevibrato.base.BaseSupportFragment;
 import com.chen.fakevibrato.bean.SwipeBean;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
@@ -42,7 +42,7 @@ import butterknife.OnClick;
  * @author Created by CHEN on 2019/6/11
  * @email 188669@163.com
  */
-public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
+public class HomeFragment extends BaseSupportFragment<HomePresenter> implements HomeContract.View {
     @BindView(R.id.tvRandom)
     TextView tvRandom;
     @BindView(R.id.ivSearch)
