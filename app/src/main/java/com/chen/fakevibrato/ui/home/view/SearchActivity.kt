@@ -32,6 +32,7 @@ import com.tmall.wireless.vaf.virtualview.view.image.ImageBase
 import com.tmall.wireless.vaf.virtualview.event.EventManager
 import kotlinx.android.synthetic.main.activity_search.*
 import org.json.JSONArray
+import org.mp4parser.aspectj.lang.annotation.Aspect
 import org.json.JSONException as JSONException1
 
 
@@ -40,6 +41,7 @@ import org.json.JSONException as JSONException1
  * @email 188669@163.com
  * 搜索
  */
+
 class SearchActivity : BaseSupportActivity<MainPresenter>(){
     lateinit var mEngine : TangramEngine
     override fun getLayoutId(): Int {

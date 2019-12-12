@@ -1,5 +1,6 @@
 package com.chen.fakevibrato;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.customview.widget.ViewDragHelper;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -13,12 +14,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.chen.annotationutils.AnnotationUtils;
 import com.chen.annotationutils.CheckNet;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.utils.MyLog;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
+
+import org.mp4parser.aspectj.lang.annotation.Before;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -32,12 +36,13 @@ public class SwipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
+        AnnotationUtils.INSTANCE.inject(this);
         text1 = findViewById(R.id.text1);
         text2 = findViewById(R.id.text2);
+
         text2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyLog.e("点击执行了==========");
                 test();
                 if (text1.getVisibility() == View.GONE){
                     text1.setVisibility(View.VISIBLE);
@@ -49,7 +54,7 @@ public class SwipeActivity extends AppCompatActivity {
         });
     }
     @CheckNet
-    public void test(){
+    private void test(){
       MyLog.e("点击执行了==========");
     }
 }

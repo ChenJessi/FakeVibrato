@@ -10,7 +10,7 @@
         android:background="@color/gray"
         app:srlAccentColor="@android:color/white"
         app:srlEnableAutoLoadMore="false"
-        app:srlHeaderHeight="200dp"
+        app:srlHeaderHeight="50dp"
         app:srlDragRate="1"
         app:srlEnablePreviewInEditMode="true">
         <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->

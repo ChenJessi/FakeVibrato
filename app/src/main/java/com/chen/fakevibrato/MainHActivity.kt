@@ -41,7 +41,6 @@ class MainHActivity : BaseSupportActivity<MainPresenter>(), OnDispatchSwipeListe
         viewPager.setSwipeable(true)
         viewPager.currentItem = 1
 
-
     }
 
 

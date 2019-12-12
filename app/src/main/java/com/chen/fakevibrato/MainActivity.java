@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.chen.annotationutils.AnnotationUtils;
 import com.chen.fakevibrato.base.BaseSupportActivity;
 import com.chen.fakevibrato.bean.SwipeBean;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
@@ -32,6 +33,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.reflect.InvocationHandler;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,6 +116,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         adapter = new MyPagerAdapter(getSupportFragmentManager(), mFragments);
         viewPager.setAdapter(adapter);
         viewPager.setSwipeable(false);
+
 
         ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
         for (int i = 0; i < mTitles.length; i++) {

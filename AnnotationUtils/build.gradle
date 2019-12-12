@@ -30,7 +30,65 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
-    testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
+    testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    api 'org.aspectj:aspectjrt:1.9.5'
+
 }
+//
+//>>>>>>>>>>>>>>>>>>>Aspectjrt 只在module下使用的配置>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//import org.aspectj.bridge.IMessage
+//import org.aspectj.bridge.MessageHandler
+//import org.aspectj.tools.ajc.Main
+//
+////buildscript {
+////    repositories {
+////        mavenCentral()
+////    }
+////    dependencies {
+////        classpath 'org.aspectj:aspectjtools:1.9.5'
+//////        classpath 'org.aspectj:aspectjweaver:1.8.13'
+////    }
+////}
+////
+////repositories {
+////    mavenCentral()
+////}
+//
+//
+//android.libraryVariants.all { variant ->
+//    JavaCompile javaCompile = variant.javaCompile
+//    javaCompile.doLast {
+//        String[] args = ["-showWeaveInfo",
+//                         "-1.5",
+//                         "-inpath", javaCompile.destinationDir.toString(),
+//                         "-aspectpath", javaCompile.classpath.asPath,
+//                         "-d", javaCompile.destinationDir.toString(),
+//                         "-classpath", javaCompile.classpath.asPath,
+//                         "-bootclasspath", android.bootClasspath.join(
+//                File.pathSeparator)]
+//
+//        MessageHandler handler = new MessageHandler(true)
+//        new Main().run(args, handler)
+//
+//        def log = project.logger
+//        for (IMessage message : handler.getMessages(null, true)) {
+//            switch (message.getKind()) {
+//                case IMessage.ABORT:
+//                case IMessage.ERROR:
+//                case IMessage.FAIL:
+//                    log.error message.message, message.thrown
+//                    break
+//                case IMessage.WARNING:
+//                case IMessage.INFO:
+//                    log.info message.message, message.thrown
+//                    break
+//                case IMessage.DEBUG:
+//                    log.debug message.message, message.thrown
+//                    break
+//            }
+//        }
+//    }
+//}

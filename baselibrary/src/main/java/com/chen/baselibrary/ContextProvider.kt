@@ -10,7 +10,6 @@ class ContextProvider {
         }
     }
 
-
     fun getContext() : Context{
         return AppContextProvider.mContext
     }

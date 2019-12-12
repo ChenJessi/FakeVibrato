@@ -58,7 +58,6 @@
                     android:minHeight="?attr/actionBarSize"
                     app:scrimVisibleHeightTrigger="250dp"
                     app:scrimAnimationDuration="1"
-
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:statusBarScrim="@color/transparent">
                     <include

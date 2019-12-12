@@ -30,6 +30,7 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
 import org.greenrobot.eventbus.EventBus;
+import org.mp4parser.aspectj.lang.annotation.Aspect;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,7 @@ import butterknife.OnClick;
  * @author Created by CHEN on 2019/6/11
  * @email 188669@163.com
  */
+
 public class HomeFragment extends BaseSupportFragment<HomePresenter> implements HomeContract.View {
     @BindView(R.id.tvRandom)
     TextView tvRandom;
