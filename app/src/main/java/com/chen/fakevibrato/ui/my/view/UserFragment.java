@@ -111,7 +111,6 @@ public class UserFragment extends BaseSupportFragment<UserPresenter> implements 
     @Override
     protected int setView() {
         return R.layout.fragment_user;
-        //        return R.layout.fragment_user_test;
     }
 
     @Override
@@ -246,12 +245,8 @@ public class UserFragment extends BaseSupportFragment<UserPresenter> implements 
                 break;
             case R.id.llTakePhoto:
                 break;
-            case R.id.ivMore:       //
-                MyLog.e("点击了=====");
-//                new EventManager("openSwipe").post("openSwipe", true, "openSwipe");
-
+            case R.id.ivMore:
                 FunctionManager.Companion.getInstance().invokeFunction("openSwipe", true);
-
                 break;
         }
     }

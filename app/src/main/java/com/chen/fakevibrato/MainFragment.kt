@@ -26,7 +26,7 @@ import java.util.*
 /**
  * home
  */
-class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseSupportFragment<MainPresenter>() {
+class MainFragment : BaseSupportFragment<MainPresenter>() {
     private var adapter: MyStatePagerAdapter? = null
     private val mFragments = ArrayList<Fragment>()
     internal var mTitles = arrayOf("首页", "同城", "", "消息", "我")
@@ -130,7 +130,8 @@ class MainFragment(var onDispatchSwipeListener: OnDispatchSwipeListener) : BaseS
                 val textPaint = textView.paint
                 val textPaintWidth = textPaint.measureText(text).toInt()
                 mTabLayout.indicatorWidth = DisplayUtils.px2dp(activity, textPaintWidth.toFloat()).toFloat()
-                onDispatchSwipeListener.isDispatchSwipe(position != 4)
+//                onDispatchSwipeListener.isDispatchSwipe(position != 0)
+                FunctionManager.instance.invokeFunction("mainSwipeLayout", position == 0)
                 if (position == 0) {
                     MyLog.e("mFragments  : " + mFragments.size)
                     mFragments.removeAt(4)

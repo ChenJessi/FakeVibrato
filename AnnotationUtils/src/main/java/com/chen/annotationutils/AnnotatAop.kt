@@ -12,7 +12,7 @@ import org.aspectj.lang.reflect.MethodSignature
 
 @Aspect
 class AnnotatAop {
-    var isLogin = false
+
     @Pointcut("execution(@com.chen.annotationutils.CheckNet * *(..))")
     fun CheckNet(){
     }
@@ -24,10 +24,10 @@ class AnnotatAop {
         val checkLogin : CheckNet? = methodSignature.method.getAnnotation(CheckNet::class.java)
         if(checkLogin != null){
             val context = joinPoint.`this` as Context
-            if(isLogin){    // 执行对应的内容
+            if(AnnotatUtils.networkAvailable(context)){    // 执行对应的内容
                 joinPoint.proceed()//执行标注的方法中的内容
             }else{
-                Toast.makeText(context,"请先登入", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"网络开小差了哦", Toast.LENGTH_SHORT).show()
             }
         }
     }

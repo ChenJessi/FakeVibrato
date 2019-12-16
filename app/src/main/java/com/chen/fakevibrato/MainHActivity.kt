@@ -9,17 +9,16 @@ import com.chen.fakevibrato.interfaces.OnDispatchSwipeListener
 
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
+import com.chen.fakevibrato.utils.MyLog
+import com.chen.functionmanager.FunctionHasParamNoResult
+import com.chen.functionmanager.FunctionManager
 import kotlinx.android.synthetic.main.activity_main_h.*
 import java.util.ArrayList
 import org.greenrobot.eventbus.EventBus
 
 
-class MainHActivity : BaseSupportActivity<MainPresenter>(), OnDispatchSwipeListener {
+class MainHActivity : BaseSupportActivity<MainPresenter>() {
 
-
-    override fun isDispatchSwipe(dispatchSwipe: Boolean) {
-        viewPager.setSwipeable(dispatchSwipe)
-    }
 
     private var adapter: MyPagerAdapter? = null
     private val mFragments = ArrayList<Fragment>()
@@ -32,8 +31,13 @@ class MainHActivity : BaseSupportActivity<MainPresenter>(), OnDispatchSwipeListe
     }
 
     override fun initView() {
+        FunctionManager.instance.addFunction(object : FunctionHasParamNoResult<Boolean>("mainSwipeLayout") {
+            override fun function(p: Boolean) {
+                viewPager.setSwipeable(p)
+            }
+        })
         mFragments.add(SwipeFragment())
-        mFragments.add(MainFragment(this))
+        mFragments.add(MainFragment())
         mFragments.add(SwipeFragment())
 
         adapter = MyPagerAdapter(supportFragmentManager, mFragments)
@@ -51,12 +55,4 @@ class MainHActivity : BaseSupportActivity<MainPresenter>(), OnDispatchSwipeListe
     override fun initData() {
 
     }
-
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        if (ev.action == MotionEvent.ACTION_DOWN) {
-            EventBus.getDefault().post(ev)
-        }
-        return super.dispatchTouchEvent(ev)
-    }
-
 }
