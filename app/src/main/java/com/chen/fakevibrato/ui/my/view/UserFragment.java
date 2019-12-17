@@ -48,6 +48,7 @@ import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -247,6 +248,8 @@ public class UserFragment extends BaseSupportFragment<UserPresenter> implements 
                 break;
             case R.id.ivMore:
                 FunctionManager.Companion.getInstance().invokeFunction("openSwipe", true);
+
+
                 break;
         }
     }
