@@ -30,7 +30,7 @@ class ExceptionCrashHandler : Thread.UncaughtExceptionHandler {
     private var mContext: Context? = null
 
     companion object{
-        val mInstance by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED){
+        val instance by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED){
             ExceptionCrashHandler()
         }
     }

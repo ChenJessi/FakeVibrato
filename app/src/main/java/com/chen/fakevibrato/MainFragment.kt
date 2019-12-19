@@ -2,7 +2,10 @@ package com.chen.fakevibrato
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.chen.fakevibrato.base.BaseSupportFragment
@@ -185,6 +188,9 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
 
         ivBottom.setOnClickListener {
             activity?.startActivity(Intent(activity, SwipeActivity::class.java))
+//           var a = 2/0
+//            Toast.makeText(activity,  "测试  $a", Toast.LENGTH_LONG).show();
+
         }
         tvService.setOnClickListener {
             if (llService.visibility == View.GONE) {

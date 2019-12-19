@@ -3,13 +3,17 @@ package com.chen.fakevibrato;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.chen.baselibrary.BaseApplication;
+import com.chen.baselibrary.fix.ExceptionCrashHandler;
+import com.chen.baselibrary.fix.FixDexManager;
 import com.chen.fakevibrato.im.IMManager;
 import com.chen.fakevibrato.tangram.CustomHolderCell;
 import com.chen.fakevibrato.tangram.CustomViewHolder;
@@ -17,6 +21,8 @@ import com.chen.fakevibrato.widget.glide.GlideApp;
 import com.tmall.wireless.tangram.TangramBuilder;
 import com.tmall.wireless.tangram.structure.viewcreator.ViewHolderCreator;
 import com.tmall.wireless.tangram.util.IInnerImageSetter;
+
+import java.io.File;
 
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
@@ -27,17 +33,19 @@ import io.rong.imlib.RongIMClient;
  * @email 188669@163.com
  */
 public class App extends BaseApplication {
-//    private Context context;
     @Override
     public void onCreate() {
         super.onCreate();
+        ExceptionCrashHandler.Companion.getInstance().init(this);
 
-//        context = getApplicationContext();
-        // 初始化融云IM SDK，初始化 SDK 仅需要在主进程中初始化一次
+        try {
+            FixDexManager fixDexManager = new FixDexManager(this);
+            fixDexManager.loadFixDex();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         IMManager.getInstance().init(this);
-
     }
 
-
-
+    
 }
