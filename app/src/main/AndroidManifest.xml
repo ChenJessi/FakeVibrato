@@ -3,6 +3,7 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.chen.fakevibrato">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:name=".App"
@@ -13,8 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainHActivity"
-            android:windowSoftInputMode="adjustPan" ></activity>
-        <activity android:name=".SwipeActivity" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".SwipeActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.home.view.SearchActivity"
             android:launchMode="singleTop"

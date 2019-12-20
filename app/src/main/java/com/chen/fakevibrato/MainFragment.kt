@@ -1,15 +1,12 @@
 package com.chen.fakevibrato
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.chen.fakevibrato.base.BaseSupportFragment
-import com.chen.fakevibrato.interfaces.OnDispatchSwipeListener
+import com.chen.fakevibrato.http.HttpUtils
+import com.chen.fakevibrato.http.OkHttpEngine
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeFragment
 import com.chen.fakevibrato.ui.message.view.MessageFragment
@@ -19,12 +16,14 @@ import com.chen.fakevibrato.utils.DisplayUtils
 import com.chen.fakevibrato.utils.MyLog
 import com.chen.fakevibrato.widget.MyStatePagerAdapter
 import com.chen.fakevibrato.widget.swipe.MySwipeLayout
-import com.chen.functionmanager.*
+import com.chen.functionmanager.FunctionHasParamNoResult
+import com.chen.functionmanager.FunctionManager
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.layout_side_right.*
 import java.util.*
+
 
 /**
  * home
@@ -37,7 +36,7 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
     private var fragment: Fragment? = null
     private var messageFragment: MessageFragment? = null
     private var userFragment: UserFragment? = null
-    private var userPosition  = 0
+    private var userPosition = 0
 
 
     override fun setView(): Int {
@@ -91,15 +90,15 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
         })
         FunctionManager.instance.addFunction(object : FunctionHasParamNoResult<Boolean>("openSwipe") {
             override fun function(p: Boolean) {
-                if (swipeLayout.status == MySwipeLayout.Status.Open){
+                if (swipeLayout.status == MySwipeLayout.Status.Open) {
                     swipeLayout.close()
-                }else{
+                } else {
                     swipeLayout.open()
                 }
             }
         })
 
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
             }
@@ -109,7 +108,7 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
             }
 
             override fun onPageSelected(position: Int) {
-                if (mTabLayout.currentTab != position){
+                if (mTabLayout.currentTab != position) {
                     mTabLayout.currentTab = position
                 }
 
@@ -176,7 +175,7 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
                 }
 
 //                viewPager.currentItem = position
-                if (viewPager.currentItem != position){
+                if (viewPager.currentItem != position) {
                     viewPager.currentItem = position
                     viewPager.setCurrentItem(position, true)
                 }
@@ -187,11 +186,24 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
         })
 
         ivBottom.setOnClickListener {
-            activity?.startActivity(Intent(activity, SwipeActivity::class.java))
+            //            activity?.startActivity(Intent(activity, SwipeActivity::class.java))
 //           var a = 2/0
 //            Toast.makeText(activity,  "测试  $a", Toast.LENGTH_LONG).show();
-
+            val map = HashMap<String, String>()
+            map["token"] = ""
+            map["appId"] = ""
+            map["timeStamp"] = ""
+            map["sign"] = ""
+            if (activity != null) {
+                activity?.let { it1 ->
+//                    HttpUtils.with(it1)
+//                    HttpUtils.init(OkHttpEngine())
+                    HttpUtils.with(it1).url("https:/auth/getUserInfo")
+                            .get().addParams(map.toMutableMap()).execute()
+                }
+            }
         }
+
         tvService.setOnClickListener {
             if (llService.visibility == View.GONE) {
                 llService.visibility = View.VISIBLE

@@ -77,7 +77,7 @@ dependencies {
     implementation project(':IMKit')
     implementation project(':IMLib')
 
-
+    implementation"com.squareup.okhttp3:okhttp:4.2.2"
 
 }
 repositories {

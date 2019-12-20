@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import com.chen.baselibrary.BaseApplication;
 import com.chen.baselibrary.fix.ExceptionCrashHandler;
 import com.chen.baselibrary.fix.FixDexManager;
+import com.chen.fakevibrato.http.HttpUtils;
 import com.chen.fakevibrato.im.IMManager;
 import com.chen.fakevibrato.tangram.CustomHolderCell;
 import com.chen.fakevibrato.tangram.CustomViewHolder;
@@ -45,7 +46,8 @@ public class App extends BaseApplication {
             e.printStackTrace();
         }
         IMManager.getInstance().init(this);
+
     }
 
-    
+
 }
