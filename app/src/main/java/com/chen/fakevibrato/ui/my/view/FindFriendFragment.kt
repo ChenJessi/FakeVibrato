@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chen.fakevibrato.R
 import com.chen.fakevibrato.base.BaseSupportFragment
@@ -57,7 +58,9 @@ class FindFriendFragment : BaseSupportFragment<MainPresenter>() {
         mList.add(bean1)
         mList.add(bean1)
         adapter = activity?.let { FindFriendAdapter(it, mList) }
+
         recyclerView.layoutManager = LinearLayoutManager(activity)
+
         recyclerView.adapter = adapter
         titleItemDecoration = TitleItemDecoration(activity, mList)
         recyclerView.addItemDecoration(titleItemDecoration)
