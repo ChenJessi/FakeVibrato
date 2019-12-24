@@ -10,14 +10,6 @@ import com.chen.fakevibrato.http.IHttpEngine
 import org.json.JSONObject
 
 class OkHttpEngine : IHttpEngine {
-//    override fun get(context: Context, url: String, params: Map<String, Any>?, callBack: EngineCallBack) {
-//
-//    }
-//
-//    override fun post(context: Context, url: String, params: Map<String, Any>?, callBack: EngineCallBack) {
-//
-//    }
-
 
     private val mOkHttpClient = OkHttpClient()
 

@@ -13,9 +13,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.chen.annotationutils.AnnotationUtils;
 import com.chen.annotationutils.CheckNet;
+import com.chen.fakevibrato.bean.UserInfo;
+import com.chen.fakevibrato.db.DaoSupport;
+import com.chen.fakevibrato.db.DaoSupportFactory;
+import com.chen.fakevibrato.db.IDaoSoupport;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.utils.MyLog;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
@@ -36,7 +40,7 @@ public class SwipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swipe);
-        AnnotationUtils.INSTANCE.inject(this);
+
         text1 = findViewById(R.id.text1);
         text2 = findViewById(R.id.text2);
 
@@ -52,9 +56,23 @@ public class SwipeActivity extends AppCompatActivity {
 
             }
         });
+
     }
     @CheckNet
     private void test(){
       MyLog.e("点击执行了==========");
+        IDaoSoupport<UserInfo> daoSoupport = DaoSupportFactory.Companion.getFactory().getDao(UserInfo.class);
+        List<UserInfo> userInfos = new ArrayList<>();
+
+//        for (int i = 0; i < 5000; i++) {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setName("测试  :  ");
+        daoSoupport.insert(userInfo);
+//            userInfos.add(userInfo);
+//        }
+//        daoSoupport.insert(userInfos);
+
+        List<UserInfo> users = daoSoupport.query();
+        Toast.makeText(this, "users -> " + users.size(), Toast.LENGTH_LONG).show();
     }
 }

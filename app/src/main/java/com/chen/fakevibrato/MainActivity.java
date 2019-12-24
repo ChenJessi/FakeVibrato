@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.chen.annotationutils.AnnotationUtils;
 import com.chen.fakevibrato.base.BaseSupportActivity;
 import com.chen.fakevibrato.bean.SwipeBean;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;

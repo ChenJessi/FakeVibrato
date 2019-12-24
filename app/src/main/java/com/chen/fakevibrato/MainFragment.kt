@@ -1,12 +1,14 @@
 package com.chen.fakevibrato
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.chen.fakevibrato.base.BaseSupportFragment
+import com.chen.fakevibrato.bean.UserInfo
+import com.chen.fakevibrato.db.DaoSupportFactory
 import com.chen.fakevibrato.http.HttpUtils
-import com.chen.fakevibrato.http.OkHttpEngine
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeFragment
 import com.chen.fakevibrato.ui.message.view.MessageFragment
@@ -186,22 +188,10 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
         })
 
         ivBottom.setOnClickListener {
-            //            activity?.startActivity(Intent(activity, SwipeActivity::class.java))
+            activity?.startActivity(Intent(activity, SwipeActivity::class.java))
 //           var a = 2/0
 //            Toast.makeText(activity,  "测试  $a", Toast.LENGTH_LONG).show();
-            val map = HashMap<String, String>()
-            map["token"] = ""
-            map["appId"] = ""
-            map["timeStamp"] = ""
-            map["sign"] = ""
-            if (activity != null) {
-                activity?.let { it1 ->
-//                    HttpUtils.with(it1)
-//                    HttpUtils.init(OkHttpEngine())
-                    HttpUtils.with(it1).url("https:/auth/getUserInfo")
-                            .get().addParams(map.toMutableMap()).execute()
-                }
-            }
+
         }
 
         tvService.setOnClickListener {
@@ -221,5 +211,21 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
 
     override fun Load() {
 
+    }
+
+    private fun httptest() {
+        val map = HashMap<String, String>()
+        map["token"] = ""
+        map["appId"] = ""
+        map["timeStamp"] = ""
+        map["sign"] = ""
+        if (activity != null) {
+            activity?.let { it1 ->
+                //                    HttpUtils.with(it1)
+//                    HttpUtils.init(OkHttpEngine())
+                HttpUtils.with(it1).url("https:/auth/getUserInfo")
+                        .get().addParams(map.toMutableMap()).execute()
+            }
+        }
     }
 }

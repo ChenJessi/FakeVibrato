@@ -25,10 +25,10 @@ object DaoUtil {
         return value
     }
 
-    fun capitalize(string: String) : String? {
+    fun capitalize(string: String) : String {
         if (!TextUtils.isEmpty(string)) {
             return string.substring(0, 1).toUpperCase(Locale.US) + string.substring(1)
         }
-        return if (string == null) null else ""
+        return string
     }
 }
