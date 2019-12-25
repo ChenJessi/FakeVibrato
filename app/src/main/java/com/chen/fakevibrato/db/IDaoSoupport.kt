@@ -11,4 +11,6 @@ interface IDaoSoupport<T> {
 
     //查询所有
     fun query() : List<T>
+
+
 }

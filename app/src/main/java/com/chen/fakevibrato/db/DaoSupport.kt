@@ -213,53 +213,6 @@ class DaoSupport<T> : IDaoSoupport<T> {
             }
         }
 
-        MyLog.e("getTableName     contentValues   ${contentValues.size()}")
         return contentValues
     }
-//
-//    // obj 转成 ContentValues
-//    private fun contentValuesByObj(obj: T): ContentValues {
-//        // 第三方的 使用比对一下 了解一下源码
-//        val values = ContentValues()
-//        // 封装values
-//        val fields = mClazz!!.declaredFields
-//
-//        for (field in fields) {
-//            try {
-//                // 设置权限，私有和共有都可以访问
-//                field.isAccessible = true
-//                val key = field.name
-//                // 获取value
-//                val value = field.get(obj)
-//                // put 第二个参数是类型  把它转换
-//
-//                mPutMethodArgs[0] = key
-//                mPutMethodArgs[1] = value
-//
-//                // 方法使用反射 ， 反射在一定程度上会影响性能
-//                // 源码里面  activity实例 反射  View创建反射
-//                // 第三方以及是源码给我们提供的是最好的学习教材   插件换肤
-//                // 感谢google提供的源码，我们明天再见
-//
-//                val filedTypeName = field.type.name
-//                // 还是使用反射  获取方法  put  缓存方法
-//                var putMethod = mPutMethods[filedTypeName]
-//                if (putMethod == null) {
-//                    putMethod = ContentValues::class.java.getDeclaredMethod("put",
-//                            String::class.java, value!!.javaClass)
-//                    mPutMethods[filedTypeName] = putMethod
-//                }
-//
-//                MyLog.e("getTableName     putMethod  " + values.size() + "    " + mPutMethodArgs.toString())
-//                // 通过反射执行
-//                putMethod!!.invoke(values, *mPutMethodArgs)
-//            } catch (e: Exception) {
-//                e.printStackTrace()
-//            } finally {
-//                mPutMethodArgs[0] = null
-//                mPutMethodArgs[1] = null
-//            }
-//        }
-//        return values
-//    }
 }

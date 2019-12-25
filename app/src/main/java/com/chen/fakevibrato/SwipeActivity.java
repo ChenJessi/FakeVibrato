@@ -64,13 +64,12 @@ public class SwipeActivity extends AppCompatActivity {
         IDaoSoupport<UserInfo> daoSoupport = DaoSupportFactory.Companion.getFactory().getDao(UserInfo.class);
         List<UserInfo> userInfos = new ArrayList<>();
 
-//        for (int i = 0; i < 5000; i++) {
+        for (int i = 0; i < 5000; i++) {
             UserInfo userInfo = new UserInfo();
             userInfo.setName("测试  :  ");
-        daoSoupport.insert(userInfo);
-//            userInfos.add(userInfo);
-//        }
-//        daoSoupport.insert(userInfos);
+            userInfos.add(userInfo);
+        }
+        daoSoupport.insert(userInfos);
 
         List<UserInfo> users = daoSoupport.query();
         Toast.makeText(this, "users -> " + users.size(), Toast.LENGTH_LONG).show();
