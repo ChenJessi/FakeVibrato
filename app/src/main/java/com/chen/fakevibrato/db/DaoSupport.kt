@@ -13,13 +13,14 @@ import java.util.*
 
 class DaoSupport<T> : IDaoSoupport<T> {
 
+
     private val TAG = "DaoSupport"
     private lateinit var mSqLiteDatabase: SQLiteDatabase
     private var mClazz: Class<T>? = null
 
     private val mPutMethodArgs = arrayOfNulls<Any>(2)
     private val mPutMethods = ArrayMap<String, Method>()
-
+    private var mQuerySupport : QuerySupport<T>? = null
 
     override fun init(sqLiteDatabase: SQLiteDatabase, clazz: Class<T>) {
         this.mSqLiteDatabase = sqLiteDatabase
@@ -93,8 +94,36 @@ class DaoSupport<T> : IDaoSoupport<T> {
         return cursorToList(cursor)
     }
 
+
+    override fun querySupport(): QuerySupport<T> {
+        if (mQuerySupport == null){
+            mQuerySupport = QuerySupport(mSqLiteDatabase, mClazz!!)
+        }
+        return mQuerySupport!!
+    }
+
     /**
-     *
+     * 删除
+     */
+    override fun delete(whereClause: String, vararg whereArgs: String): Int {
+        return mSqLiteDatabase.delete(DaoUtil.getTableName(mClazz), whereClause, whereArgs)
+    }
+
+    /**
+     * 更新
+     */
+    override fun update(obj: T, whereClause: String, vararg whereArgs: String): Int {
+       var values  = contentValuesByObj(obj)
+        return mSqLiteDatabase.update(DaoUtil.getTableName(mClazz), values,whereClause, whereArgs)
+    }
+
+
+
+
+
+    /**
+     * 通过Cursor封装成查找对象
+     * @return 对象集合列表
      */
     private fun cursorToList(cursor: Cursor?): List<T> {
         var list = ArrayList<T>()
@@ -127,6 +156,15 @@ class DaoSupport<T> : IDaoSoupport<T> {
                                     value = false
                                 } else if (TextUtils.equals("1", value.toString())) {
                                     value = true
+                                }
+                            } else if (field.type === Char::class.javaPrimitiveType || field.type === Char::class.java) {
+                                value = (value as String)[0]
+                            } else if (field.type === Date::class.java) {
+                                val date = value as Long
+                                if (date <= 0) {
+                                    value = null
+                                } else {
+                                    value = Date(date)
                                 }
                             }
                             //通过反射注入
