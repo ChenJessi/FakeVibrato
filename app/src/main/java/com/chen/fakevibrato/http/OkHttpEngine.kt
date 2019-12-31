@@ -14,7 +14,7 @@ class OkHttpEngine : IHttpEngine {
     private val mOkHttpClient = OkHttpClient()
 
 
-    override fun get(context: Context, url: String, params: Map<String, Any>?, callBack: EngineCallBack) {
+    override fun get(context: Context, cache : Boolean , url: String, params: Map<String, Any>?, callBack: EngineCallBack) {
         var url = jointParams(url, params)
         Log.e("Get请求路径 ： ", url)
 
@@ -41,7 +41,7 @@ class OkHttpEngine : IHttpEngine {
         }
     }
 
-    override fun post(context: Context, url: String, params: Map<String, Any>?, callBack: EngineCallBack) {
+    override fun post(context: Context, cache : Boolean ,url: String, params: Map<String, Any>?, callBack: EngineCallBack) {
         var jointUrl = jointParams(url, params)
         Log.e("Post请求路径： ", jointUrl)
 

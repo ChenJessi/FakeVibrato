@@ -117,10 +117,6 @@ class DaoSupport<T> : IDaoSoupport<T> {
         return mSqLiteDatabase.update(DaoUtil.getTableName(mClazz), values,whereClause, whereArgs)
     }
 
-
-
-
-
     /**
      * 通过Cursor封装成查找对象
      * @return 对象集合列表

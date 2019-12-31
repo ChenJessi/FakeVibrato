@@ -5,7 +5,7 @@ import java.lang.Exception
 
 interface EngineCallBack {
     //开始执行，在执行之前会回调的方法
-    fun onPreExecute(context: Context, params : Map<String, Any>?)
+    fun onPreExecute(context: Context, params : MutableMap<String, Any>?)
 
     //错误
     fun onError(e : Exception)
@@ -16,7 +16,7 @@ interface EngineCallBack {
     companion object{
         // 默认的
         val DEFUALT_CALL_BACK: EngineCallBack = object :EngineCallBack{
-            override fun onPreExecute(context: Context, params: Map<String, Any>?) {
+            override fun onPreExecute(context: Context, params: MutableMap<String, Any>?) {
 
             }
 

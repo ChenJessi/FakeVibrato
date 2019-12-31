@@ -20,12 +20,15 @@ import com.chen.fakevibrato.bean.UserInfo;
 import com.chen.fakevibrato.db.DaoSupport;
 import com.chen.fakevibrato.db.DaoSupportFactory;
 import com.chen.fakevibrato.db.IDaoSoupport;
+import com.chen.fakevibrato.http.HttpCallBack;
+import com.chen.fakevibrato.http.HttpUtils;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.utils.MyLog;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
 import com.qmuiteam.qmui.widget.QMUIViewPager;
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
+import org.jetbrains.annotations.NotNull;
 import org.mp4parser.aspectj.lang.annotation.Before;
 
 import java.lang.reflect.Field;
@@ -60,18 +63,33 @@ public class SwipeActivity extends AppCompatActivity {
     }
     @CheckNet
     private void test(){
-      MyLog.e("点击执行了==========");
-        IDaoSoupport<UserInfo> daoSoupport = DaoSupportFactory.Companion.getFactory().getDao(UserInfo.class);
-        List<UserInfo> userInfos = new ArrayList<>();
+//      MyLog.e("点击执行了==========");
+//        IDaoSoupport<UserInfo> daoSoupport = DaoSupportFactory.Companion.getFactory().getDao(UserInfo.class);
+//        List<UserInfo> userInfos = new ArrayList<>();
+//
+//        for (int i = 0; i < 5000; i++) {
+//            UserInfo userInfo = new UserInfo();
+//            userInfo.setName("测试  :  ");
+//            userInfos.add(userInfo);
+//        }
+//        daoSoupport.insert(userInfos);
+//
+//        List<UserInfo> users = daoSoupport.query();
+//        Toast.makeText(this, "users -> " + users.size(), Toast.LENGTH_LONG).show();
+        HttpUtils.Companion.with(SwipeActivity.this)
+                .url("www.baidu.com")
+                .cache(true)
+                .addParam("","")
+                .execute(new HttpCallBack<String>() {
+                    @Override
+                    public void onSuccess(String result) {
 
-        for (int i = 0; i < 5000; i++) {
-            UserInfo userInfo = new UserInfo();
-            userInfo.setName("测试  :  ");
-            userInfos.add(userInfo);
-        }
-        daoSoupport.insert(userInfos);
+                    }
 
-        List<UserInfo> users = daoSoupport.query();
-        Toast.makeText(this, "users -> " + users.size(), Toast.LENGTH_LONG).show();
+                    @Override
+                    public void onError(@NotNull Exception e) {
+                        super.onError(e);
+                    }
+                });
     }
 }

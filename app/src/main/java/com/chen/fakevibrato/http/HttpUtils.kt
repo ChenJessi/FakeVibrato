@@ -16,6 +16,7 @@ class HttpUtils private constructor(var mContext: Context) {
     //请求方式
     private var type = GET_TYPE
 
+    private var mCache = false
     private var mParams : MutableMap<String, Any>? = null
 
     init {
@@ -34,6 +35,11 @@ class HttpUtils private constructor(var mContext: Context) {
 
     fun get() : HttpUtils {
         this.type = GET_TYPE
+        return this
+    }
+
+    fun cache(isCache : Boolean ): HttpUtils {
+        mCache = isCache
         return this
     }
 
@@ -94,23 +100,24 @@ class HttpUtils private constructor(var mContext: Context) {
     }
 
     private fun get(url: String, mParams: Map<String, Any>?, callBack: EngineCallBack) {
-        mHttpEngine.get(mContext,url, mParams, callBack)
+        mHttpEngine.get(mContext,mCache,url, mParams, callBack)
     }
 
     private fun post(url: String, mParams: MutableMap<String, Any>?, callBack: EngineCallBack) {
-        mHttpEngine.post(mContext,url, mParams, callBack)
+        mHttpEngine.post(mContext,mCache, url, mParams, callBack)
     }
-    /**
-     * 解析一个类上面的class信息
-     */
-    fun analysisClazzInfo(any : Any) : Class<*>{
-        var genType = any.javaClass.genericSuperclass
-        var params = (genType as ParameterizedType ).actualTypeArguments
-        return params[0] as Class<*>
-    }
+
 
 }
 
+/**
+ * 解析一个类上面的class信息
+ */
+fun analysisClazzInfo(any : Any) : Class<*>{
+    var genType = any.javaClass.genericSuperclass
+    var params = (genType as ParameterizedType ).actualTypeArguments
+    return params[0] as Class<*>
+}
 /**
  * 拼接参数
  */
