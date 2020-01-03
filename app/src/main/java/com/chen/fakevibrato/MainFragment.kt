@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
+import com.chen.annotationutils.CheckNet
 import com.chen.fakevibrato.base.BaseSupportFragment
 import com.chen.fakevibrato.bean.UserInfo
 import com.chen.fakevibrato.db.DaoSupportFactory
@@ -188,10 +189,10 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
         })
 
         ivBottom.setOnClickListener {
-            activity?.startActivity(Intent(activity, SwipeActivity::class.java))
+//            activity?.startActivity(Intent(activity, SwipeActivity::class.java))
 //           var a = 2/0
 //            Toast.makeText(activity,  "测试  $a", Toast.LENGTH_LONG).show();
-
+            test()
         }
 
         tvService.setOnClickListener {
@@ -203,6 +204,10 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
                 viewService.visibility = View.VISIBLE
             }
         }
+    }
+    @CheckNet
+    private fun test(){
+        MyLog.e("测试点击=====")
     }
 
     override fun initData(savedInstanceState: Bundle?) {
