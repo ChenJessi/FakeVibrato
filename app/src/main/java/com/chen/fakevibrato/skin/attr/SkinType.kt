@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.chen.fakevibrato.skin.SkinManager
 import com.chen.fakevibrato.skin.SkinResource
 
 enum class SkinType(var mResName: String) {
@@ -49,7 +50,7 @@ enum class SkinType(var mResName: String) {
     };
 
     fun getSkinResource() : SkinResource{
-        return
+        return SkinManager.instance.getSkinResource()
     }
 
     fun getResName() : String{
