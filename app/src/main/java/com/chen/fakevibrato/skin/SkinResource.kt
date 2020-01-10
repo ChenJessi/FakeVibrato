@@ -8,13 +8,14 @@ import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Environment
 import android.util.Log
+import com.chen.fakevibrato.utils.MyLog
 import java.io.File
 
 
 /**
  * 皮肤资源管理
  */
-class SkinResource constructor(var mContext : Context, var skinPath : String){
+class SkinResource constructor(var mContext : Context,  skinPath : String){
     private val TAG = this.javaClass.simpleName
     private var mSkinResource: Resources? = null
     private lateinit var mPackageName : String
@@ -33,6 +34,7 @@ class SkinResource constructor(var mContext : Context, var skinPath : String){
 
             mSkinResource = Resources(asset, superRes.displayMetrics, superRes.configuration)
 
+//            MyLog.e("==========="+mContext.packageManager.getPackageArchiveInfo(skinPath, PackageManager.GET_ACTIVITIES))
             // 获取skinPath包名
             mPackageName = mContext.packageManager.getPackageArchiveInfo(skinPath, PackageManager.GET_ACTIVITIES).packageName
         } catch (e: Exception) {

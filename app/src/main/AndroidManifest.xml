@@ -17,7 +17,8 @@
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".SwipeActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+        </activity>
         <activity
             android:name=".ui.home.view.SearchActivity"
             android:launchMode="singleTop"
