@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.chen.annotationutils.CheckNet
+import com.chen.camerautils.camera.Camera1Control
 import com.chen.fakevibrato.base.BaseSupportFragment
 import com.chen.fakevibrato.bean.UserInfo
 import com.chen.fakevibrato.db.DaoSupportFactory
@@ -205,9 +206,10 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
             }
         }
     }
-    @CheckNet
+//    @CheckNet
     private fun test(){
         MyLog.e("测试点击=====")
+        startActivity(Intent(activity, CameraActivity::class.java))
     }
 
     override fun initData(savedInstanceState: Bundle?) {

@@ -76,6 +76,8 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".CameraActivity"
+            android:configChanges="screenSize|orientation"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="您的 ApplicationId.FileProvider"

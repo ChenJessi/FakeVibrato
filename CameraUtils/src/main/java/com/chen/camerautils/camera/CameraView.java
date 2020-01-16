@@ -36,7 +36,7 @@ import java.io.IOException;
  */
 public class CameraView extends FrameLayout {
 
-    private int maskType;
+    private int maskType = MaskView.MASK_TYPE_NONE;
 
     /**
      * 照相回调
@@ -58,40 +58,6 @@ public class CameraView extends FrameLayout {
      */
     public static final int ORIENTATION_INVERT = 270;
 
-    /**
-     * 本地模型授权，加载成功
-     */
-    public static final int NATIVE_AUTH_INIT_SUCCESS = 0;
-
-    /**
-     * 本地模型授权，缺少SO
-     */
-    public static final int NATIVE_SOLOAD_FAIL = 10;
-
-    /**
-     * 本地模型授权，授权失败，token异常
-     */
-    public static final int NATIVE_AUTH_FAIL = 11;
-
-    /**
-     * 本地模型授权，模型加载失败
-     */
-    public static final int NATIVE_INIT_FAIL = 12;
-
-
-    /**
-     * 是否已经通过本地质量控制扫描
-     */
-    private final int SCAN_SUCCESS = 0;
-
-    public void setInitNativeStatus(int initNativeStatus) {
-        this.initNativeStatus = initNativeStatus;
-    }
-
-    /**
-     *  本地检测初始化，模型加载标识
-     */
-    private int initNativeStatus  = NATIVE_AUTH_INIT_SUCCESS;
 
     @IntDef({ORIENTATION_PORTRAIT, ORIENTATION_HORIZONTAL, ORIENTATION_INVERT})
     public @interface Orientation {
@@ -243,10 +209,7 @@ public class CameraView extends FrameLayout {
     }
 
     private int detect(byte[] data, final int rotation) {
-        if (initNativeStatus != NATIVE_AUTH_INIT_SUCCESS) {
-            showTipMessage(initNativeStatus);
-            return 1;
-        }
+
         // 扫描成功阻止多余的操作
         if (cameraControl.getAbortingScan().get()) {
             return 0;
@@ -370,69 +333,11 @@ public class CameraView extends FrameLayout {
             }
         }
 
-        showTipMessage(status);
-
         return status;
     }
     private boolean isScanTakePicture = false;
     public void scanTakePicture(){
         isScanTakePicture = true;
-    }
-    private void showTipMessage(final int status) {
-        // 提示tip文字变化
-        uiHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (status == 0) {
-                    hintViewText.setVisibility(View.INVISIBLE);
-                } else if (!cameraControl.getAbortingScan().get()) {
-                    hintViewText.setVisibility(View.VISIBLE);
-                    hintViewText.setText(getScanMessage(status));
-                }
-            }
-        });
-    }
-
-    private String getScanMessage(int status) {
-        String message;
-        switch (status) {
-            case 0:
-                message = "";
-                break;
-            case 2:
-                message = "身份证模糊，请重新尝试";
-                break;
-            case 3:
-                message = "身份证反光，请重新尝试";
-                break;
-            case 4:
-                message = "请将身份证前后反转再进行识别";
-                break;
-            case 5:
-                message = "请拿稳镜头和身份证";
-                break;
-            case 6:
-                message = "请将镜头靠近身份证";
-                break;
-            case 7:
-                message = "请将身份证完整置于取景框内";
-                break;
-            case NATIVE_AUTH_FAIL:
-                message = "本地质量控制授权失败";
-                break;
-            case NATIVE_INIT_FAIL:
-                message = "本地模型加载失败";
-                break;
-            case NATIVE_SOLOAD_FAIL:
-                message = "本地SO库加载失败";
-                break;
-            case 1:
-            default:
-                message = "请将身份证置于取景框内";
-        }
-
-
-        return message;
     }
 
     private void init() {
@@ -468,7 +373,7 @@ public class CameraView extends FrameLayout {
         hintViewText.setGravity(Gravity.CENTER);
         hintViewText.setTextColor(Color.WHITE);
         hintViewText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-        hintViewText.setText(getScanMessage(-1));
+        hintViewText.setText("测试提示文字");
 
 
         addView(hintViewTextWrapper, lp);
