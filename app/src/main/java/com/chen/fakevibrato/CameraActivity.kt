@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat
 import com.chen.baselibrary.base.BasePresenter
 import com.chen.camerautils.camera.*
 import com.chen.fakevibrato.base.BaseSupportActivity
+import com.qmuiteam.qmui.widget.popup.QMUIBasePopup
 import kotlinx.android.synthetic.main.activity_camera.*
 
 class CameraActivity : BaseSupportActivity<BasePresenter<*>>() {
@@ -55,29 +56,30 @@ class CameraActivity : BaseSupportActivity<BasePresenter<*>>() {
         CameraThreadPool.cancelAutoFocusTimer()
     }
 
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        setOrientation(newConfig)
-    }
+//    override fun onConfigurationChanged(newConfig: Configuration) {
+//        super.onConfigurationChanged(newConfig)
+//        setOrientation(newConfig)
+//    }
+//
+//    private fun setOrientation(newConfig: Configuration) {
+//        val rotation = windowManager.defaultDisplay.rotation
+//        var cameraViewOrientation = CameraView.ORIENTATION_PORTRAIT
+//        when (newConfig.orientation) {
+//            Configuration.ORIENTATION_PORTRAIT -> {
+//                cameraViewOrientation = CameraView.ORIENTATION_PORTRAIT
+//            }
+//            Configuration.ORIENTATION_LANDSCAPE -> {
+//                if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90) {
+//                    cameraViewOrientation = CameraView.ORIENTATION_HORIZONTAL
+//                } else {
+//                    cameraViewOrientation = CameraView.ORIENTATION_INVERT
+//                }
+//            }
+//            else -> {
+//                cameraView.setOrientation(CameraView.ORIENTATION_PORTRAIT)
+//            }
+//        }
+//        cameraView.setOrientation(cameraViewOrientation)
+//    }
 
-    private fun setOrientation(newConfig: Configuration) {
-        val rotation = windowManager.defaultDisplay.rotation
-        var cameraViewOrientation = CameraView.ORIENTATION_PORTRAIT
-        when (newConfig.orientation) {
-            Configuration.ORIENTATION_PORTRAIT -> {
-                cameraViewOrientation = CameraView.ORIENTATION_PORTRAIT
-            }
-            Configuration.ORIENTATION_LANDSCAPE -> {
-                if (rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_90) {
-                    cameraViewOrientation = CameraView.ORIENTATION_HORIZONTAL
-                } else {
-                    cameraViewOrientation = CameraView.ORIENTATION_INVERT
-                }
-            }
-            else -> {
-                cameraView.setOrientation(CameraView.ORIENTATION_PORTRAIT)
-            }
-        }
-        cameraView.setOrientation(cameraViewOrientation)
-    }
 }

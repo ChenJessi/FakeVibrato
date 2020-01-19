@@ -353,9 +353,12 @@ public class CameraView extends FrameLayout {
 
         maskView = new MaskView(getContext());
         addView(maskView);
+        maskView.setVisibility(INVISIBLE);
+
 
         hintView = new ImageView(getContext());
         addView(hintView);
+        hintView.setVisibility(INVISIBLE);
 
         hintViewTextWrapper = new LinearLayout(getContext());
         hintViewTextWrapper.setOrientation(LinearLayout.VERTICAL);
