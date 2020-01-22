@@ -72,7 +72,7 @@ public class SwipeActivity extends BaseSupportActivity {
 
     }
 
-    @CheckNet
+//    @CheckNet
     private void test(){
 //        val fixFile = new File();
         File file = new File("/mnt/sdcard/tencent/QQfile_recv/test.skin");

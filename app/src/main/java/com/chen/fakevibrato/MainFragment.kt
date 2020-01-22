@@ -11,6 +11,7 @@ import com.chen.fakevibrato.base.BaseSupportFragment
 import com.chen.fakevibrato.bean.UserInfo
 import com.chen.fakevibrato.db.DaoSupportFactory
 import com.chen.fakevibrato.http.HttpUtils
+import com.chen.fakevibrato.skin.SkinManager
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeFragment
 import com.chen.fakevibrato.ui.message.view.MessageFragment
@@ -208,8 +209,9 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
     }
 //    @CheckNet
     private fun test(){
-        MyLog.e("测试点击=====")
-        startActivity(Intent(activity, CameraActivity::class.java))
+
+        startActivity(Intent(activity, SwipeActivity::class.java))
+//        startActivity(Intent(activity, CameraActivity::class.java))
     }
 
     override fun initData(savedInstanceState: Bundle?) {

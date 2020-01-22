@@ -1,6 +1,7 @@
 package com.chen.fakevibrato;
 
 import android.content.Intent;
+import android.os.Looper;
 import android.text.TextPaint;
 import android.view.MotionEvent;
 import android.view.View;
@@ -143,6 +144,7 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
         swipeLayout.setLeftSwipeEnabled(true);
         swipeLayout.setRightSwipeEnabled(false);
         swipeLayout.setClickToClose(true);
+
 
     }
 

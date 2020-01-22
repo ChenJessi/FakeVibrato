@@ -75,7 +75,6 @@ class MainHActivity : BaseSupportActivity<MainPresenter>() {
                 e.printStackTrace()
                 Toast.makeText(this, "修复失败", Toast.LENGTH_LONG).show()
             }
-
         }
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/red1"
-    android:fitsSystemWindows="true"
+
     tools:context=".SwipeActivity">
 
     <LinearLayout
