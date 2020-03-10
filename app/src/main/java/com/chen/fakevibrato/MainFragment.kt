@@ -12,6 +12,7 @@ import com.chen.fakevibrato.bean.UserInfo
 import com.chen.fakevibrato.db.DaoSupportFactory
 import com.chen.fakevibrato.http.HttpUtils
 import com.chen.fakevibrato.skin.SkinManager
+import com.chen.fakevibrato.test.StackActivity
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeFragment
 import com.chen.fakevibrato.ui.message.view.MessageFragment
@@ -191,10 +192,7 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
         })
 
         ivBottom.setOnClickListener {
-//            activity?.startActivity(Intent(activity, SwipeActivity::class.java))
-//           var a = 2/0
-//            Toast.makeText(activity,  "测试  $a", Toast.LENGTH_LONG).show();
-            test()
+            bottomClick()
         }
 
         tvService.setOnClickListener {
@@ -207,10 +205,11 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
             }
         }
     }
-//    @CheckNet
-    private fun test(){
 
-        startActivity(Intent(activity, SwipeActivity::class.java))
+    private fun bottomClick(){
+
+    startActivity(Intent(activity, StackActivity::class.java))
+//    startActivity(Intent(activity, SwipeActivity::class.java))
 //        startActivity(Intent(activity, CameraActivity::class.java))
     }
 
