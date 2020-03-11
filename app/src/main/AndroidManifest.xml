@@ -17,7 +17,7 @@
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
 
 
-        <activity android:name=".test.StackActivity"
+        <activity android:name=".widget.stack.StackActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".MainHActivity"
             android:windowSoftInputMode="adjustPan"

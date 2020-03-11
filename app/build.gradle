@@ -47,7 +47,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
+    //弹性动画库
+    implementation "androidx.dynamicanimation:dynamicanimation-ktx:1.0.0-alpha03"
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
     implementation 'com.qmuiteam:qmui:1.4.0'
@@ -95,6 +96,7 @@ dependencies {
 
 
     implementation project(':CameraUtils')
+
 
 }
 repositories {

@@ -5,14 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import com.chen.annotationutils.CheckNet
-import com.chen.camerautils.camera.Camera1Control
 import com.chen.fakevibrato.base.BaseSupportFragment
-import com.chen.fakevibrato.bean.UserInfo
-import com.chen.fakevibrato.db.DaoSupportFactory
 import com.chen.fakevibrato.http.HttpUtils
-import com.chen.fakevibrato.skin.SkinManager
-import com.chen.fakevibrato.test.StackActivity
+import com.chen.fakevibrato.widget.stack.StackActivity
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeFragment
 import com.chen.fakevibrato.ui.message.view.MessageFragment
