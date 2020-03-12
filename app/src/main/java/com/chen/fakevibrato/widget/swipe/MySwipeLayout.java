@@ -137,6 +137,7 @@ public class MySwipeLayout extends FrameLayout {
                 mMainContent = (ViewGroup) getChildAt(1);
             }
         }
+
     }
 
     @Override

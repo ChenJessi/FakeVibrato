@@ -22,12 +22,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <StackView
-        android:id="@+id/stackView"
+<!--    <StackView-->
+<!--        android:id="@+id/stackView"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/button"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:animateFirstView="true"-->
+<!--        android:loopViews="true" />-->
+
+    <com.chen.fakevibrato.widget.stack.StackLayout
+        android:id="@+id/stackLayout"
         app:layout_constraintTop_toBottomOf="@id/button"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:animateFirstView="true"
-        android:loopViews="true" />
+        android:layout_height="0dp"/>
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import androidx.dynamicanimation.animation.SpringForce
 import com.chen.baselibrary.base.BasePresenter
 import com.chen.fakevibrato.R
 import com.chen.fakevibrato.base.BaseSupportActivity
+import com.chen.fakevibrato.utils.MyLog
 import kotlinx.android.synthetic.main.activity_stack.*
 
 /**
@@ -13,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_stack.*
  */
 class StackActivity : BaseSupportActivity<BasePresenter<*>>() {
     var mList = ArrayList<String>()
+    var adapter : StackLayoutAdapter? = null
     override fun getLayoutId(): Int {
         return R.layout.activity_stack
     }
@@ -34,6 +36,9 @@ class StackActivity : BaseSupportActivity<BasePresenter<*>>() {
         mList.add("12")
         mList.add("13")
         mList.add("14")
+
+        adapter = StackLayoutAdapter(mContext, mList)
+        adapter?.let { stackLayout.setAdapter(it) }
 //        stackView.adapter = StackAdapter(this@StackActivity, mList)
 //        var anima : SpringAnimation =
     }
@@ -51,7 +56,7 @@ class StackActivity : BaseSupportActivity<BasePresenter<*>>() {
             }.start()
         }
         button1.setOnClickListener {
-            stackView.showPrevious()
+//            stackView.showPrevious()
         }
 
     }
