@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.chen.fakevibrato.R
 import kotlin.random.Random
@@ -23,8 +24,8 @@ class StackLayoutAdapter(var mContext : Context, var mList : List<String>) : Sta
     override fun bindView(view: View, index: Int) {
         var random = java.util.Random()
         val color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256))
-        var text = view.findViewById<TextView>(R.id.textView)
-        text.setBackgroundColor(color)
+        var textView = view.findViewById<TextView>(R.id.textView)
+        textView.setBackgroundColor(color)
     }
 
     override fun getItem(index: Int): Any {

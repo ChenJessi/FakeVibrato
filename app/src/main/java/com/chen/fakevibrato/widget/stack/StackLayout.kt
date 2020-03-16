@@ -6,14 +6,14 @@ import android.database.DataSetObserver
 import android.graphics.Point
 import android.graphics.Rect
 import android.util.AttributeSet
-import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import androidx.customview.widget.ViewDragHelper
 import com.chen.fakevibrato.utils.MyLog
 import java.lang.ref.WeakReference
 import android.R.attr.top
 import android.graphics.Color
+import android.view.*
+import androidx.core.view.GestureDetectorCompat
 
 
 /**
@@ -37,6 +37,7 @@ class StackLayout : ViewGroup {
     private val VIEW_COUNT = 4
     //拖拽类
     private lateinit var mDragHelper: ViewDragHelper
+    private lateinit var moveDetector: GestureDetectorCompat
     //可拖动区域
     private var draggableArea: Rect? = null
     //手指按下的坐标
@@ -44,7 +45,8 @@ class StackLayout : ViewGroup {
     //宽度和高度
     private var allWidth = 0
     private var allHeight = 0
-
+    // 判定为滑动的阈值，单位是像素
+    private var mTouchSlop = 5
     // 卡片距离顶部的偏移量
     private val itemMarginTop = 10
     // 底部按钮与卡片的margin值
@@ -91,17 +93,37 @@ class StackLayout : ViewGroup {
             return shouldCapture
         }
 
+        override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
+            super.onViewReleased(releasedChild, xvel, yvel)
+        }
         override fun onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int) {
             onViewPosChanged(changedView as CardItemView)
         }
+
+        override fun getViewHorizontalDragRange(child: View): Int {
+            // 这个用来控制拖拽过程中松手后，自动滑行的速度
+            return 256
+        }
+
+        override fun clampViewPositionHorizontal(child: View, left: Int, dx: Int): Int {
+            return left
+        }
+
+        override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
+            return top
+        }
     }
 
-
-//    init {
-
-    //        mDragHelper = ViewDragHelper.create(this, 10f,  mDragHelperCallback)
+    private var mDetector = object :  GestureDetector.SimpleOnGestureListener(){
+        override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
+            return Math.abs(distanceX) + Math.abs(distanceY) > mTouchSlop
+        }
+    }
+    init {
+        mDragHelper = ViewDragHelper.create(this, 10f,  mDragHelperCallback)
+        moveDetector = GestureDetectorCompat(context, mDetector)
 //        init()
-//    }
+    }
     constructor(mContext: Context?) : this(mContext, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
@@ -111,6 +133,9 @@ class StackLayout : ViewGroup {
 
 
     fun init() {
+        val configuration = ViewConfiguration.get(context)
+        mTouchSlop = configuration.scaledTouchSlop
+        moveDetector.setIsLongpressEnabled(false)
 
         viewTreeObserver.addOnGlobalLayoutListener {
             if (childCount != VIEW_COUNT) {
@@ -132,7 +157,7 @@ class StackLayout : ViewGroup {
             itemView.setParentView(this)
             addView(itemView, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
             if (i == 0) {
-//                itemView.alpha = 0f
+                itemView.alpha = 0f
             }
         }
 
@@ -173,8 +198,8 @@ class StackLayout : ViewGroup {
 
             if (i > 2) {
                 // 备用的view
-//                offset = yOffsetStep * 2
-//                scale = 1 - SCALE_STEP * 2
+                offset = yOffsetStep * 2
+                scale = 1 - SCALE_STEP * 2
             }
 
             viewItem.offsetTopAndBottom(offset)
@@ -198,6 +223,45 @@ class StackLayout : ViewGroup {
         allWidth = measuredWidth
         allHeight = measuredHeight
     }
+
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+        var shouldIntercept = ev?.let { mDragHelper.shouldInterceptTouchEvent(it) } ?: false
+        var moveFlag = moveDetector.onTouchEvent(ev)
+        var action = ev?.actionMasked
+        if (action == MotionEvent.ACTION_DOWN){
+            //ACTION_DOWN 对view 重新排列
+            if (mDragHelper.viewDragState == ViewDragHelper.STATE_SETTLING){
+                mDragHelper.abort()
+            }
+            orderViewStack()
+
+            // 保存初次按下时arrowFlagView的Y坐标
+            // action_down时就让mDragHelper开始工作，否则有时候导致异常
+            ev?.let { mDragHelper.processTouchEvent(it) }
+        }
+        return shouldIntercept && moveFlag
+    }
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        // 按下时保存坐标信息
+        var action = ev?.actionMasked
+        if (action == MotionEvent.ACTION_DOWN){
+            downPoint.x = ev?.x?.toInt() ?: 0
+            downPoint.y = ev?.y?.toInt() ?: 0
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        //统一交给dragHelper处理滑动手势
+        try {
+            event?.let { mDragHelper.processTouchEvent(it) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return true
+    }
+
+
 
     fun onViewPosChanged(cardItemView: CardItemView) {
         var index = viewList.indexOf(cardItemView)
