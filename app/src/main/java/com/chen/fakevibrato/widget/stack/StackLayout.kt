@@ -12,8 +12,10 @@ import com.chen.fakevibrato.utils.MyLog
 import java.lang.ref.WeakReference
 import android.R.attr.top
 import android.graphics.Color
+import android.graphics.ImageDecoder
 import android.view.*
 import androidx.core.view.GestureDetectorCompat
+import kotlin.math.abs
 
 
 /**
@@ -42,6 +44,13 @@ class StackLayout : ViewGroup {
     private var draggableArea: Rect? = null
     //手指按下的坐标
     private var downPoint = Point()
+    //首个view X Y 初始位置
+    private var initCenterViewX = 0
+    private var initCenterViewY = 0
+    //水平距离 + 垂直距离
+    private var MAX_SLIDE_DISTANCE_LINKAGE = 500
+    // view 宽度
+    private var childWidth = 0
     //宽度和高度
     private var allWidth = 0
     private var allHeight = 0
@@ -59,34 +68,28 @@ class StackLayout : ViewGroup {
     private var mDragHelperCallback = object : ViewDragHelper.Callback() {
         override fun tryCaptureView(child: View, pointerId: Int): Boolean {
             // 如果数据List为空，或者子View不可见，则不予处理
-            if (adapter == null || adapter?.getCount() == 0
-                    || child.visibility != View.VISIBLE || child.scaleX <= 1.0f - SCALE_STEP) {
-                // 一般来讲，如果拖动的是第三层、或者第四层的View，则直接禁止
-                // 此处用getScale的用法来巧妙回避
+            //只有第一层的可以滑动
+            if (adapter == null || adapter?.getCount() == 0 || child.visibility != View.VISIBLE || child.scaleX < 1){
                 return false
             }
-            if (btnLock) {
+            //只有顶部的可以滑动
+            var index = viewList.indexOf(child)
+            if (index > 0){
                 return false
             }
-            // 1. 只有顶部的View才允许滑动
-            var childIndex = viewList.indexOf(child)
-            if (childIndex > 0) {
-                return false
-            }
-            //2.获取可滑动区域
+            // 获取允许滑动的区域
             (child as CardItemView).onStartDragging()
-            if (draggableArea == null) {
+            if (draggableArea == null){
                 draggableArea = adapter?.obtainDraggableArea(child)
             }
 
             //判断是否可以滑动
             var shouldCapture = true
-            if (draggableArea != null) {
+            if (draggableArea != null){
                 shouldCapture = draggableArea?.contains(downPoint.x, downPoint.y) ?: false
             }
 
-            //4. 如果确定要滑动，就让touch事件交给自己消费
-            if (shouldCapture) {
+            if (shouldCapture){
                 parent.requestDisallowInterceptTouchEvent(shouldCapture)
             }
 
@@ -102,6 +105,7 @@ class StackLayout : ViewGroup {
 
         override fun getViewHorizontalDragRange(child: View): Int {
             // 这个用来控制拖拽过程中松手后，自动滑行的速度
+            //返回拖拽的范围, 不对拖拽进行真正的限制. 仅仅决定了动画执行速度
             return 256
         }
 
@@ -116,13 +120,13 @@ class StackLayout : ViewGroup {
 
     private var mDetector = object :  GestureDetector.SimpleOnGestureListener(){
         override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-            return Math.abs(distanceX) + Math.abs(distanceY) > mTouchSlop
+            return abs(distanceX) + abs(distanceY) > mTouchSlop
         }
     }
     init {
         mDragHelper = ViewDragHelper.create(this, 10f,  mDragHelperCallback)
         moveDetector = GestureDetectorCompat(context, mDetector)
-//        init()
+        init()
     }
     constructor(mContext: Context?) : this(mContext, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -139,17 +143,17 @@ class StackLayout : ViewGroup {
 
         viewTreeObserver.addOnGlobalLayoutListener {
             if (childCount != VIEW_COUNT) {
-//                doBindAdapter()
+                doBindAdapter()
             }
         }
     }
 
     fun doBindAdapter() {
-//        || allWidth <= 0 || allHeight <= 0
-        if (adapter == null ) {
+
+        if (adapter == null || allWidth <= 0 || allHeight <= 0) {
             return
         }
-        MyLog.e(" viewList ${viewList.size}")
+
         //添加view 到ViewGroup
         for (i in 0 until VIEW_COUNT) {
             var itemView = CardItemView(context)
@@ -195,7 +199,7 @@ class StackLayout : ViewGroup {
             //调整位置
             var offset = yOffsetStep * i
             var scale = 1 - SCALE_STEP * i
-
+            MyLog.e("scale  : $scale")
             if (i > 2) {
                 // 备用的view
                 offset = yOffsetStep * 2
@@ -210,7 +214,10 @@ class StackLayout : ViewGroup {
             viewItem.scaleX = scale
             viewItem.scaleY = scale
         }
-
+        if (childCount > 0){
+            initCenterViewX = viewList[0].left
+            initCenterViewY = viewList[0].top
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -273,10 +280,66 @@ class StackLayout : ViewGroup {
 
     /**
      * 顶层view改变，底层需要调整
+     *
+     * cardItemView  顶层卡片view
      */
-    fun processLinkageView(cardItemView: CardItemView) {
+    fun processLinkageView(changedView: CardItemView) {
+        var changeViewLeft = changedView.left
+        var changeViewTop = changedView.top
+        var distance = abs(changeViewLeft - initCenterViewX) + abs(changeViewTop - initCenterViewY)
 
+        var rate = distance / MAX_SLIDE_DISTANCE_LINKAGE.toFloat()
+
+        var rate1 = rate
+        var rate2 = rate - 0.1f
+
+        if (rate > 1) {
+            rate1 = 1f
+        }
+
+        if (rate2 < 0) {
+            rate2 = 0f
+        } else if (rate2 > 1) {
+            rate2 = 1f
+        }
+
+        for (i in 1 until VIEW_COUNT - 1){
+            ajustLinkageViewItem(changedView, rate1, i)
+        }
+//        ajustLinkageViewItem(changedView, rate1, 1)
+
+//        ajustLinkageViewItem(changedView, rate2, 2)
+
+        var bottomCardView = viewList.get(viewList.size - 1)
+        bottomCardView.alpha = rate2
     }
+
+    /**
+     * 首个view拖出之后
+     * index 对应的view 变成index
+     * -1 对应的view
+     */
+    fun ajustLinkageViewItem(changedView: View , rate : Float, index: Int){
+        var changeIndex = viewList.indexOf(changedView)
+
+        var initOffset = yOffsetStep * index
+        var initScale = 1 - SCALE_STEP * index
+
+        var nextOffset = yOffsetStep * (index - 1)
+        var nextScale = 1 - SCALE_STEP * (index - 1)
+
+        var offset = initOffset + (nextOffset - initOffset) * rate
+        var scale = initScale + (nextScale - initScale) * rate
+
+        var viewItem = viewList.get(changeIndex + index)
+        viewItem.offsetTopAndBottom(offset.toInt() - viewItem.top + initCenterViewY)
+        viewItem.scaleX = scale
+        viewItem.scaleY = scale
+    }
+
+
+
+
 
     /**
      * 对view进行重新排序
