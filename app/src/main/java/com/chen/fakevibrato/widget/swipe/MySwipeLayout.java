@@ -88,7 +88,6 @@ public class MySwipeLayout extends FrameLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mDragHelper.processTouchEvent(event);
-        boolean b = super.onTouchEvent(event);
         return true;
     }
 

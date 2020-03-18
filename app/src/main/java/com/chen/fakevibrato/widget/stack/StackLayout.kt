@@ -6,15 +6,12 @@ import android.database.DataSetObserver
 import android.graphics.Point
 import android.graphics.Rect
 import android.util.AttributeSet
-import android.widget.TextView
+import android.view.*
+import androidx.core.view.GestureDetectorCompat
+import androidx.core.view.ViewCompat
 import androidx.customview.widget.ViewDragHelper
 import com.chen.fakevibrato.utils.MyLog
 import java.lang.ref.WeakReference
-import android.R.attr.top
-import android.graphics.Color
-import android.graphics.ImageDecoder
-import android.view.*
-import androidx.core.view.GestureDetectorCompat
 import kotlin.math.abs
 
 
@@ -38,8 +35,8 @@ class StackLayout : ViewGroup {
     //叠加的view个数
     private val VIEW_COUNT = 4
     //拖拽类
-    private lateinit var mDragHelper: ViewDragHelper
-    private lateinit var moveDetector: GestureDetectorCompat
+    private var mDragHelper: ViewDragHelper
+    private var moveDetector: GestureDetectorCompat
     //可拖动区域
     private var draggableArea: Rect? = null
     //手指按下的坐标
@@ -47,8 +44,14 @@ class StackLayout : ViewGroup {
     //首个view X Y 初始位置
     private var initCenterViewX = 0
     private var initCenterViewY = 0
+
     //水平距离 + 垂直距离
     private var MAX_SLIDE_DISTANCE_LINKAGE = 500
+    //左侧消失 & 右侧消失
+    val VANISH_TYPE_LEFT = 0
+    val VANISH_TYPE_RIGHT = 1
+    //x 方向速度阈值
+    val X_VEL_THRESHOLD = 800
     // view 宽度
     private var childWidth = 0
     //宽度和高度
@@ -69,27 +72,33 @@ class StackLayout : ViewGroup {
         override fun tryCaptureView(child: View, pointerId: Int): Boolean {
             // 如果数据List为空，或者子View不可见，则不予处理
             //只有第一层的可以滑动
-            if (adapter == null || adapter?.getCount() == 0 || child.visibility != View.VISIBLE || child.scaleX < 1){
+            if (adapter == null || adapter?.getCount() == 0 || child.visibility != View.VISIBLE || child.scaleX < 1) {
                 return false
             }
+            if (child.scaleX < 1f) {
+                return false
+            }
+
             //只有顶部的可以滑动
             var index = viewList.indexOf(child)
-            if (index > 0){
-                return false
-            }
+            MyLog.e("index    $index")
+//            if (index > 0){
+//                return false
+//            }
+
             // 获取允许滑动的区域
             (child as CardItemView).onStartDragging()
-            if (draggableArea == null){
+            if (draggableArea == null) {
                 draggableArea = adapter?.obtainDraggableArea(child)
             }
 
             //判断是否可以滑动
             var shouldCapture = true
-            if (draggableArea != null){
+            if (draggableArea != null) {
                 shouldCapture = draggableArea?.contains(downPoint.x, downPoint.y) ?: false
             }
 
-            if (shouldCapture){
+            if (shouldCapture) {
                 parent.requestDisallowInterceptTouchEvent(shouldCapture)
             }
 
@@ -97,8 +106,9 @@ class StackLayout : ViewGroup {
         }
 
         override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
-            super.onViewReleased(releasedChild, xvel, yvel)
+            animToSide(releasedChild as CardItemView, xvel, yvel)
         }
+
         override fun onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int) {
             onViewPosChanged(changedView as CardItemView)
         }
@@ -118,16 +128,18 @@ class StackLayout : ViewGroup {
         }
     }
 
-    private var mDetector = object :  GestureDetector.SimpleOnGestureListener(){
+    private var mDetector = object : GestureDetector.SimpleOnGestureListener() {
         override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
             return abs(distanceX) + abs(distanceY) > mTouchSlop
         }
     }
+
     init {
-        mDragHelper = ViewDragHelper.create(this, 10f,  mDragHelperCallback)
+        mDragHelper = ViewDragHelper.create(this, 10f, mDragHelperCallback)
         moveDetector = GestureDetectorCompat(context, mDetector)
         init()
     }
+
     constructor(mContext: Context?) : this(mContext, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
@@ -189,7 +201,7 @@ class StackLayout : ViewGroup {
     override fun onLayout(changed: Boolean, l: Int, t: Int, r: Int, b: Int) {
         var childCount = childCount
 
-        for (i in 0 until childCount){
+        for (i in 0 until childCount) {
             var viewItem = viewList[i]
             // layout
             var childHeight = viewItem.measuredHeight
@@ -214,9 +226,10 @@ class StackLayout : ViewGroup {
             viewItem.scaleX = scale
             viewItem.scaleY = scale
         }
-        if (childCount > 0){
+        if (childCount > 0) {
             initCenterViewX = viewList[0].left
             initCenterViewY = viewList[0].top
+            childWidth = viewList[0].measuredWidth
         }
     }
 
@@ -235,9 +248,9 @@ class StackLayout : ViewGroup {
         var shouldIntercept = ev?.let { mDragHelper.shouldInterceptTouchEvent(it) } ?: false
         var moveFlag = moveDetector.onTouchEvent(ev)
         var action = ev?.actionMasked
-        if (action == MotionEvent.ACTION_DOWN){
+        if (action == MotionEvent.ACTION_DOWN) {
             //ACTION_DOWN 对view 重新排列
-            if (mDragHelper.viewDragState == ViewDragHelper.STATE_SETTLING){
+            if (mDragHelper.viewDragState == ViewDragHelper.STATE_SETTLING) {
                 mDragHelper.abort()
             }
             orderViewStack()
@@ -248,10 +261,11 @@ class StackLayout : ViewGroup {
         }
         return shouldIntercept && moveFlag
     }
+
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         // 按下时保存坐标信息
         var action = ev?.actionMasked
-        if (action == MotionEvent.ACTION_DOWN){
+        if (action == MotionEvent.ACTION_DOWN) {
             downPoint.x = ev?.x?.toInt() ?: 0
             downPoint.y = ev?.y?.toInt() ?: 0
         }
@@ -268,7 +282,21 @@ class StackLayout : ViewGroup {
         return true
     }
 
+    override fun computeScroll() {
+        // 持续平滑动画 (高频率调用)
+        if (mDragHelper.continueSettling(true)) {
+            //  如果返回true, 动画还需要继续执行
+            ViewCompat.postInvalidateOnAnimation(this)
+        } else {
+            //动画结束
+            MyLog.e("动画结束   ${mDragHelper.viewDragState} ")
+            if (mDragHelper.viewDragState == ViewDragHelper.STATE_IDLE) {
 
+                orderViewStack()
+            }
+
+        }
+    }
 
     fun onViewPosChanged(cardItemView: CardItemView) {
         var index = viewList.indexOf(cardItemView)
@@ -303,12 +331,9 @@ class StackLayout : ViewGroup {
             rate2 = 1f
         }
 
-        for (i in 1 until VIEW_COUNT - 1){
+        for (i in 1 until VIEW_COUNT - 1) {
             ajustLinkageViewItem(changedView, rate1, i)
         }
-//        ajustLinkageViewItem(changedView, rate1, 1)
-
-//        ajustLinkageViewItem(changedView, rate2, 2)
 
         var bottomCardView = viewList.get(viewList.size - 1)
         bottomCardView.alpha = rate2
@@ -319,7 +344,7 @@ class StackLayout : ViewGroup {
      * index 对应的view 变成index
      * -1 对应的view
      */
-    fun ajustLinkageViewItem(changedView: View , rate : Float, index: Int){
+    fun ajustLinkageViewItem(changedView: View, rate: Float, index: Int) {
         var changeIndex = viewList.indexOf(changedView)
 
         var initOffset = yOffsetStep * index
@@ -337,9 +362,48 @@ class StackLayout : ViewGroup {
         viewItem.scaleY = scale
     }
 
+    /**
+     * 松手时滑动到侧边动画
+     */
+    fun animToSide(changedView: CardItemView, xvel: Float, yvel: Float) {
+        var finalX = initCenterViewX
+        var finalY = initCenterViewY
+        MyLog.e(" animToSide  :   $xvel  e$yvel")
+        var flyType = -1
 
+        // yvel < xvel * xyRate则允许以速度计算偏移
+        val xyRate = 3f
+        if (xvel > X_VEL_THRESHOLD && abs(yvel) < xvel * xyRate) {
+            //X方向速度足够大   向右滑动消失
+            finalX = allWidth
+            finalY = (yvel * (childWidth + changedView.left) / xvel + changedView.getTop()).toInt()
+            flyType = VANISH_TYPE_RIGHT
+        } else if (xvel < -X_VEL_THRESHOLD && abs(yvel) < abs(xvel) * xyRate) {
+            // -X方向速度足够大  向左滑动消失
+            finalX = -childWidth
+            finalY = (yvel * (childWidth + changedView.left) / (-xvel) + changedView.getTop()).toInt()
+            flyType = VANISH_TYPE_LEFT
+        }
 
+        // 如果斜率太高，就折中处理
+        if (finalY > allHeight) {
+            finalY = allHeight
+        } else if (finalY < -allHeight / 2) {
+            finalY = -allHeight / 2
+        }
+        //消失
+        if (finalX == initCenterViewX){
+            if (mDragHelper.smoothSlideViewTo(changedView, finalX, finalY)) {
+                ViewCompat.postInvalidateOnAnimation(this)
+            }
+        }else{
+            releasedViewList.add(changedView)
+            if (mDragHelper.smoothSlideViewTo(changedView, finalX, finalY)) {
+                ViewCompat.postInvalidateOnAnimation(this)
+            }
+        }
 
+    }
 
     /**
      * 对view进行重新排序
@@ -348,6 +412,12 @@ class StackLayout : ViewGroup {
         if (releasedViewList.size == 0) {
             return
         }
+
+        var changedView = viewList[0]
+        viewList.remove(changedView)
+        viewList.add(changedView)
+        releasedViewList.removeAt(0)
+
     }
 
     fun setAdapter(adapter: StackAdapter) {
