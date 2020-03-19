@@ -41,6 +41,8 @@ class MainHActivity : BaseSupportActivity<MainPresenter>() {
                 viewPager.setSwipeable(p)
             }
         })
+
+
         mFragments.add(SwipeFragment())
         mFragments.add(MainFragment())
         mFragments.add(SwipeFragment())
@@ -54,7 +56,6 @@ class MainHActivity : BaseSupportActivity<MainPresenter>() {
 
 
     override fun initListener() {
-
     }
 
     override fun initData() {
@@ -65,7 +66,8 @@ class MainHActivity : BaseSupportActivity<MainPresenter>() {
      * 自己的修复方式
      */
     private fun fixDexBug() {
-        val fixFile = File(Environment.getExternalStorageDirectory(), "fix.dex")
+        val fixFile = File(Environment.getExternalStorageDirectory().absolutePath , "fix.dex")
+        
         if (fixFile.exists()) {
             val fixDexManager = FixDexManager(this)
             try {

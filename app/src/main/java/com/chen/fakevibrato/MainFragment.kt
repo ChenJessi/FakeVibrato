@@ -49,6 +49,7 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
     }
 
     override fun initView(view: View?) {
+
         sameCityFragment = SameCityFragment()
         fragment = Fragment()
         messageFragment = MessageFragment()

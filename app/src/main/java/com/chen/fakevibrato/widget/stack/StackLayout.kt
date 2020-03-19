@@ -391,12 +391,12 @@ class StackLayout : ViewGroup {
         } else if (finalY < -allHeight / 2) {
             finalY = -allHeight / 2
         }
-        //消失
+
         if (finalX == initCenterViewX){
-            if (mDragHelper.smoothSlideViewTo(changedView, finalX, finalY)) {
-                ViewCompat.postInvalidateOnAnimation(this)
-            }
+            //返回原来位置
+            changedView.moveAnimTo(initCenterViewX, initCenterViewY)
         }else{
+            //消失
             releasedViewList.add(changedView)
             if (mDragHelper.smoothSlideViewTo(changedView, finalX, finalY)) {
                 ViewCompat.postInvalidateOnAnimation(this)

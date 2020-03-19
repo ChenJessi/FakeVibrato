@@ -3,11 +3,16 @@ package com.chen.fakevibrato;
 import androidx.lifecycle.Observer;
 
 import android.content.Intent;
+import android.os.Environment;
+import android.widget.Toast;
 
+import com.chen.baselibrary.fix.FixDexManager;
 import com.chen.fakevibrato.base.BaseSupportActivity;
 import com.chen.fakevibrato.im.IMManager;
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
+import com.chen.fakevibrato.utils.MyLog;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -27,6 +32,10 @@ public class SplashActivity extends BaseSupportActivity<MainPresenter> {
 
     @Override
     protected void initView() {
+        MyLog.d("fixDexBug :    isfirst");
+        MyLog.e("  fixDexBug  ========      :   ");
+
+
         IMManager.getInstance().getAutoLoginResult().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
