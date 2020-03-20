@@ -52,6 +52,8 @@ class StackLayout : ViewGroup {
     val VANISH_TYPE_RIGHT = 1
     //x 方向速度阈值
     val X_VEL_THRESHOLD = 800
+    //x 方向位移阈值
+    val X_DISTANCE_THRESHOLD  = 300
     // view 宽度
     private var childWidth = 0
     //宽度和高度
@@ -126,6 +128,7 @@ class StackLayout : ViewGroup {
         override fun clampViewPositionVertical(child: View, top: Int, dy: Int): Int {
             return top
         }
+
     }
 
     private var mDetector = object : GestureDetector.SimpleOnGestureListener() {
@@ -263,6 +266,7 @@ class StackLayout : ViewGroup {
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+
         // 按下时保存坐标信息
         var action = ev?.actionMasked
         if (action == MotionEvent.ACTION_DOWN) {
@@ -284,14 +288,13 @@ class StackLayout : ViewGroup {
 
     override fun computeScroll() {
         // 持续平滑动画 (高频率调用)
+
         if (mDragHelper.continueSettling(true)) {
             //  如果返回true, 动画还需要继续执行
             ViewCompat.postInvalidateOnAnimation(this)
         } else {
             //动画结束
-            MyLog.e("动画结束   ${mDragHelper.viewDragState} ")
             if (mDragHelper.viewDragState == ViewDragHelper.STATE_IDLE) {
-
                 orderViewStack()
             }
 
@@ -299,6 +302,7 @@ class StackLayout : ViewGroup {
     }
 
     fun onViewPosChanged(cardItemView: CardItemView) {
+        MyLog.e("处理动画 ----》》》")
         var index = viewList.indexOf(cardItemView)
         if (index + 2 > viewList.size) {
             return
@@ -371,6 +375,8 @@ class StackLayout : ViewGroup {
         MyLog.e(" animToSide  :   $xvel  e$yvel")
         var flyType = -1
 
+        var dx = changedView.left - initCenterViewX
+        var dy = changedView.top - initCenterViewY
         // yvel < xvel * xyRate则允许以速度计算偏移
         val xyRate = 3f
         if (xvel > X_VEL_THRESHOLD && abs(yvel) < xvel * xyRate) {
@@ -383,6 +389,16 @@ class StackLayout : ViewGroup {
             finalX = -childWidth
             finalY = (yvel * (childWidth + changedView.left) / (-xvel) + changedView.getTop()).toInt()
             flyType = VANISH_TYPE_LEFT
+        }else if (dx > X_DISTANCE_THRESHOLD && abs(dy) < dx * xyRate){
+            //x 位移足够大   向右滑动消失
+            finalX = allWidth
+            finalY = dy / dx * (childWidth + initCenterViewX) + initCenterViewY
+            flyType = VANISH_TYPE_RIGHT
+        }else if (dx < - X_DISTANCE_THRESHOLD && abs(dy) < abs(dx) * xyRate){
+            //-X 位移足够大   向左滑动消失
+            finalX = -childWidth
+            finalY = dy / abs(dx) * (childWidth + initCenterViewX) + initCenterViewY
+            flyType = VANISH_TYPE_LEFT
         }
 
         // 如果斜率太高，就折中处理
@@ -394,7 +410,9 @@ class StackLayout : ViewGroup {
 
         if (finalX == initCenterViewX){
             //返回原来位置
-            changedView.moveAnimTo(initCenterViewX, initCenterViewY)
+            if (mDragHelper.smoothSlideViewTo(changedView, initCenterViewX, initCenterViewY)) {
+                ViewCompat.postInvalidateOnAnimation(this)
+            }
         }else{
             //消失
             releasedViewList.add(changedView)

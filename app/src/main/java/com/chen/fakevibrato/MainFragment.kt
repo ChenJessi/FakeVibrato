@@ -16,6 +16,7 @@ import com.chen.fakevibrato.ui.samecity.view.SameCityFragment
 import com.chen.fakevibrato.utils.DisplayUtils
 import com.chen.fakevibrato.utils.MyLog
 import com.chen.fakevibrato.widget.MyStatePagerAdapter
+
 import com.chen.fakevibrato.widget.swipe.MySwipeLayout
 import com.chen.functionmanager.FunctionHasParamNoResult
 import com.chen.functionmanager.FunctionManager
@@ -204,6 +205,7 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
 
     private fun bottomClick(){
 
+//    startActivity(Intent(activity, TestSpringActivity::class.java))
     startActivity(Intent(activity, StackActivity::class.java))
 //    startActivity(Intent(activity, SwipeActivity::class.java))
 //        startActivity(Intent(activity, CameraActivity::class.java))

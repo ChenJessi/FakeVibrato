@@ -35,7 +35,7 @@ class MainHActivity : BaseSupportActivity<MainPresenter>() {
     }
 
     override fun initView() {
-        fixDexBug()
+//        fixDexBug()
         FunctionManager.instance.addFunction(object : FunctionHasParamNoResult<Boolean>("mainSwipeLayout") {
             override fun function(p: Boolean) {
                 viewPager.setSwipeable(p)

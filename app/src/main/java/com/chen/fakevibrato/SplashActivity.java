@@ -11,6 +11,8 @@ import com.chen.fakevibrato.base.BaseSupportActivity;
 import com.chen.fakevibrato.im.IMManager;
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
 import com.chen.fakevibrato.utils.MyLog;
+import com.chen.fakevibrato.widget.stack.TestSpringActivity;
+
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -32,9 +34,6 @@ public class SplashActivity extends BaseSupportActivity<MainPresenter> {
 
     @Override
     protected void initView() {
-        MyLog.d("fixDexBug :    isfirst");
-        MyLog.e("  fixDexBug  ========      :   ");
-
 
         IMManager.getInstance().getAutoLoginResult().observe(this, new Observer<Boolean>() {
             @Override
@@ -45,6 +44,7 @@ public class SplashActivity extends BaseSupportActivity<MainPresenter> {
 //                    toStart(LoginActivity.class);
 //                    toStart(MainActivity.class);
                     toStart(MainHActivity.class);
+//                    toStart(TestSpringActivity.class);
 
                 }
             }
