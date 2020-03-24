@@ -8,6 +8,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.BounceInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.FrameLayout
+import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
 import com.chen.fakevibrato.utils.MyLog
@@ -18,6 +19,7 @@ class CardItemView  : FrameLayout{
     private lateinit var xSpringAnimation : SpringAnimation
     private lateinit var ySpringAnimation : SpringAnimation
     private lateinit var springForce : SpringForce
+    private lateinit var parentView : StackLayout
     init {
 //        initSpring()
     }
@@ -36,6 +38,9 @@ class CardItemView  : FrameLayout{
         xSpringAnimation = SpringAnimation(this, SpringAnimation.TRANSLATION_X, 0f).setStartVelocity(500f).setSpring(springForce)
         ySpringAnimation = SpringAnimation(this, SpringAnimation.TRANSLATION_Y, 0f).setStartVelocity(500f).setSpring(springForce)
 
+        xSpringAnimation.addUpdateListener { animation, value, velocity ->
+            parentView.onViewPosChanged(this)
+        }
         xSpringAnimation.start()
         ySpringAnimation.start()
 
@@ -45,28 +50,27 @@ class CardItemView  : FrameLayout{
 
     }
 
-    fun setParentView(view : View){}
+    fun setParentView(view : StackLayout){
+        this.parentView = view
+    }
     fun bindLayoutResId(layoutResId : Int){
 
         var inflater = LayoutInflater.from(context)
         var view = inflater.inflate(layoutResId, null)
-//        var random = java.util.Random()
-//        val color = Color.argb(255, random.nextInt(256), random.nextInt(256), random.nextInt(256))
-//        var text = view.findViewById<TextView>(R.id.textView)
-//        text.setBackgroundColor(color)
         addView(view, LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
     }
+
 
     /**
      * 移动到指定位置
      */
     fun moveAnimTo(scrollToX : Int, scrollToY : Int){
         MyLog.e("scrollToY    $scrollToY")
-        var anim  = AnimtorUtils.translationY(this, 0f, -200f, 300, 0, LinearInterpolator())
-        anim.start()
+//        var anim  = AnimtorUtils.translationY(this, 0f, -200f, 300, 0, LinearInterpolator())
+//        anim.start()
 //        x = scrollToX.toFloat()
 //        y = scrollToY.toFloat()
-//        initSpring(scrollToX, scrollToY)
+        initSpring(scrollToX, scrollToY)
 //        xSpringAnimation.start()
 //        ySpringAnimation.start()
 //        SpringAnimation(this, DynamicAnimation.TRANSLATION_X).apply {

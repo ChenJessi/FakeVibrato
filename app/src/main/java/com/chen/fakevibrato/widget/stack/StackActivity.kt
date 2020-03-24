@@ -41,6 +41,16 @@ class StackActivity : BaseSupportActivity<BasePresenter<*>>() {
         adapter?.let { stackLayout.setAdapter(it) }
 //        stackView.adapter = StackAdapter(this@StackActivity, mList)
 //        var anima : SpringAnimation =
+
+        stackLayout.cardSwitchListener = object : StackLayout.CardSwitchListener{
+            override fun onCardVanish(index: Int, flyType: Int) {
+                MyLog.e("onCardVanish    $index   $flyType")
+            }
+
+            override fun onShow(index: Int) {
+                MyLog.e("onShow    $index  ")
+            }
+        }
     }
 
     override fun initListener() {

@@ -69,6 +69,7 @@ class StackLayout : ViewGroup {
     //当前显示
     private var isShowing = 0
     private var btnLock = false
+    var cardSwitchListener : CardSwitchListener? = null
 
     private var mDragHelperCallback = object : ViewDragHelper.Callback() {
         override fun tryCaptureView(child: View, pointerId: Int): Boolean {
@@ -410,15 +411,30 @@ class StackLayout : ViewGroup {
 
         if (finalX == initCenterViewX){
             //返回原来位置
-            if (mDragHelper.smoothSlideViewTo(changedView, initCenterViewX, initCenterViewY)) {
-                ViewCompat.postInvalidateOnAnimation(this)
-            }
+
+            var i = changedView.top
+            var t = changedView.left
+            changedView.offsetTopAndBottom( -(i - initCenterViewY))
+            changedView.translationY = (i - initCenterViewY).toFloat()
+
+            changedView.offsetLeftAndRight( -(t - initCenterViewX))
+            changedView.translationX = (t - initCenterViewX).toFloat()
+
+            changedView.moveAnimTo(initCenterViewX, initCenterViewY)
+
+//            if (mDragHelper.smoothSlideViewTo(changedView, initCenterViewX, initCenterViewY)) {
+//                ViewCompat.postInvalidateOnAnimation(this)
+//            }
         }else{
             //消失
             releasedViewList.add(changedView)
             if (mDragHelper.smoothSlideViewTo(changedView, finalX, finalY)) {
                 ViewCompat.postInvalidateOnAnimation(this)
             }
+
+            // 3. 消失动画即将进行，listener回调
+            cardSwitchListener?.onCardVanish(isShowing, flyType)
+
         }
 
     }
@@ -436,58 +452,76 @@ class StackLayout : ViewGroup {
         viewList.add(changedView)
         releasedViewList.removeAt(0)
 
+
+        if (isShowing + 1 < adapter?.getCount() ?: 0) {
+            isShowing++;
+        }
+        cardSwitchListener?.onShow(isShowing)
+
     }
 
     fun setAdapter(adapter: StackAdapter) {
         this.adapter = adapter
         doBindAdapter()
-//        adapter.registerDataSetObserver(object : DataSetObserver() {
-//            override fun onChanged() {
-//                orderViewStack()
-//
-//                var reset = false
-//                if (adapter.getCount() > 0) {
-//                    var firstObj = adapter.getItem(0)
-//                    if (savedFirstItemData == null) {
-//                        savedFirstItemData = WeakReference(adapter.getItem(0))
-//                        isShowing = 0
-//                    } else {
-//                        var saveObj = savedFirstItemData?.get()
-//                        if (firstObj != saveObj) {
-//                            //第一条数据不等。重置数据
-//                            isShowing = 0
-//                            reset = true
-//                            savedFirstItemData = WeakReference<Any>(saveObj)
-//                        }
-//                    }
-//                }
-//
-//                var delay = 0
-//                for (i in 0 until VIEW_COUNT) {
-//                    var itemView = viewList[i]
-//                    if (isShowing + 1 < adapter.getCount()) {
-//                        if (itemView.visibility == View.VISIBLE) {
-//                            if (!reset) continue
-//                        } else if (i == 0) {
-//                            if (isShowing > 0) {
-//                                isShowing++
-//                            }
-//                        }
-//
-//                        if (i == VIEW_COUNT - 1) {
-//                            itemView.alpha = 0f
-//                            itemView.visibility = View.VISIBLE
-//                        }else{
-//                            itemView.setVisibilityWithAnimation(View.VISIBLE, delay++)
-//                        }
-//                        adapter.bindView(itemView, isShowing + i)
-//                    }else{
-//                        itemView.visibility = INVISIBLE
-//                    }
-//                }
-//            }
-//        })
+        adapter.registerDataSetObserver(object : DataSetObserver() {
+            override fun onChanged() {
+                orderViewStack()
+                var reset = false
+                if (adapter.getCount() > 0) {
+                    var firstObj = adapter.getItem(0)
+                    if (savedFirstItemData == null) {
+                        savedFirstItemData = WeakReference(adapter.getItem(0))
+                        isShowing = 0
+                    } else {
+                        var saveObj = savedFirstItemData?.get()
+                        if (firstObj != saveObj) {
+                            //第一条数据不等。重置数据
+                            isShowing = 0
+                            reset = true
+                            savedFirstItemData = WeakReference<Any>(saveObj)
+                        }
+                    }
+                }
+                var delay = 0
+                for (i in 0 until VIEW_COUNT) {
+                    var itemView = viewList[i]
+                    if (isShowing + 1 < adapter.getCount()) {
+                        if (itemView.visibility == View.VISIBLE) {
+                            if (!reset) continue
+                        } else if (i == 0) {
+                            if (isShowing > 0) {
+                                isShowing++
+                            }
+                        }
+                        if (i == VIEW_COUNT - 1) {
+                            itemView.alpha = 0f
+                            itemView.visibility = View.VISIBLE
+                        }else{
+                            itemView.setVisibilityWithAnimation(View.VISIBLE, delay++)
+                        }
+                        adapter.bindView(itemView, isShowing + i)
+                    }else{
+                        itemView.visibility = INVISIBLE
+                    }
+                }
+            }
+        })
     }
+
+
+    interface CardSwitchListener{
+        /**
+         * 顶层卡片
+         */
+        fun onShow(index: Int)
+
+        /**
+         * 消失的卡片
+         */
+        fun onCardVanish(index: Int, flyType : Int)
+    }
+
+
 
 
     abstract class StackAdapter {
