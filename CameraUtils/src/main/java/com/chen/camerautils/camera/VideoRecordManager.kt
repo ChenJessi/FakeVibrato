@@ -1,4 +1,4 @@
-package com.caiyan.cloud.livebodysdk
+package com.chen.camerautils.camera
 
 
 import android.content.Context
@@ -7,7 +7,7 @@ import android.media.MediaRecorder
 import android.os.Environment
 import android.view.Surface
 
-class VideoRecordManager(var mContext : Context, private val camera: Camera?, var surface : Surface ) {
+class VideoRecordManager(var mContext : Context, private val camera: Camera?, var surface : Surface , var path : String) {
     private var mRecorder: MediaRecorder? = null
     /**
      * 开始录制
@@ -41,7 +41,7 @@ class VideoRecordManager(var mContext : Context, private val camera: Camera?, va
         mRecorder?.setPreviewDisplay(surface)
         //设置输出的文件路径
 //        mRecorder?.setOutputFile(mContext.getCacheDir().getAbsolutePath()+ "test.mp4")
-        mRecorder?.setOutputFile(Environment.getExternalStorageDirectory().absolutePath+ "/test.mp4")
+        mRecorder?.setOutputFile(Environment.getExternalStorageDirectory().absolutePath+ "/testde.mp4")
         //预处理
         mRecorder?.prepare()
         //开始录制

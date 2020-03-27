@@ -12,6 +12,7 @@ import android.graphics.Rect;
 import android.graphics.SurfaceTexture;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
+import android.media.MediaRecorder;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -152,9 +153,9 @@ public class Camera1Control implements ICameraControl {
 
     @Override
     public Bitmap getBitmap(){
-        if (textureView != null){
-            Bitmap bitmap = textureView.getBitmap();
-            return bitmap;
+
+        if (previewView != null && previewView.textureView != null){
+            return previewView.textureView.getBitmap();
         }
         return null;
     }
@@ -270,14 +271,15 @@ public class Camera1Control implements ICameraControl {
     private void openCamera() {
         setupDisplayView();
     }
-    private TextureView textureView;
+
     private void setupDisplayView() {
-      textureView = new TextureView(context);
-//        final TextureView textureView = new TextureView(context);
+//      textureView = new TextureView(context);
+        final TextureView textureView = new TextureView(context);
         previewView.textureView = textureView;
         previewView.setTextureView(textureView);
         displayView = previewView;
         textureView.setSurfaceTextureListener(surfaceTextureListener);
+
     }
 
     private SurfaceTexture surfaceCache;

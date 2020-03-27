@@ -2,10 +2,12 @@ package com.chen.fakevibrato
 
 import android.Manifest
 import android.content.res.Configuration
+import android.graphics.Rect
 import android.view.Surface
 import androidx.core.app.ActivityCompat
 import com.chen.baselibrary.base.BasePresenter
 import com.chen.camerautils.camera.*
+import com.chen.camerautils.crop.CropView
 import com.chen.fakevibrato.base.BaseSupportActivity
 import com.qmuiteam.qmui.widget.popup.QMUIBasePopup
 import kotlinx.android.synthetic.main.activity_camera.*
@@ -30,7 +32,6 @@ class CameraActivity : BaseSupportActivity<BasePresenter<*>>() {
 
     override fun initView() {
         cameraView.getCameraControl().setPermissionCallback(permissionCallback)
-//        cameraView.setMaskType(MaskView.MASK_TYPE_NONE, this)
     }
 
     override fun initListener() {
@@ -38,7 +39,7 @@ class CameraActivity : BaseSupportActivity<BasePresenter<*>>() {
     }
 
     override fun initData() {
-
+        cameraView.setMaskType(MaskView.MASK_TYPE_ID_CARD_BACK, this)
     }
 
     override fun onResume() {

@@ -206,9 +206,10 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
     private fun bottomClick(){
 
 //    startActivity(Intent(activity, TestSpringActivity::class.java))
-    startActivity(Intent(activity, StackActivity::class.java))
+//    startActivity(Intent(activity, StackActivity::class.java))
 //    startActivity(Intent(activity, SwipeActivity::class.java))
-//        startActivity(Intent(activity, CameraActivity::class.java))
+
+        startActivity( Intent(activity, CameraActivity::class.java))
     }
 
     override fun initData(savedInstanceState: Bundle?) {
