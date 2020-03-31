@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<!--    <com.chen.fakevibrato.widget.test.TurntableView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
+
+    <com.chen.fakevibrato.widget.test.DiscolorTextView
+        android:text="测试文本DiscolorTextView"
+        android:layout_marginTop="20dp"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@color/gray2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+</LinearLayout>
