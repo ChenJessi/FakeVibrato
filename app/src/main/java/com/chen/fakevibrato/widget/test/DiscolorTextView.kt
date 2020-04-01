@@ -18,7 +18,7 @@ class DiscolorTextView : TextView {
 
     private var mOriginPaint = Paint()
     private var mChangePaint = Paint()
-    private var testPaint = Paint()
+
     init {
         getColorPaint(mOriginPaint, Color.GRAY)
         getColorPaint(mChangePaint, Color.RED)
