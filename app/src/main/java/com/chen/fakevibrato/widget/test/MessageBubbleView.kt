@@ -21,6 +21,7 @@ import android.R.attr.x
 import android.view.animation.OvershootInterpolator
 import com.chen.fakevibrato.R
 import android.graphics.Paint.ANTI_ALIAS_FLAG
+import android.view.ViewTreeObserver
 
 
 /**
@@ -31,7 +32,7 @@ import android.graphics.Paint.ANTI_ALIAS_FLAG
 class MessageBubbleView : View {
     private lateinit var mDragPoint : PointF
     //触摸圆半径
-    private var mDragRadius = 20f
+    private var mDragRadius = 30f
     private lateinit var mFixationPoint : PointF
     private var mPaint: Paint = Paint()
     private var mFixationRadius = 0f
@@ -39,7 +40,6 @@ class MessageBubbleView : View {
     private var FIXATION_RADIUS_MAX = 20f
 
     private var broken = false
-    private var brokenProgress = 0f
     private var mBurstPaint : Paint
     private var mBurstRect  : Rect
     private var mCurDrawableIndex = 0
@@ -48,11 +48,27 @@ class MessageBubbleView : View {
      */
     private val mBurstDrawablesArray = intArrayOf(R.mipmap.burst_1, R.mipmap.burst_2, R.mipmap.burst_3, R.mipmap.burst_4, R.mipmap.burst_5)
     private val mBurstBitmapsArray = arrayOfNulls<Bitmap>(5)
+    /**
+     * 状态
+     * 还原&爆炸
+     */
+    private val STATE_FIXATION = 0
+    private val STATE_BROKEN = 1
+    private val STATE_INIT = 2
+    private var STATE_TYPE = STATE_INIT
 
+    // 连接部分是否拉断
+    private var fracture = false
+    //回到原位
+    private var isOriginal = false
+
+    private var mTextRect : Rect
+    private var mTextPaint : Paint
 
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    private var textStr = "99"
 
     init {
         mPaint.isAntiAlias = true
@@ -64,24 +80,33 @@ class MessageBubbleView : View {
         mBurstPaint.isFilterBitmap = true
         mBurstRect =  Rect()
 
+        mTextRect = Rect()
+        mTextPaint = Paint()
+        mTextPaint.isAntiAlias = true
+        mTextPaint.color = Color.WHITE
+        mTextPaint.textSize = 40f
+        mTextPaint.getTextBounds(textStr, 0, textStr.length, mTextRect)
+
         for (i in 0 until mBurstDrawablesArray.size){
             val bitmap = BitmapFactory.decodeResource(context.resources, mBurstDrawablesArray[i])
             mBurstBitmapsArray[i] = bitmap
         }
+
     }
 
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        mFixationPoint = PointF(((( right - left) / 2).toFloat()), ((bottom - top ) / 2).toFloat())
+    }
     override fun onDraw(canvas: Canvas?) {
         if (!this::mDragPoint.isInitialized || !this::mFixationPoint.isInitialized){
+            canvas?.drawCircle(mFixationPoint.x, mFixationPoint.y, mDragRadius, mPaint)
+            canvas?.drawText(textStr, mFixationPoint.x - mTextRect.width() / 2, mFixationPoint.y + mTextRect.height() / 2, mTextPaint)
             return
         }
+
         if (broken){
-//            val dr = mDragRadius / 2 + mDragRadius * 4 * (brokenProgress / 100f)
-//            canvas?.drawCircle(mDragPoint.x, mDragPoint.y, mDragRadius / (brokenProgress + 1), mPaint)
-//            canvas?.drawCircle(mDragPoint.x - dr, mDragPoint.y - dr, mDragRadius / (brokenProgress + 2), mPaint)
-//            canvas?.drawCircle(mDragPoint.x + dr, mDragPoint.y - dr, mDragRadius / (brokenProgress + 2), mPaint)
-//            canvas?.drawCircle(mDragPoint.x - dr, mDragPoint.y + dr, mDragRadius / (brokenProgress + 2), mPaint)
-//            canvas?.drawCircle(mDragPoint.x + dr, mDragPoint.y + dr, mDragRadius / (brokenProgress + 2), mPaint)
             if (mCurDrawableIndex >= mBurstBitmapsArray.size){
                 return
             }
@@ -94,15 +119,26 @@ class MessageBubbleView : View {
             canvas?.drawBitmap(mBurstBitmapsArray[mCurDrawableIndex],null,mBurstRect,mBurstPaint);
             return
         }
+
         var distance = getDistance(mDragPoint, mFixationPoint)
 
          mFixationRadius = (FIXATION_RADIUS_MAX - distance / 15).toFloat()
 
         canvas?.drawCircle(mDragPoint.x, mDragPoint.y, mDragRadius, mPaint)
-        var path = getBezierPath()
-        path?.let { canvas?.drawPath(it, mPaint) }
+        canvas?.drawText(textStr, mDragPoint.x - mTextRect.width() / 2, mDragPoint.y + mTextRect.height() / 2, mTextPaint)
 
-        if (mFixationRadius > FIXATION_RADIUS_MIN && mFixationPoint.x != mDragPoint.x && mFixationPoint.y != mDragPoint.y){
+        //松手回到原位置时有个摇摆过程
+        if (STATE_TYPE == STATE_FIXATION && mFixationPoint.x != mDragPoint.x && mFixationPoint.y != mDragPoint.y){
+            isOriginal = true
+            return
+        }
+        // 连接部分是否拉断
+        if (!fracture && !isOriginal){
+            var path = getBezierPath()
+            path?.let { canvas?.drawPath(it, mPaint) }
+        }
+        //连接部分没有拉断 && isOriginal放手时回到原位置  &&  最小值  < 半径 <  最大值
+        if (!fracture && !isOriginal && mFixationRadius > FIXATION_RADIUS_MIN  && mFixationRadius < FIXATION_RADIUS_MAX ){
             canvas?.drawCircle(mFixationPoint.x, mFixationPoint.y, mFixationRadius, mPaint)
         }
     }
@@ -114,12 +150,17 @@ class MessageBubbleView : View {
             }
             MotionEvent.ACTION_MOVE -> {
                 mDragPoint.set(event.x, event.y)
+                if (mFixationRadius > 0 &&  mFixationRadius < FIXATION_RADIUS_MIN){
+                    fracture = true
+                }
                 invalidate()
             }
             MotionEvent.ACTION_UP -> {
                 if (mFixationRadius > FIXATION_RADIUS_MIN ){
+                    STATE_TYPE = STATE_FIXATION
                     animToOrigin()
                 }else{
+                    STATE_TYPE = STATE_BROKEN
                     broken()
                 }
 
@@ -130,9 +171,8 @@ class MessageBubbleView : View {
     }
 
 
-    private fun initPoint(x : Float, y : Float){
-        mDragPoint = PointF(x, y)
-        mFixationPoint = PointF(x, y)
+    private fun initPoint(eventX : Float, eventY : Float){
+        mDragPoint = PointF(eventX, eventY)
     }
 
     /**
@@ -208,13 +248,24 @@ class MessageBubbleView : View {
         val animX = ObjectAnimator.ofFloat(this, "dragPointX", mDragPoint.x, mFixationPoint.x)
         val animY = ObjectAnimator.ofFloat(this, "dragPointY", mDragPoint.y, mFixationPoint.y)
         animX.addUpdateListener {
+            mDragPoint.x = it.animatedValue as Float
             invalidate()
         }
-        animX.interpolator = OvershootInterpolator ()
-        animX.duration = 300
+        animY.addUpdateListener {
+            mDragPoint.y = it.animatedValue as Float
+            invalidate()
+        }
+        animX.addListener(object : AnimatorListenerAdapter(){
+            override fun onAnimationEnd(animation: Animator?) {
+                super.onAnimationEnd(animation)
+                restore()
+            }
+        })
+        animX.interpolator = OvershootInterpolator(2f)
+        animX.duration = 150
         animX.start()
-        animY.interpolator = OvershootInterpolator()
-        animY.duration = 300
+        animY.interpolator = OvershootInterpolator(2f)
+        animY.duration = 150
         animY.start()
 
     }
@@ -224,7 +275,7 @@ class MessageBubbleView : View {
         broken = true
 
         val anim = ValueAnimator.ofInt(0, mBurstDrawablesArray.size )
-        anim.duration = 500
+        anim.duration = 300
         anim.interpolator = LinearInterpolator()
         anim.addUpdateListener { animation ->
             mCurDrawableIndex  = animation.animatedValue as Int
@@ -233,5 +284,10 @@ class MessageBubbleView : View {
         anim.start()
     }
 
-
+    private fun restore(){
+        STATE_TYPE = STATE_INIT
+        fracture = false
+        broken = false
+        isOriginal = false
+    }
 }

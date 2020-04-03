@@ -12,14 +12,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".widget.test.TestViewActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
         <activity android:name=".widget.stack.TestSpringActivity"
             android:screenOrientation="portrait"/>
-
         <activity
             android:name=".widget.stack.StackActivity"
             android:screenOrientation="portrait" />
-
         <activity
             android:name=".MainHActivity"
             android:screenOrientation="portrait"
@@ -56,11 +62,7 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".widget.emojipanel.EmojiActivity"

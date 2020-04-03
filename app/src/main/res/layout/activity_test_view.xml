@@ -20,6 +20,12 @@
         android:layout_height="200dp"/>
 
     <com.chen.fakevibrato.widget.test.MessageBubbleView
+        android:layout_marginLeft="240dp"
+        android:layout_marginTop="100dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+
+    <com.chen.fakevibrato.widget.test.DragPointView
         android:layout_marginLeft="40dp"
         android:layout_marginTop="100dp"
         android:layout_width="20dp"
