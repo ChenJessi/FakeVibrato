@@ -281,6 +281,13 @@ class MessageBubbleView : View {
             mCurDrawableIndex  = animation.animatedValue as Int
             invalidate()
         }
+        anim.addListener(object : AnimatorListenerAdapter(){
+            override fun onAnimationEnd(animation: Animator?) {
+                super.onAnimationEnd(animation)
+                visibility = GONE
+                restore()
+            }
+        })
         anim.start()
     }
 
