@@ -23,7 +23,6 @@ import java.io.File
 
 class MainHActivity : BaseSupportActivity<MainPresenter>() {
 
-
     private var adapter: MyPagerAdapter? = null
     private val mFragments = ArrayList<Fragment>()
 
