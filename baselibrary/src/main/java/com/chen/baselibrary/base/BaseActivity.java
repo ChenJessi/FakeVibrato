@@ -1,17 +1,9 @@
 package com.chen.baselibrary.base;
 
-
 import android.content.Context;
 import android.os.Bundle;
-import android.view.ViewGroup;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
-import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
-
 
 /**
  * @author Created by CHEN on 2019/6/10
@@ -39,7 +31,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 //        initListener();
 //        initData();
     }
-
 
     @Override
     protected void onDestroy() {

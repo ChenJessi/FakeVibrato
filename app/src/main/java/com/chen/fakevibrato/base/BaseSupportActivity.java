@@ -2,6 +2,9 @@ package com.chen.fakevibrato.base;
 
 
 import android.content.Context;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -9,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +31,7 @@ import com.chen.fakevibrato.skin.attr.SkinView;
 import com.chen.fakevibrato.skin.support.SkinAppCompatViewInflater;
 import com.chen.fakevibrato.skin.support.SkinAttrSupport;
 import com.chen.fakevibrato.utils.Constants;
+import com.chen.fakevibrato.utils.MyLog;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,7 +54,8 @@ public abstract class BaseSupportActivity<P extends BasePresenter> extends BaseA
     private Unbinder mUnbinder;
 
     private SkinAppCompatViewInflater mAppCompatViewInflater;
-//    private SkinAppCompatViewInflater mAppCompatViewInflater;
+
+    //    private SkinAppCompatViewInflater mAppCompatViewInflater;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         LayoutInflater layoutInflater = LayoutInflater.from(this);
@@ -61,6 +67,18 @@ public abstract class BaseSupportActivity<P extends BasePresenter> extends BaseA
         }
         EventBus.getDefault().register(this);
         mUnbinder = ButterKnife.bind(this);
+
+        /**
+         * APP灰度
+         * 两种方案
+         */
+//        Paint mPaint = new Paint();
+//        ColorMatrix cm = new ColorMatrix();
+//        cm.setSaturation(0);
+//        mPaint.setColorFilter(new ColorMatrixColorFilter(cm));
+//        getWindow().getDecorView().setLayerType(View.LAYER_TYPE_HARDWARE, mPaint);
+
+
         initView();
         initListener();
         initData();
@@ -94,16 +112,33 @@ public abstract class BaseSupportActivity<P extends BasePresenter> extends BaseA
     @Nullable
     @Override
     public View onCreateView(@Nullable View parent, @NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+        if (Constants.isGray) {
+            if ("FrameLayout".equals(name)) {
+                int cont = attrs.getAttributeCount();
+                for (int i = 0; i < cont; i++) {
+                    String attributeName = attrs.getAttributeName(i);
+                    String attributeValue = attrs.getAttributeValue(i);
+                    if ("id".equals(attributeName)) {
+                        int id = Integer.parseInt(attributeValue.substring(1));
+                        String idVal = getResources().getResourceName(id);
+                        if ("android:id/content".equals(idVal)) {
+                            GrayFrameLayout grayFrameLayout = new GrayFrameLayout(context, attrs);
+                            return grayFrameLayout;
+                        }
+                    }
+                }
+            }
+        }
+
         //拦截到view的创建 获取view之后解析
         //1. 创建view
         View view = createView(parent, name, context, attrs);
-
         // 2. 解析属性 src textcolor background
 
         //2.1 一个activity布局有多个 skinView
-        if (view != null){
+        if (view != null) {
             List<SkinAttr> skinAttrs = SkinAttrSupport.INSTANCE.getSkinAttrs(context, attrs);
-            SkinView skinView = new SkinView(view,skinAttrs);
+            SkinView skinView = new SkinView(view, skinAttrs);
             // 3.统一交给SkinManager管理
             managerSkinView(skinView);
         }
@@ -118,11 +153,12 @@ public abstract class BaseSupportActivity<P extends BasePresenter> extends BaseA
 
     /**
      * 统一管理skinView
+     *
      * @param skinView
      */
-    private void managerSkinView(SkinView skinView){
+    private void managerSkinView(SkinView skinView) {
         List<SkinView> skinViews = SkinManager.Companion.getInstance().getSkinViews(this);
-        if (skinViews == null){
+        if (skinViews == null) {
             skinViews = new ArrayList<>();
             SkinManager.Companion.getInstance().register(this, skinViews);
         }

@@ -12,8 +12,9 @@ public class Constants {
 
 
 
-
-
    public static UserInfo userInfo = new UserInfo();
+
+    //APP灰度
+   public static boolean isGray = false;
 
 }

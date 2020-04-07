@@ -11,13 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".widget.test.TestViewActivity"
-            android:screenOrientation="portrait">
+        <activity
+            android:name=".SplashActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+
+        <activity android:name=".widget.test.TestViewActivity"
+            android:screenOrientation="portrait">
+
         </activity>
 
 
@@ -57,13 +66,7 @@
             android:name=".LoginActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".SplashActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/splash">
 
-        </activity>
         <activity
             android:name=".widget.emojipanel.EmojiActivity"
             android:launchMode="singleTop"
