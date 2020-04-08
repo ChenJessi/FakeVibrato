@@ -9,15 +9,12 @@ import com.chen.fakevibrato.utils.MyLog
 import kotlin.math.sqrt
 import android.R.attr.y
 import android.R.attr.x
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.view.animation.BounceInterpolator
 import android.view.animation.LinearInterpolator
 import kotlin.math.atan
 import android.R.attr.y
 import android.R.attr.x
+import android.animation.*
 import android.view.animation.OvershootInterpolator
 import com.chen.fakevibrato.R
 import android.graphics.Paint.ANTI_ALIAS_FLAG
@@ -59,8 +56,6 @@ class MessageBubbleView : View {
 
     // 连接部分是否拉断
     private var fracture = false
-    //回到原位
-    private var isOriginal = false
 
     private var mTextRect : Rect
     private var mTextPaint : Paint
@@ -124,23 +119,21 @@ class MessageBubbleView : View {
 
          mFixationRadius = (FIXATION_RADIUS_MAX - distance / 15).toFloat()
 
+        if (mDragPoint != mFixationPoint){
+
+            // 连接部分是否拉断
+            if (!fracture){
+                var path = getBezierPath()
+                path?.let { canvas?.drawPath(it, mPaint) }
+            }
+            //连接部分没有拉断   &&  最小值  < 半径 <  最大值
+            if (!fracture  && mFixationRadius > FIXATION_RADIUS_MIN  && mFixationRadius < FIXATION_RADIUS_MAX ){
+                canvas?.drawCircle(mFixationPoint.x, mFixationPoint.y, mFixationRadius, mPaint)
+            }
+        }
+
         canvas?.drawCircle(mDragPoint.x, mDragPoint.y, mDragRadius, mPaint)
         canvas?.drawText(textStr, mDragPoint.x - mTextRect.width() / 2, mDragPoint.y + mTextRect.height() / 2, mTextPaint)
-
-        //松手回到原位置时有个摇摆过程
-        if (STATE_TYPE == STATE_FIXATION && mFixationPoint.x != mDragPoint.x && mFixationPoint.y != mDragPoint.y){
-            isOriginal = true
-            return
-        }
-        // 连接部分是否拉断
-        if (!fracture && !isOriginal){
-            var path = getBezierPath()
-            path?.let { canvas?.drawPath(it, mPaint) }
-        }
-        //连接部分没有拉断 && isOriginal放手时回到原位置  &&  最小值  < 半径 <  最大值
-        if (!fracture && !isOriginal && mFixationRadius > FIXATION_RADIUS_MIN  && mFixationRadius < FIXATION_RADIUS_MAX ){
-            canvas?.drawCircle(mFixationPoint.x, mFixationPoint.y, mFixationRadius, mPaint)
-        }
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -235,38 +228,32 @@ class MessageBubbleView : View {
         return PointF(x, y)
     }
 
-    private fun setDragPointX(x: Float){
-        mDragPoint.x = x
+    private fun setDragPoint(point: PointF){
+        mDragPoint.set(point)
     }
-    private fun setDragPointY(y: Float){
-        mDragPoint.y = y
-    }
+
     /**
      * 放手之后弹回的角度
      */
     private fun animToOrigin(){
-        val animX = ObjectAnimator.ofFloat(this, "dragPointX", mDragPoint.x, mFixationPoint.x)
-        val animY = ObjectAnimator.ofFloat(this, "dragPointY", mDragPoint.y, mFixationPoint.y)
-        animX.addUpdateListener {
-            mDragPoint.x = it.animatedValue as Float
+        val anim = ObjectAnimator.ofObject(this, "dragPoint", PointFEvaluator(), mDragPoint, mFixationPoint)
+
+        anim.addUpdateListener {
+            mDragPoint = it.animatedValue as PointF
+
             invalidate()
         }
-        animY.addUpdateListener {
-            mDragPoint.y = it.animatedValue as Float
-            invalidate()
-        }
-        animX.addListener(object : AnimatorListenerAdapter(){
+
+        anim.addListener(object : AnimatorListenerAdapter(){
             override fun onAnimationEnd(animation: Animator?) {
                 super.onAnimationEnd(animation)
                 restore()
             }
         })
-        animX.interpolator = OvershootInterpolator(2f)
-        animX.duration = 150
-        animX.start()
-        animY.interpolator = OvershootInterpolator(2f)
-        animY.duration = 150
-        animY.start()
+        anim.interpolator = OvershootInterpolator(2f)
+        anim.duration = 150
+        anim.start()
+
 
     }
 
@@ -295,6 +282,5 @@ class MessageBubbleView : View {
         STATE_TYPE = STATE_INIT
         fracture = false
         broken = false
-        isOriginal = false
     }
 }

@@ -9,6 +9,7 @@ import android.view.View
 import com.chen.fakevibrato.ui.my.contract.UserContract
 import android.R.attr.x
 import android.R.attr.y
+import android.annotation.SuppressLint
 import kotlin.math.abs
 import kotlin.math.acos
 import kotlin.math.sqrt
@@ -23,20 +24,25 @@ class TurntableView : View {
     private var newAngle = 0f
     private val MAX_VALUE = 100f
     private var lastValue = 0f
+
+    private lateinit var arcRectF : RectF
+    private var paintLine : Paint = Paint(ANTI_ALIAS_FLAG)
+    private var paint : Paint = Paint(ANTI_ALIAS_FLAG)
+
     constructor(context: Context?) : super(context)
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
-
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         mWidth = measuredWidth
         mHeight = measuredHeight
-
+        arcRectF = RectF(100f, (mHeight.toFloat() - mWidth.toFloat() + 200) / 2, mWidth.toFloat() - 100, (mHeight.toFloat() + mWidth.toFloat() - 200) / 2)
     }
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        var paint = Paint(ANTI_ALIAS_FLAG)
+
         paint.isAntiAlias = true
         paint.color = Color.RED
         paint.strokeCap = Paint.Cap.ROUND
@@ -44,12 +50,11 @@ class TurntableView : View {
         paint.strokeWidth = 10f
         paint.style = Paint.Style.STROKE
 
-        var rectF = RectF(100f, (mHeight.toFloat() - mWidth.toFloat() + 200) / 2, mWidth.toFloat() - 100, (mHeight.toFloat() + mWidth.toFloat() - 200) / 2)
-        canvas?.drawArc(rectF, 180f + newAngle, 360f, false, paint)
+        canvas?.drawArc(arcRectF, 180f + newAngle, 360f, false, paint)
         canvas?.save()
 
 
-        var paintLine = Paint(ANTI_ALIAS_FLAG)
+
         paintLine.color = Color.BLUE
         paintLine.strokeWidth = 2f
         canvas?.rotate(newAngle ,  mWidth.toFloat() / 2 , mHeight.toFloat() / 2)
