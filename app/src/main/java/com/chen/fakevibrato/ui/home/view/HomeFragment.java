@@ -66,6 +66,9 @@ public class HomeFragment extends BaseSupportFragment<HomePresenter> implements 
 
     String[] mTitles = new String[]{"关注", "推荐"};
 
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
+    }
     @Override
     protected int setView() {
         return R.layout.fragment_home;

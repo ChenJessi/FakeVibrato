@@ -41,7 +41,6 @@ class MainHActivity : BaseSupportActivity<MainPresenter>() {
             }
         })
 
-
         mFragments.add(SwipeFragment())
         mFragments.add(MainFragment())
         mFragments.add(SwipeFragment())

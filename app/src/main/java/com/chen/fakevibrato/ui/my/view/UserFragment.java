@@ -109,6 +109,9 @@ public class UserFragment extends BaseSupportFragment<UserPresenter> implements 
 
     private MyPagerAdapter adapter;
 
+    public static UserFragment newInstance() {
+        return new UserFragment();
+    }
     @Override
     protected int setView() {
         return R.layout.fragment_user;

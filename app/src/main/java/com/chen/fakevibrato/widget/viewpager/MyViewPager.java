@@ -88,10 +88,10 @@ public class MyViewPager extends ViewPager implements IWindowInsetLayout {
 
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        return  dispatchSwipe && super.dispatchTouchEvent(ev);
-    }
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        return  dispatchSwipe && super.dispatchTouchEvent(ev);
+//    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

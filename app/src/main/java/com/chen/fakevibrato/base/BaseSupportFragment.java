@@ -47,7 +47,7 @@ public abstract class BaseSupportFragment<P extends BasePresenter> extends BaseF
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mUnbinder = ButterKnife.bind(this, view);
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
         return view;
     }
 
@@ -55,18 +55,12 @@ public abstract class BaseSupportFragment<P extends BasePresenter> extends BaseF
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
+//        if (EventBus.getDefault().isRegistered(this)) {
+//            EventBus.getDefault().unregister(this);
+//        }
         if (mUnbinder != Unbinder.EMPTY) mUnbinder.unbind();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(int event) {
-        if (event == Constants.QUIT_ACTION) {
-
-        }
-    }
 
     @Override
     public void onDestroy() {

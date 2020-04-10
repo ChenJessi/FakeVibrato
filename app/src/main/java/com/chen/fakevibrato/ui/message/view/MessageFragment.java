@@ -22,6 +22,10 @@ import butterknife.BindView;
 public class MessageFragment extends BaseSupportFragment<MessagePresenter> {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    public static MessageFragment newInstance() {
+        return new MessageFragment();
+    }
     @Override
     protected int setView() {
         return R.layout.fragment_message;

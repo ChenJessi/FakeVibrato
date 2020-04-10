@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewParent;
 import android.view.animation.Interpolator;
@@ -27,12 +28,14 @@ import androidx.annotation.Size;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.core.view.ViewCompat;
 import androidx.customview.widget.ViewDragHelper;
+import androidx.viewpager.widget.ViewPager;
 
 import com.chen.fakevibrato.utils.ColorUtils;
 import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.EvaluateUtils;
 import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.anim.AnimtorUtils;
+import com.daimajia.swipe.SwipeLayout;
 
 import java.lang.annotation.RetentionPolicy;
 
@@ -63,6 +66,9 @@ public class MySwipeLayout extends FrameLayout {
 
     private DragEdge mDragEdge = DragEdge.Right;
 
+    private float sX = -1, sY = -1;
+    private int mTouchSlop;
+
     public MySwipeLayout(Context context) {
         this(context, null);
     }
@@ -78,33 +84,139 @@ public class MySwipeLayout extends FrameLayout {
 
     private void init() {
         mDragHelper = ViewDragHelper.create(this, mSensitivity, mDragHelperCallback);
+        mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
     }
 
-    public static enum DragEdge {
+    public enum DragEdge {
         Left,
         Right,
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        mDragHelper.processTouchEvent(event);
-        return true;
-    }
+        if (!isSwipe()){
+            return false;
+        }
 
+        if (event.getAction() == MotionEvent.ACTION_DOWN && event.getEdgeFlags() != 0) {
+            return false;
+        }
+        MyLog.e("onTouchEvent  mIsBeingDragged   ： "+mIsBeingDragged);
+        int action = event.getActionMasked();
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                sX = event.getRawX();
+                sY = event.getRawY();
+                mDragHelper.processTouchEvent(event);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                checkCanDrag(event);
+                if (mIsBeingDragged){
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                    mDragHelper.processTouchEvent(event);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+                mIsBeingDragged = false;
+                mDragHelper.processTouchEvent(event);
+                break;
+            default://handle other action, such as ACTION_POINTER_DOWN/UP
+                mDragHelper.processTouchEvent(event);
+        }
+        return super.onTouchEvent(event) || mIsBeingDragged || action == MotionEvent.ACTION_DOWN;
+    }
+    private boolean mIsBeingDragged;
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        // 传递给mDragHelper
+        if (!isSwipe()){
+            return false;
+        }
+        if (getStatus() == Status.Open){
+            mIsBeingDragged = true;
+            return true;
+        }
+        int action =  ev.getAction();
+        if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
+            mIsBeingDragged = false;
+            MyLog.e("mIsBeingDragged   Intercept done! ");
+            return false;
+        }
         switch (ev.getAction()){
             case MotionEvent.ACTION_DOWN:
+                sX = ev.getRawX();
+                sY = ev.getRawY();
+                mDragHelper.processTouchEvent(ev);
+                mIsBeingDragged = false;
+                if (getStatus() == Status.Draging){
+                    mIsBeingDragged = true;
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
+                boolean beforeCheck = mIsBeingDragged;
+                checkCanDrag(ev);
+                MyLog.e("mIsBeingDragged   ACTION_MOVE  ： "+mIsBeingDragged);
+                if (mIsBeingDragged) {
+                    ViewParent parent = getParent();
+                    if (parent != null) {
+                        parent.requestDisallowInterceptTouchEvent(true);
+                    }
+                }
+                if (!beforeCheck && mIsBeingDragged) {
+                    //let children has one chance to catch the touch, and request the swipe not intercept
+                    //useful when swipeLayout wrap a swipeLayout or other gestural layout
+                    return false;
+                }
                 break;
+            case MotionEvent.ACTION_CANCEL:
+                MyLog.e("mIsBeingDragged   ACTION_CANCEL    ");
+            case MotionEvent.ACTION_UP:
+                mIsBeingDragged = false;
+                mDragHelper.processTouchEvent(ev);
+                break;
+            default://handle other action, such as ACTION_POINTER_DOWN/UP
+                mDragHelper.processTouchEvent(ev);
         }
-
-        return  mDragHelper.shouldInterceptTouchEvent(ev) ;
+        MyLog.e("mIsBeingDragged   ： "+mIsBeingDragged);
+        return mIsBeingDragged;
     }
 
+    private void checkCanDrag(MotionEvent event){
+        if (mIsBeingDragged){
+            return;
+        }
+        if (getStatus() == Status.Draging){
+            mIsBeingDragged = true;
+            return;
+        }
+
+        float distanceX = event.getRawX() - sX;
+        float distanceY = event.getRawY() - sY;
+        float angle = Math.abs(distanceY / distanceX);
+
+        boolean doNothing = false;
+        if (mDragEdge == DragEdge.Right){
+            boolean suitable = (mStatus == Status.Open && distanceX > mTouchSlop)
+                    || (mStatus == Status.Close && distanceX < -mTouchSlop);
+            suitable = suitable || (mStatus == Status.Draging);
+
+            if (angle > 30 || !suitable) {
+                doNothing = true;
+            }
+        }
+        if (mDragEdge == DragEdge.Left) {
+            boolean suitable = (mStatus == Status.Open && distanceX < -mTouchSlop)
+                    || (mStatus == Status.Close && distanceX > mTouchSlop);
+            suitable = suitable || mStatus == Status.Draging;
+
+            if (angle > 30 || !suitable) {
+                doNothing = true;
+            }
+        }
+
+        mIsBeingDragged = !doNothing;
+    }
 
     @Override
     protected void onFinishInflate() {

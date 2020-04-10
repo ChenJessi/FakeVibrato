@@ -2,6 +2,7 @@ package com.chen.fakevibrato
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.SparseArray
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
@@ -34,6 +35,7 @@ import java.util.*
 class MainFragment : BaseSupportFragment<MainPresenter>() {
     private var adapter: MyStatePagerAdapter? = null
     private val mFragments = ArrayList<Fragment>()
+//    private var registeredFragments = SparseArray<Fragment>()
     internal var mTitles = arrayOf("首页", "同城", "", "消息", "我")
     private var sameCityFragment: SameCityFragment? = null
     private var fragment: Fragment? = null
@@ -57,6 +59,12 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
         messageFragment = MessageFragment()
         userFragment = UserFragment()
         mFragments.add(HomeFragment())
+//        sameCityFragment?.let { mFragments.add(it) }
+//        fragment?.let { mFragments.add(it) }
+//        messageFragment?.let { mFragments.add(it) }
+//        userFragment?.let { mFragments.add(it) }
+
+//        registeredFragments.put(0, HomeFragment())
         adapter = MyStatePagerAdapter(childFragmentManager, mFragments)
         viewPager.adapter = adapter
         viewPager.setSwipeable(false)
@@ -84,6 +92,7 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
 
 
     private fun initListener() {
+
         swipeLayout.isSwipe = false
         swipeLayout.setScale(1f)
         FunctionManager.instance.addFunction(object : FunctionHasParamNoResult<Int>("isSwipe") {
@@ -115,7 +124,6 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
                 if (mTabLayout.currentTab != position) {
                     mTabLayout.currentTab = position
                 }
-
                 swipeLayout.isSwipe = position == 4 && userPosition == 2
             }
         })
@@ -139,7 +147,6 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
 //                onDispatchSwipeListener.isDispatchSwipe(position != 0)
                 FunctionManager.instance.invokeFunction("mainSwipeLayout", position == 0)
                 if (position == 0) {
-                    MyLog.e("mFragments  : " + mFragments.size)
                     mFragments.removeAt(4)
                     mFragments.removeAt(3)
                     mFragments.removeAt(2)
@@ -178,7 +185,6 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
                     }
                 }
 
-//                viewPager.currentItem = position
                 if (viewPager.currentItem != position) {
                     viewPager.currentItem = position
                     viewPager.setCurrentItem(position, true)

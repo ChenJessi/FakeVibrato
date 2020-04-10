@@ -44,6 +44,11 @@ public class SameCityFragment extends BaseSupportFragment<SameCityPresenter> {
 
     private SameTypeAdapter sameTypeAdapter;
     private SameAdapter adapter;
+
+    public static SameCityFragment newInstance() {
+        return new SameCityFragment();
+    }
+
     @Override
     protected int setView() {
         return R.layout.fragment_same_city;
