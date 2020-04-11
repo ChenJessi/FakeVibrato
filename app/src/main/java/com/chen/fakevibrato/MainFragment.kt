@@ -215,8 +215,7 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
 //    startActivity(Intent(activity, TestViewActivity::class.java))
 //    startActivity(Intent(activity, StackActivity::class.java))
 //    startActivity(Intent(activity, SwipeActivity::class.java))
-
-        startActivity( Intent(activity, CameraActivity::class.java))
+        startActivity(Intent(activity, CameraActivity::class.java))
     }
 
     override fun initData(savedInstanceState: Bundle?) {

@@ -39,6 +39,11 @@ import com.daimajia.swipe.SwipeLayout;
 
 import java.lang.annotation.RetentionPolicy;
 
+
+/**
+ * 滑动布局
+ * 多个滑动布局嵌套时的手势处理未完全优化
+ */
 public class MySwipeLayout extends FrameLayout {
     private ViewDragHelper mDragHelper;
     //侧面板
@@ -101,7 +106,7 @@ public class MySwipeLayout extends FrameLayout {
         if (event.getAction() == MotionEvent.ACTION_DOWN && event.getEdgeFlags() != 0) {
             return false;
         }
-        MyLog.e("onTouchEvent  mIsBeingDragged   ： "+mIsBeingDragged);
+
         int action = event.getActionMasked();
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
@@ -140,7 +145,7 @@ public class MySwipeLayout extends FrameLayout {
         int action =  ev.getAction();
         if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
             mIsBeingDragged = false;
-            MyLog.e("mIsBeingDragged   Intercept done! ");
+
             return false;
         }
         switch (ev.getAction()){
@@ -156,7 +161,7 @@ public class MySwipeLayout extends FrameLayout {
             case MotionEvent.ACTION_MOVE:
                 boolean beforeCheck = mIsBeingDragged;
                 checkCanDrag(ev);
-                MyLog.e("mIsBeingDragged   ACTION_MOVE  ： "+mIsBeingDragged);
+
                 if (mIsBeingDragged) {
                     ViewParent parent = getParent();
                     if (parent != null) {
@@ -170,7 +175,7 @@ public class MySwipeLayout extends FrameLayout {
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
-                MyLog.e("mIsBeingDragged   ACTION_CANCEL    ");
+
             case MotionEvent.ACTION_UP:
                 mIsBeingDragged = false;
                 mDragHelper.processTouchEvent(ev);
@@ -178,7 +183,7 @@ public class MySwipeLayout extends FrameLayout {
             default://handle other action, such as ACTION_POINTER_DOWN/UP
                 mDragHelper.processTouchEvent(ev);
         }
-        MyLog.e("mIsBeingDragged   ： "+mIsBeingDragged);
+
         return mIsBeingDragged;
     }
 
