@@ -65,6 +65,10 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:4.1.0'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines"
+    //                                       👇 依赖当前平台所对应的平台库
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines"
+
     implementation 'cn.dreamtobe.kpswitch:library:1.6.2'
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
 
@@ -81,11 +85,11 @@ dependencies {
         transitive = true
     }
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    
     //通信接口
     implementation project(':FunctionManager')
     implementation project(':AnnotationUtils')
     implementation project(':baselibrary')
-
 
     //暂时弃用
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"

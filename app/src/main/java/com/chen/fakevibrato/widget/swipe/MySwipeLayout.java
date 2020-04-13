@@ -34,8 +34,8 @@ import com.chen.fakevibrato.utils.ColorUtils;
 import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.EvaluateUtils;
 import com.chen.fakevibrato.utils.MyLog;
+import com.chen.fakevibrato.widget.SwipeLayout;
 import com.chen.fakevibrato.widget.anim.AnimtorUtils;
-import com.daimajia.swipe.SwipeLayout;
 
 import java.lang.annotation.RetentionPolicy;
 
@@ -90,11 +90,12 @@ public class MySwipeLayout extends FrameLayout {
     private void init() {
         mDragHelper = ViewDragHelper.create(this, mSensitivity, mDragHelperCallback);
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+        MyLog.e("mDragEdge   :  "+mDragEdge);
     }
 
     public enum DragEdge {
         Left,
-        Right,
+        Right
     }
 
     @Override
@@ -102,13 +103,11 @@ public class MySwipeLayout extends FrameLayout {
         if (!isSwipe()){
             return false;
         }
-
         if (event.getAction() == MotionEvent.ACTION_DOWN && event.getEdgeFlags() != 0) {
             return false;
         }
-
-        int action = event.getActionMasked();
-        switch (event.getAction()){
+        final int action = event.getAction();
+        switch (action & MotionEvent.ACTION_MASK){
             case MotionEvent.ACTION_DOWN:
                 sX = event.getRawX();
                 sY = event.getRawY();
@@ -116,6 +115,7 @@ public class MySwipeLayout extends FrameLayout {
                 break;
             case MotionEvent.ACTION_MOVE:
                 checkCanDrag(event);
+                MyLog.e("onTouchEvent   mIsBeingDragged  :  "+mIsBeingDragged);
                 if (mIsBeingDragged){
                     getParent().requestDisallowInterceptTouchEvent(true);
                     mDragHelper.processTouchEvent(event);
@@ -135,25 +135,28 @@ public class MySwipeLayout extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        MyLog.e("onInterceptTouchEvent  Status.Open  test   === : "+ mIsBeingDragged);
         if (!isSwipe()){
             return false;
         }
         if (getStatus() == Status.Open){
-            mIsBeingDragged = true;
-            return true;
+//            mIsBeingDragged = true;
+            checkCanDrag(ev);
+            MyLog.e("onInterceptTouchEvent  Status.Open  : "+ mIsBeingDragged);
+            return mIsBeingDragged;
         }
-        int action =  ev.getAction();
+        int action =  ev.getAction() & MotionEvent.ACTION_MASK;
         if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
             mIsBeingDragged = false;
-
             return false;
         }
-        switch (ev.getAction()){
+
+        switch (action){
             case MotionEvent.ACTION_DOWN:
-                sX = ev.getRawX();
-                sY = ev.getRawY();
                 mDragHelper.processTouchEvent(ev);
                 mIsBeingDragged = false;
+                sX = ev.getRawX();
+                sY = ev.getRawY();
                 if (getStatus() == Status.Draging){
                     mIsBeingDragged = true;
                 }
@@ -161,7 +164,6 @@ public class MySwipeLayout extends FrameLayout {
             case MotionEvent.ACTION_MOVE:
                 boolean beforeCheck = mIsBeingDragged;
                 checkCanDrag(ev);
-
                 if (mIsBeingDragged) {
                     ViewParent parent = getParent();
                     if (parent != null) {
@@ -175,7 +177,6 @@ public class MySwipeLayout extends FrameLayout {
                 }
                 break;
             case MotionEvent.ACTION_CANCEL:
-
             case MotionEvent.ACTION_UP:
                 mIsBeingDragged = false;
                 mDragHelper.processTouchEvent(ev);
@@ -183,7 +184,10 @@ public class MySwipeLayout extends FrameLayout {
             default://handle other action, such as ACTION_POINTER_DOWN/UP
                 mDragHelper.processTouchEvent(ev);
         }
-
+        MyLog.e("mIsBeingDragged  :  "+mIsBeingDragged);
+//        if (mIsBeingDragged){
+//            mDragHelper.shouldInterceptTouchEvent(ev);
+//        }
         return mIsBeingDragged;
     }
 
@@ -201,12 +205,14 @@ public class MySwipeLayout extends FrameLayout {
         float angle = Math.abs(distanceY / distanceX);
 
         boolean doNothing = false;
-        if (mDragEdge == DragEdge.Right){
-            boolean suitable = (mStatus == Status.Open && distanceX > mTouchSlop)
+        if (mDragEdge == DragEdge.Right) {
+            // suitable false 不拦截
+            boolean suitable = (mStatus == Status.Open && distanceX > mTouchSlop  )
                     || (mStatus == Status.Close && distanceX < -mTouchSlop);
             suitable = suitable || (mStatus == Status.Draging);
 
             if (angle > 30 || !suitable) {
+                //不拦截
                 doNothing = true;
             }
         }
@@ -219,7 +225,7 @@ public class MySwipeLayout extends FrameLayout {
                 doNothing = true;
             }
         }
-
+        MyLog.e("checkCanDrag   mIsBeingDragged  :  "+!doNothing + "  "+distanceX +"   "+mTouchSlop + "    "+getStatus());
         mIsBeingDragged = !doNothing;
     }
 
@@ -247,6 +253,7 @@ public class MySwipeLayout extends FrameLayout {
         }else if (getChildCount() == 2){
             if (mDragEdge == DragEdge.Left){
                 mLeftContent = (ViewGroup) getChildAt(0);
+                MyLog.e( " mLeftContent  : "+getChildCount() + "    =     " + mLeftContent );
                 mMainContent = (ViewGroup) getChildAt(1);
             }else {
                 mRightContent = (ViewGroup) getChildAt(0);
@@ -329,6 +336,7 @@ public class MySwipeLayout extends FrameLayout {
         // 此时没有发生真正的移动
         @Override
         public int clampViewPositionHorizontal(@NonNull View child, int left, int dx) {
+
             // child: 当前拖拽的View
             // left 新的位置的建议值, dx 位置变化量
             // left = oldLeft + dx;
@@ -346,6 +354,7 @@ public class MySwipeLayout extends FrameLayout {
         // 此时,View已经发生了位置的改变
         @Override
         public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
+            Log.e("tag ", "dispatchDragEvent:  updateStatus Before " + mStatus +"   left  "+left + "   "+dx);
             // changedView 改变位置的View
             // left 新的左边值
             // dx 水平方向变化量
@@ -515,7 +524,9 @@ public class MySwipeLayout extends FrameLayout {
 
         // 更新状态, 执行回调
         Status preStatus = mStatus;
+        Log.e("tag ", "dispatchDragEvent:  updateStatus Before " + mStatus +"   percent  "+percent);
         mStatus = updateStatus(percent);
+        Log.e("tag ", "dispatchDragEvent:  updateStatus after" + mStatus +"   percent   "+percent);
 
         if (mStatus != preStatus) {
             //状态发生变化
@@ -587,7 +598,6 @@ public class MySwipeLayout extends FrameLayout {
     public Status getStatus() {
         return mStatus;
     }
-
     //    public int getRange() {
 //        return mRange;
 //    }

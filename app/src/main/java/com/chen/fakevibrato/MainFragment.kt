@@ -22,6 +22,7 @@ import com.chen.fakevibrato.widget.swipe.MySwipeLayout
 import com.chen.fakevibrato.widget.test.TestViewActivity
 import com.chen.functionmanager.FunctionHasParamNoResult
 import com.chen.functionmanager.FunctionManager
+import com.daimajia.swipe.SwipeLayout
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -92,8 +93,7 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
 
 
     private fun initListener() {
-
-        swipeLayout.isSwipe = false
+        swipeLayout.isSwipe = true
         swipeLayout.setScale(1f)
         FunctionManager.instance.addFunction(object : FunctionHasParamNoResult<Int>("isSwipe") {
             override fun function(p: Int) {
