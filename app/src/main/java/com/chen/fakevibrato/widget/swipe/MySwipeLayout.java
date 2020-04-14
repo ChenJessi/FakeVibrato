@@ -34,8 +34,8 @@ import com.chen.fakevibrato.utils.ColorUtils;
 import com.chen.fakevibrato.utils.DisplayUtils;
 import com.chen.fakevibrato.utils.EvaluateUtils;
 import com.chen.fakevibrato.utils.MyLog;
-import com.chen.fakevibrato.widget.SwipeLayout;
 import com.chen.fakevibrato.widget.anim.AnimtorUtils;
+import com.daimajia.swipe.SwipeLayout;
 
 import java.lang.annotation.RetentionPolicy;
 
@@ -135,16 +135,16 @@ public class MySwipeLayout extends FrameLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        MyLog.e("onInterceptTouchEvent  Status.Open  test   === : "+ mIsBeingDragged);
+
         if (!isSwipe()){
             return false;
         }
-        if (getStatus() == Status.Open){
-//            mIsBeingDragged = true;
-            checkCanDrag(ev);
-            MyLog.e("onInterceptTouchEvent  Status.Open  : "+ mIsBeingDragged);
-            return mIsBeingDragged;
-        }
+//        if (getStatus() == Status.Open){
+////            mIsBeingDragged = true;
+//            checkCanDrag(ev);
+//            MyLog.e("onInterceptTouchEvent  Status.Open  : "+ mIsBeingDragged);
+//            return mIsBeingDragged;
+//        }
         int action =  ev.getAction() & MotionEvent.ACTION_MASK;
         if (action == MotionEvent.ACTION_CANCEL || action == MotionEvent.ACTION_UP) {
             mIsBeingDragged = false;
@@ -206,7 +206,7 @@ public class MySwipeLayout extends FrameLayout {
 
         boolean doNothing = false;
         if (mDragEdge == DragEdge.Right) {
-            // suitable false 不拦截
+            //
             boolean suitable = (mStatus == Status.Open && distanceX > mTouchSlop  )
                     || (mStatus == Status.Close && distanceX < -mTouchSlop);
             suitable = suitable || (mStatus == Status.Draging);
@@ -225,7 +225,7 @@ public class MySwipeLayout extends FrameLayout {
                 doNothing = true;
             }
         }
-        MyLog.e("checkCanDrag   mIsBeingDragged  :  "+!doNothing + "  "+distanceX +"   "+mTouchSlop + "    "+getStatus());
+        MyLog.e("checkCanDrag   mIsBeingDragged  :  "+this+"   "+!doNothing + "  "+distanceX +"   "+mTouchSlop + "    "+getStatus());
         mIsBeingDragged = !doNothing;
     }
 

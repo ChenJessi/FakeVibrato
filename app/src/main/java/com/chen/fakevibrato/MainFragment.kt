@@ -2,13 +2,11 @@ package com.chen.fakevibrato
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.SparseArray
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.chen.fakevibrato.base.BaseSupportFragment
 import com.chen.fakevibrato.http.HttpUtils
-import com.chen.fakevibrato.widget.stack.StackActivity
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeFragment
 import com.chen.fakevibrato.ui.message.view.MessageFragment
@@ -19,15 +17,14 @@ import com.chen.fakevibrato.utils.MyLog
 import com.chen.fakevibrato.widget.MyStatePagerAdapter
 
 import com.chen.fakevibrato.widget.swipe.MySwipeLayout
-import com.chen.fakevibrato.widget.test.TestViewActivity
 import com.chen.functionmanager.FunctionHasParamNoResult
 import com.chen.functionmanager.FunctionManager
-import com.daimajia.swipe.SwipeLayout
 import com.flyco.tablayout.listener.CustomTabEntity
 import com.flyco.tablayout.listener.OnTabSelectListener
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.layout_side_right.*
 import java.util.*
+import kotlin.reflect.KFunction0
 
 
 /**
@@ -210,7 +207,7 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
         }
     }
 
-    private fun bottomClick(){
+    private fun bottomClick() {
 
 //    startActivity(Intent(activity, TestViewActivity::class.java))
 //    startActivity(Intent(activity, StackActivity::class.java))

@@ -1254,7 +1254,7 @@ public class SwipeLayout extends FrameLayout {
     }
 
 
-    /**
+    /**🏝️
      * Process the surface release event.
      *
      * @param xvel                 xVelocity
