@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.chen.fakevibrato.base.BaseSupportFragment
 import com.chen.fakevibrato.http.HttpUtils
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter

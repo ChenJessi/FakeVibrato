@@ -56,6 +56,7 @@ dependencies {
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-andx-11'
     implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-andx-11'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     implementation 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     implementation 'com.github.jd-alexander:LikeButton:0.2.3'

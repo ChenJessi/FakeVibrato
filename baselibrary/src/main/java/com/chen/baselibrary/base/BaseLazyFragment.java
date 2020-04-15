@@ -14,7 +14,8 @@ import androidx.fragment.app.Fragment;
  * @author Created by CHEN on 2019/6/11
  * @email 188669@163.cominitView
  */
-public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView{
+@Deprecated
+public abstract class BaseLazyFragment<P extends BasePresenter> extends Fragment implements BaseView{
     protected BaseActivity mActivity;
     protected View mRootView;
     protected final String TAG = this.getClass().getSimpleName();

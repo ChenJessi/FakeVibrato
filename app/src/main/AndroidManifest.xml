@@ -13,27 +13,25 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".widget.swipe.SwipeActivity">
-
         </activity>
-
+        <activity android:name=".widget.rowing.RowingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SplashActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
 
         <activity android:name=".widget.test.TestViewActivity"
             android:screenOrientation="portrait">
-
         </activity>
-
 
         <activity android:name=".widget.stack.TestSpringActivity"
             android:screenOrientation="portrait"/>

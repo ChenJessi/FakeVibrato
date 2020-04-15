@@ -8,14 +8,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 
-import com.chen.baselibrary.base.BaseFragment;
+import com.chen.baselibrary.base.BaseLazyFragment;
 import com.chen.baselibrary.base.BasePresenter;
 import com.chen.baselibrary.base.BaseView;
-import com.chen.fakevibrato.utils.Constants;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -24,7 +19,7 @@ import butterknife.Unbinder;
  * @author Created by CHEN on 2019/6/11
  * @email 188669@163.cominitView
  */
-public abstract class BaseSupportFragment<P extends BasePresenter> extends BaseFragment<P> implements BaseView {
+public abstract class BaseSupportFragment<P extends BasePresenter> extends BaseLazyFragment<P> implements BaseView {
 
 
     private Unbinder mUnbinder;
