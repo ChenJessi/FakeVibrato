@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseSupportFragment;
+import com.chen.fakevibrato.base.DBaseSupportFragment;
 import com.chen.fakevibrato.ui.home.adapter.HomeListAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeListContract;
 import com.chen.fakevibrato.ui.home.presenter.HomeListPresenter;
@@ -35,7 +35,7 @@ import butterknife.BindView;
  * @author Created by CHEN on 2019/7/18
  * @email 188669@163.com
  */
-public class HomeListFragment extends BaseSupportFragment<HomeListPresenter> implements HomeListContract.View {
+public class HomeListFragment extends DBaseSupportFragment<HomeListPresenter> implements HomeListContract.View {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.refreshLayout)

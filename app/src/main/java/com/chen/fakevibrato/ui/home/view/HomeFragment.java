@@ -16,7 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseSupportFragment;
+import com.chen.fakevibrato.base.DBaseSupportFragment;
 import com.chen.fakevibrato.bean.SwipeBean;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.ui.home.contract.HomeContract;
@@ -30,7 +30,6 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
 import org.greenrobot.eventbus.EventBus;
-import org.mp4parser.aspectj.lang.annotation.Aspect;
 
 import java.util.ArrayList;
 
@@ -44,7 +43,7 @@ import butterknife.OnClick;
  * @email 188669@163.com
  */
 
-public class HomeFragment extends BaseSupportFragment<HomePresenter> implements HomeContract.View {
+public class HomeFragment extends DBaseSupportFragment<HomePresenter> implements HomeContract.View {
     @BindView(R.id.tvRandom)
     TextView tvRandom;
     @BindView(R.id.ivSearch)

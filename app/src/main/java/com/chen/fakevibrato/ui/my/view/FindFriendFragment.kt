@@ -8,13 +8,12 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chen.fakevibrato.R
-import com.chen.fakevibrato.base.BaseSupportFragment
+import com.chen.fakevibrato.base.DBaseSupportFragment
 import com.chen.fakevibrato.bean.ButtonBean
 import com.chen.fakevibrato.bean.TitleBean
-import com.chen.fakevibrato.ui.home.presenter.MainPresenter
+import com.chen.fakevibrato.ui.home.presenter.DMainPresenter
 import com.chen.fakevibrato.ui.my.adapter.FindFriendAdapter
 import com.chen.fakevibrato.utils.MyLog
 import com.chen.fakevibrato.widget.decoration.TitleItemDecoration
@@ -28,7 +27,7 @@ import org.greenrobot.eventbus.ThreadMode
  * @email 188669@163.com
  * 发现好友
  */
-class FindFriendFragment : BaseSupportFragment<MainPresenter>() {
+class FindFriendFragment : DBaseSupportFragment<DMainPresenter>() {
     var adapter : FindFriendAdapter? = null
     var mList = ArrayList<TitleBean>()
     lateinit var titleItemDecoration : TitleItemDecoration
@@ -38,8 +37,8 @@ class FindFriendFragment : BaseSupportFragment<MainPresenter>() {
         return R.layout.fragment_find_friend
     }
 
-    override fun initPresenter(): MainPresenter {
-        return MainPresenter()
+    override fun initPresenter(): DMainPresenter {
+        return DMainPresenter()
     }
 
     override fun initView(view: View?) {

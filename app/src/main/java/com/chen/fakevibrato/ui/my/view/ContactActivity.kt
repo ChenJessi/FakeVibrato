@@ -7,10 +7,10 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.chen.fakevibrato.R
-import com.chen.fakevibrato.base.BaseSupportActivity
+import com.chen.fakevibrato.base.DBaseSupportActivity
 import com.chen.fakevibrato.bean.ButtonBean
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter
-import com.chen.fakevibrato.ui.home.presenter.MainPresenter
+import com.chen.fakevibrato.ui.home.presenter.DMainPresenter
 import com.chen.fakevibrato.utils.DisplayUtils
 import com.chen.fakevibrato.utils.MyLog
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
@@ -27,14 +27,14 @@ import java.util.ArrayList
  * 联系人
  * 好友列表 and 发现好友
  */
-class ContactActivity : BaseSupportActivity<MainPresenter>() {
+class ContactActivity : DBaseSupportActivity<DMainPresenter>() {
     private var adapter: MyPagerAdapter? = null
     override fun getLayoutId(): Int {
         return R.layout.activity_contact
     }
 
-    override fun initPresenter(): MainPresenter {
-        return MainPresenter()
+    override fun initPresenter(): DMainPresenter {
+        return DMainPresenter()
     }
 
     override fun initView() {

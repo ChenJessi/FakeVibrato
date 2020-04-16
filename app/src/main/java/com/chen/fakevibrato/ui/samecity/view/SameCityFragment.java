@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseSupportFragment;
+import com.chen.fakevibrato.base.DBaseSupportFragment;
 import com.chen.fakevibrato.ui.samecity.adapter.SameAdapter;
 import com.chen.fakevibrato.ui.samecity.adapter.SameTypeAdapter;
 import com.chen.fakevibrato.ui.samecity.presenter.SameCityPresenter;
@@ -28,7 +28,7 @@ import butterknife.OnClick;
  * @email 188669@163.com
  * 同城
  */
-public class SameCityFragment extends BaseSupportFragment<SameCityPresenter> {
+public class SameCityFragment extends DBaseSupportFragment<SameCityPresenter> {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tvLocation)

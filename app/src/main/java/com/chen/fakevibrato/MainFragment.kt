@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import androidx.viewpager2.widget.ViewPager2
-import com.chen.fakevibrato.base.BaseSupportFragment
+import com.chen.fakevibrato.base.DBaseSupportFragment
 import com.chen.fakevibrato.http.HttpUtils
-import com.chen.fakevibrato.ui.home.presenter.MainPresenter
+import com.chen.fakevibrato.ui.home.presenter.DMainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeFragment
 import com.chen.fakevibrato.ui.message.view.MessageFragment
 import com.chen.fakevibrato.ui.my.view.UserFragment
@@ -25,13 +24,12 @@ import com.flyco.tablayout.listener.OnTabSelectListener
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlinx.android.synthetic.main.layout_side_right.*
 import java.util.*
-import kotlin.reflect.KFunction0
 
 
 /**
  * home
  */
-class MainFragment : BaseSupportFragment<MainPresenter>() {
+class MainFragment : DBaseSupportFragment<DMainPresenter>() {
     private var adapter: MyStatePagerAdapter? = null
     private val mFragments = ArrayList<Fragment>()
 //    private var registeredFragments = SparseArray<Fragment>()
@@ -47,8 +45,8 @@ class MainFragment : BaseSupportFragment<MainPresenter>() {
         return R.layout.fragment_main
     }
 
-    override fun initPresenter(): MainPresenter {
-        return MainPresenter()
+    override fun initPresenter(): DMainPresenter {
+        return DMainPresenter()
     }
 
     override fun initView(view: View?) {

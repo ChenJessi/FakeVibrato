@@ -7,9 +7,9 @@ import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.chen.fakevibrato.R
-import com.chen.fakevibrato.base.BaseSupportActivity
+import com.chen.fakevibrato.base.DBaseSupportActivity
 import com.chen.fakevibrato.tangram.*
-import com.chen.fakevibrato.ui.home.presenter.MainPresenter
+import com.chen.fakevibrato.ui.home.presenter.DMainPresenter
 
 import com.tmall.wireless.tangram.TangramBuilder
 import com.tmall.wireless.tangram.structure.viewcreator.ViewHolderCreator
@@ -32,7 +32,6 @@ import com.tmall.wireless.vaf.virtualview.view.image.ImageBase
 import com.tmall.wireless.vaf.virtualview.event.EventManager
 import kotlinx.android.synthetic.main.activity_search.*
 import org.json.JSONArray
-import org.mp4parser.aspectj.lang.annotation.Aspect
 import org.json.JSONException as JSONException1
 
 
@@ -42,14 +41,14 @@ import org.json.JSONException as JSONException1
  * 搜索
  */
 
-class SearchActivity : BaseSupportActivity<MainPresenter>(){
+class SearchActivity : DBaseSupportActivity<DMainPresenter>(){
     lateinit var mEngine : TangramEngine
     override fun getLayoutId(): Int {
         return R.layout.activity_search
     }
 
-    override fun initPresenter(): MainPresenter {
-        return MainPresenter()
+    override fun initPresenter(): DMainPresenter {
+        return DMainPresenter()
     }
 
     override fun initView() {

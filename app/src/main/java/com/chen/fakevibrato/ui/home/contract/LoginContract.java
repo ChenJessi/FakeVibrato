@@ -1,6 +1,6 @@
 package com.chen.fakevibrato.ui.home.contract;
 
-import com.chen.baselibrary.base.BasePresenter;
+import com.chen.baselibrary.base.DBasePresenter;
 import com.chen.baselibrary.base.BaseView;
 import com.chen.fakevibrato.LoginActivity;
 
@@ -13,7 +13,7 @@ public interface LoginContract {
 
     interface View extends BaseView {
     }
-    abstract class Presenter extends BasePresenter<LoginActivity> {
+    abstract class Presenter extends DBasePresenter<LoginActivity> {
 
     }
 }

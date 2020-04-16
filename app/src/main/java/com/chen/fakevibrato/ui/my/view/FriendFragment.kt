@@ -7,8 +7,8 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chen.fakevibrato.R
-import com.chen.fakevibrato.base.BaseSupportFragment
-import com.chen.fakevibrato.ui.home.presenter.MainPresenter
+import com.chen.fakevibrato.base.DBaseSupportFragment
+import com.chen.fakevibrato.ui.home.presenter.DMainPresenter
 import com.chen.fakevibrato.ui.my.adapter.FriendAdapter
 import kotlinx.android.synthetic.main.fragment_friend.*
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
@@ -20,7 +20,7 @@ import android.widget.Toast
  * @email 188669@163.com
  * 好友
  */
-class FriendFragment : BaseSupportFragment<MainPresenter>() {
+class FriendFragment : DBaseSupportFragment<DMainPresenter>() {
     var adapter: FriendAdapter? = null
 
     var mList = ArrayList<String>()
@@ -28,8 +28,8 @@ class FriendFragment : BaseSupportFragment<MainPresenter>() {
         return R.layout.fragment_friend
     }
 
-    override fun initPresenter(): MainPresenter {
-        return MainPresenter()
+    override fun initPresenter(): DMainPresenter {
+        return DMainPresenter()
     }
 
     override fun initView(view: View?) {

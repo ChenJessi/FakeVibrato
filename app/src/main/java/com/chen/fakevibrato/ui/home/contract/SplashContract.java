@@ -2,7 +2,7 @@ package com.chen.fakevibrato.ui.home.contract;
 
 
 import com.chen.fakevibrato.SplashActivity;
-import com.chen.baselibrary.base.BasePresenter;
+import com.chen.baselibrary.base.DBasePresenter;
 import com.chen.baselibrary.base.BaseView;
 
 /**
@@ -13,7 +13,7 @@ public interface SplashContract {
 
     interface View extends BaseView {
     }
-    abstract class Presenter extends BasePresenter<SplashActivity> {
+    abstract class Presenter extends DBasePresenter<SplashActivity> {
 
     }
 }

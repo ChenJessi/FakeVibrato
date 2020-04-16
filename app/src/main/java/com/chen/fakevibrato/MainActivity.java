@@ -1,7 +1,6 @@
 package com.chen.fakevibrato;
 
 import android.content.Intent;
-import android.os.Looper;
 import android.text.TextPaint;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,11 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.chen.fakevibrato.base.BaseSupportActivity;
+import com.chen.fakevibrato.base.DBaseSupportActivity;
 import com.chen.fakevibrato.bean.SwipeBean;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
-import com.chen.fakevibrato.ui.home.contract.MainContract;
-import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
+import com.chen.fakevibrato.ui.home.contract.DMainContract;
+import com.chen.fakevibrato.ui.home.presenter.DMainPresenter;
 import com.chen.fakevibrato.ui.home.view.HomeFragment;
 import com.chen.fakevibrato.ui.message.view.MessageFragment;
 import com.chen.fakevibrato.ui.my.view.UserFragment;
@@ -33,8 +32,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.reflect.InvocationHandler;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +39,7 @@ import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseSupportActivity<MainPresenter> implements MainContract.View {
+public class MainActivity extends DBaseSupportActivity<DMainPresenter> implements DMainContract.View {
     @BindView(R.id.viewPager)
     QMUIViewPager viewPager;
     @BindView(R.id.mTabLayout)
@@ -101,8 +98,8 @@ public class MainActivity extends BaseSupportActivity<MainPresenter> implements 
     }
 
     @Override
-    protected MainPresenter initPresenter() {
-        return new MainPresenter();
+    protected DMainPresenter initPresenter() {
+        return new DMainPresenter();
     }
 
     @Override

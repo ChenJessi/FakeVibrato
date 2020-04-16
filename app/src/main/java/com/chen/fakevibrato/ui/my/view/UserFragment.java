@@ -22,14 +22,13 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseSupportFragment;
+import com.chen.fakevibrato.base.DBaseSupportFragment;
 import com.chen.fakevibrato.bean.SwipeBean;
 import com.chen.fakevibrato.listener.AppBarStateChangeListener;
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.ui.my.contract.UserContract;
 import com.chen.fakevibrato.ui.my.presenter.UserPresenter;
 import com.chen.fakevibrato.utils.DisplayUtils;
-import com.chen.fakevibrato.utils.MyLog;
 import com.chen.fakevibrato.widget.SwipeLayout;
 import com.chen.fakevibrato.widget.anim.AnimtorUtils;
 import com.chen.fakevibrato.widget.emojiview.EmojiconTextView;
@@ -48,7 +47,6 @@ import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,7 +55,7 @@ import butterknife.OnClick;
  * @author Created by CHEN on 2019/7/18
  * @email 188669@163.com
  */
-public class UserFragment extends BaseSupportFragment<UserPresenter> implements UserContract.View {
+public class UserFragment extends DBaseSupportFragment<UserPresenter> implements UserContract.View {
     @BindView(R.id.ivBackGround)
     ImageView ivBackGround;
     @BindView(R.id.toolbar)

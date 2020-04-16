@@ -3,32 +3,26 @@ package com.chen.fakevibrato;
 import androidx.lifecycle.Observer;
 
 import android.content.Intent;
-import android.os.Environment;
-import android.widget.Toast;
 
-import com.chen.baselibrary.fix.FixDexManager;
-import com.chen.fakevibrato.base.BaseSupportActivity;
+import com.chen.fakevibrato.base.DBaseSupportActivity;
 import com.chen.fakevibrato.im.IMManager;
-import com.chen.fakevibrato.ui.home.presenter.MainPresenter;
-import com.chen.fakevibrato.utils.MyLog;
-import com.chen.fakevibrato.widget.stack.TestSpringActivity;
+import com.chen.fakevibrato.ui.home.presenter.DMainPresenter;
 
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 
-public class SplashActivity extends BaseSupportActivity<MainPresenter> {
+public class SplashActivity extends DBaseSupportActivity<DMainPresenter> {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_splash;
     }
 
     @Override
-    protected MainPresenter initPresenter() {
+    protected DMainPresenter initPresenter() {
         return null;
     }
 

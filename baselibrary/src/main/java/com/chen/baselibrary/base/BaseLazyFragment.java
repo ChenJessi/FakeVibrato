@@ -15,8 +15,8 @@ import androidx.fragment.app.Fragment;
  * @email 188669@163.cominitView
  */
 @Deprecated
-public abstract class BaseLazyFragment<P extends BasePresenter> extends Fragment implements BaseView{
-    protected BaseActivity mActivity;
+public abstract class BaseLazyFragment<P extends DBasePresenter> extends Fragment implements BaseView{
+    protected DBaseActivity mActivity;
     protected View mRootView;
     protected final String TAG = this.getClass().getSimpleName();
 
@@ -127,7 +127,7 @@ public abstract class BaseLazyFragment<P extends BasePresenter> extends Fragment
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = (BaseActivity) getActivity();
+        mActivity = (DBaseActivity) getActivity();
 
         initData(savedInstanceState);
     }

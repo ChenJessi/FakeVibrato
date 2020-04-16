@@ -2,9 +2,6 @@ package com.chen.fakevibrato.base;
 
 
 import android.content.Context;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -12,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,8 +18,8 @@ import androidx.core.view.LayoutInflaterCompat;
 import androidx.core.view.LayoutInflaterFactory;
 import androidx.core.view.ViewCompat;
 
-import com.chen.baselibrary.base.BaseActivity;
-import com.chen.baselibrary.base.BasePresenter;
+import com.chen.baselibrary.base.DBaseActivity;
+import com.chen.baselibrary.base.DBasePresenter;
 import com.chen.baselibrary.base.BaseView;
 import com.chen.fakevibrato.skin.SkinManager;
 import com.chen.fakevibrato.skin.attr.SkinAttr;
@@ -31,7 +27,6 @@ import com.chen.fakevibrato.skin.attr.SkinView;
 import com.chen.fakevibrato.skin.support.SkinAppCompatViewInflater;
 import com.chen.fakevibrato.skin.support.SkinAttrSupport;
 import com.chen.fakevibrato.utils.Constants;
-import com.chen.fakevibrato.utils.MyLog;
 import com.qmuiteam.qmui.util.QMUIDisplayHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,7 +44,8 @@ import butterknife.Unbinder;
  * @author Created by CHEN on 2019/6/10
  * @email 188669@163.com
  */
-public abstract class BaseSupportActivity<P extends BasePresenter> extends BaseActivity<P> implements BaseView, LayoutInflaterFactory {
+@Deprecated
+public abstract class DBaseSupportActivity<P extends DBasePresenter> extends DBaseActivity<P> implements BaseView, LayoutInflaterFactory {
     protected final String TAG = this.getClass().getSimpleName();
     private Unbinder mUnbinder;
 

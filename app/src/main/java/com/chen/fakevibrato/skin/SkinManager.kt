@@ -8,7 +8,7 @@ import com.chen.fakevibrato.skin.attr.SkinView
 class SkinManager {
     private lateinit var mContext: Context
     private lateinit var mSkinResource : SkinResource
-    private val mSkinViews = HashMap<Activity, List<SkinView>>()
+    private val mSkinViews = HashMap<Activity, MutableList<SkinView>>()
     companion object {
         val instance by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             SkinManager()
@@ -53,14 +53,14 @@ class SkinManager {
     /**
      * 通过activity获取skinView
      */
-    fun getSkinViews(activity: Activity) : List<SkinView>?{
+    fun getSkinViews(activity: Activity) : MutableList<SkinView>?{
         return mSkinViews[activity]
     }
 
     /**
      * 注册
      */
-    fun register (activity: Activity, skinviews : List<SkinView>){
+    fun register (activity: Activity, skinviews : MutableList<SkinView>){
         mSkinViews[activity] = skinviews
     }
 

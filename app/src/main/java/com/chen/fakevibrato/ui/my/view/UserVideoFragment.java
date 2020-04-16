@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseSupportFragment;
+import com.chen.fakevibrato.base.DBaseSupportFragment;
 import com.chen.fakevibrato.ui.my.adapter.UserVideoAdapter;
 import com.chen.fakevibrato.ui.my.presenter.UserVideoPresenter;
 
@@ -17,7 +17,7 @@ import butterknife.BindView;
  * @author Created by CHEN on 2019/7/22
  * @email 188669@163.com
  */
-public class UserVideoFragment extends BaseSupportFragment<UserVideoPresenter> {
+public class UserVideoFragment extends DBaseSupportFragment<UserVideoPresenter> {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     private UserVideoAdapter adapter;

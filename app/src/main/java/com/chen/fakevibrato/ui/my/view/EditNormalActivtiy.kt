@@ -10,7 +10,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.core.content.ContextCompat
 import com.chen.fakevibrato.R
-import com.chen.fakevibrato.base.BaseSupportActivity
+import com.chen.fakevibrato.base.DBaseSupportActivity
 import com.chen.fakevibrato.bean.UserInfo
 import com.chen.fakevibrato.ui.my.presenter.EditNormalPresenter
 import com.chen.fakevibrato.utils.Constants
@@ -23,7 +23,7 @@ import org.greenrobot.eventbus.EventBus
 /**
  * 编辑页面
  */
-class EditNormalActivtiy : BaseSupportActivity<EditNormalPresenter>(), View.OnClickListener {
+class EditNormalActivtiy : DBaseSupportActivity<EditNormalPresenter>(), View.OnClickListener {
 
 
     companion object {

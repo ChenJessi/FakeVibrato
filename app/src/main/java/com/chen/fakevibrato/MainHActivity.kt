@@ -2,26 +2,23 @@ package com.chen.fakevibrato
 
 
 import android.os.Environment
-import android.view.MotionEvent
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.chen.baselibrary.base.BasePresenter
+import com.chen.baselibrary.base.BaseActivity
 import com.chen.baselibrary.fix.FixDexManager
-import com.chen.fakevibrato.base.BaseSupportActivity
-import com.chen.fakevibrato.interfaces.OnDispatchSwipeListener
 
 import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter
+import com.chen.fakevibrato.ui.home.contract.MainContract
+import com.chen.fakevibrato.ui.home.presenter.DMainPresenter
 import com.chen.fakevibrato.ui.home.presenter.MainPresenter
-import com.chen.fakevibrato.utils.MyLog
 import com.chen.functionmanager.FunctionHasParamNoResult
 import com.chen.functionmanager.FunctionManager
 import kotlinx.android.synthetic.main.activity_main_h.*
 import java.util.ArrayList
-import org.greenrobot.eventbus.EventBus
 import java.io.File
 
 
-class MainHActivity : BaseSupportActivity<MainPresenter>() {
+class MainHActivity : BaseActivity<MainPresenter>(), MainContract.View{
 
     private var adapter: MyPagerAdapter? = null
     private val mFragments = ArrayList<Fragment>()
@@ -42,7 +39,8 @@ class MainHActivity : BaseSupportActivity<MainPresenter>() {
         })
 
         mFragments.add(SwipeFragment())
-        mFragments.add(MainFragment())
+        mFragments.add(SwipeFragment())
+//        mFragments.add(MainFragment())
         mFragments.add(SwipeFragment())
 
         adapter = MyPagerAdapter(supportFragmentManager, mFragments)

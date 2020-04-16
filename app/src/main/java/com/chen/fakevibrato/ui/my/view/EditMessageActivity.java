@@ -2,7 +2,6 @@ package com.chen.fakevibrato.ui.my.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -18,7 +17,7 @@ import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.chen.fakevibrato.R;
-import com.chen.fakevibrato.base.BaseSupportActivity;
+import com.chen.fakevibrato.base.DBaseSupportActivity;
 import com.chen.fakevibrato.bean.UserInfo;
 import com.chen.fakevibrato.ui.my.contract.EditMessageContract;
 import com.chen.fakevibrato.ui.my.presenter.EditMessagePresenter;
@@ -43,7 +42,7 @@ import jp.wasabeef.glide.transformations.ColorFilterTransformation;
 /**
  * 编辑个人资料
  */
-public class EditMessageActivity extends BaseSupportActivity<EditMessagePresenter> implements EditMessageContract.View {
+public class EditMessageActivity extends DBaseSupportActivity<EditMessagePresenter> implements EditMessageContract.View {
 
     @BindView(R.id.ivBack)
     ImageView ivBack;

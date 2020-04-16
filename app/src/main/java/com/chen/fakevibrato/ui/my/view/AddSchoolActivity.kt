@@ -9,9 +9,9 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.listener.OnTimeSelectListener
 import com.bigkoo.pickerview.view.TimePickerView
 import com.chen.fakevibrato.R
-import com.chen.fakevibrato.base.BaseSupportActivity
+import com.chen.fakevibrato.base.DBaseSupportActivity
 import com.chen.fakevibrato.bean.UserInfo
-import com.chen.fakevibrato.ui.home.presenter.MainPresenter
+import com.chen.fakevibrato.ui.home.presenter.DMainPresenter
 import com.chen.fakevibrato.utils.Constants
 import com.chen.fakevibrato.utils.ToastUtils
 import com.contrarywind.view.WheelView
@@ -24,14 +24,14 @@ import java.util.*
  * @author Created by CHEN on 2019/8/24
  * @email 188669@163.com
  */
-class AddSchoolActivity : BaseSupportActivity<MainPresenter>(), View.OnClickListener {
+class AddSchoolActivity : DBaseSupportActivity<DMainPresenter>(), View.OnClickListener {
     private var pvTime: TimePickerView? = null
     override fun getLayoutId(): Int {
         return R.layout.activity_add_school
     }
 
-    override fun initPresenter(): MainPresenter {
-        return MainPresenter()
+    override fun initPresenter(): DMainPresenter {
+        return DMainPresenter()
     }
 
     override fun initView() {

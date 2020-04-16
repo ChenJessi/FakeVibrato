@@ -1,8 +1,7 @@
 package com.chen.fakevibrato.ui.home.contract;
 
-import com.chen.baselibrary.base.BasePresenter;
+import com.chen.baselibrary.base.DBasePresenter;
 import com.chen.baselibrary.base.BaseView;
-import com.chen.fakevibrato.ui.home.view.HomeFragment;
 import com.chen.fakevibrato.ui.home.view.HomeListFragment;
 
 /**
@@ -12,7 +11,7 @@ import com.chen.fakevibrato.ui.home.view.HomeListFragment;
 public interface HomeListContract {
     interface View extends BaseView {
     }
-    abstract class Presenter extends BasePresenter<HomeListFragment> {
+    abstract class Presenter extends DBasePresenter<HomeListFragment> {
 
     }
 }

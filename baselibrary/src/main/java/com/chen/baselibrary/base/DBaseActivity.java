@@ -9,7 +9,8 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
  * @author Created by CHEN on 2019/6/10
  * @email 188669@163.com
  */
-public abstract class BaseActivity<P extends BasePresenter> extends AppCompatActivity implements BaseView{
+@Deprecated
+public abstract class DBaseActivity<P extends DBasePresenter> extends AppCompatActivity implements BaseView{
     protected final String TAG = this.getClass().getSimpleName();
     protected P mPresenter;
     protected Context mContext;

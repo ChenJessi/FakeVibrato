@@ -3,23 +3,23 @@ package com.chen.fakevibrato.widget.stack
 import androidx.dynamicanimation.animation.DynamicAnimation
 import androidx.dynamicanimation.animation.SpringAnimation
 import androidx.dynamicanimation.animation.SpringForce
-import com.chen.baselibrary.base.BasePresenter
+import com.chen.baselibrary.base.DBasePresenter
 import com.chen.fakevibrato.R
-import com.chen.fakevibrato.base.BaseSupportActivity
+import com.chen.fakevibrato.base.DBaseSupportActivity
 import com.chen.fakevibrato.utils.MyLog
 import kotlinx.android.synthetic.main.activity_stack.*
 
 /**
  * stackView 测试
  */
-class StackActivity : BaseSupportActivity<BasePresenter<*>>() {
+class StackActivity : DBaseSupportActivity<DBasePresenter<*>>() {
     var mList = ArrayList<String>()
     var adapter : StackLayoutAdapter? = null
     override fun getLayoutId(): Int {
         return R.layout.activity_stack
     }
 
-    override fun initPresenter(): BasePresenter<*>? {
+    override fun initPresenter(): DBasePresenter<*>? {
         return null
     }
 

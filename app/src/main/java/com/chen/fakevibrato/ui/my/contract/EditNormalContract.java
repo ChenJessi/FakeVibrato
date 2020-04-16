@@ -1,8 +1,7 @@
 package com.chen.fakevibrato.ui.my.contract;
 
-import com.chen.baselibrary.base.BasePresenter;
+import com.chen.baselibrary.base.DBasePresenter;
 import com.chen.baselibrary.base.BaseView;
-import com.chen.fakevibrato.ui.my.view.EditMessageActivity;
 import com.chen.fakevibrato.ui.my.view.EditNormalActivtiy;
 
 /**
@@ -12,7 +11,7 @@ import com.chen.fakevibrato.ui.my.view.EditNormalActivtiy;
 public interface EditNormalContract {
     interface View extends BaseView {
     }
-    abstract class Presenter extends BasePresenter<EditNormalActivtiy> {
+    abstract class Presenter extends DBasePresenter<EditNormalActivtiy> {
 
     }
 }

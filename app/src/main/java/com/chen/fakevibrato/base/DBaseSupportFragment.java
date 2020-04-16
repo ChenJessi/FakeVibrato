@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 
 import com.chen.baselibrary.base.BaseLazyFragment;
-import com.chen.baselibrary.base.BasePresenter;
+import com.chen.baselibrary.base.DBasePresenter;
 import com.chen.baselibrary.base.BaseView;
 
 import butterknife.ButterKnife;
@@ -19,7 +19,8 @@ import butterknife.Unbinder;
  * @author Created by CHEN on 2019/6/11
  * @email 188669@163.cominitView
  */
-public abstract class BaseSupportFragment<P extends BasePresenter> extends BaseLazyFragment<P> implements BaseView {
+@Deprecated
+public abstract class DBaseSupportFragment<P extends DBasePresenter> extends BaseLazyFragment<P> implements BaseView {
 
 
     private Unbinder mUnbinder;

@@ -1,46 +1,16 @@
 package com.chen.fakevibrato;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.customview.widget.ViewDragHelper;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-
-import android.app.Activity;
-import android.graphics.Point;
-import android.os.Bundle;
-import android.os.Environment;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.chen.annotationutils.CheckNet;
-import com.chen.baselibrary.base.BasePresenter;
-import com.chen.fakevibrato.base.BaseSupportActivity;
-import com.chen.fakevibrato.bean.UserInfo;
-import com.chen.fakevibrato.db.DaoSupport;
-import com.chen.fakevibrato.db.DaoSupportFactory;
-import com.chen.fakevibrato.db.IDaoSoupport;
-import com.chen.fakevibrato.http.HttpCallBack;
-import com.chen.fakevibrato.http.HttpUtils;
+import com.chen.baselibrary.base.DBasePresenter;
+import com.chen.fakevibrato.base.DBaseSupportActivity;
 import com.chen.fakevibrato.skin.SkinManager;
-import com.chen.fakevibrato.ui.home.adapter.MyPagerAdapter;
 import com.chen.fakevibrato.utils.MyLog;
-import com.qmuiteam.qmui.util.QMUIStatusBarHelper;
-import com.qmuiteam.qmui.widget.QMUIViewPager;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
-
-import org.jetbrains.annotations.NotNull;
-import org.mp4parser.aspectj.lang.annotation.Before;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
 
-public class SwipeActivity extends BaseSupportActivity {
+public class SwipeActivity extends DBaseSupportActivity {
     private TextView text1;
     @Override
     protected int getLayoutId() {
@@ -48,7 +18,7 @@ public class SwipeActivity extends BaseSupportActivity {
     }
 
     @Override
-    protected BasePresenter initPresenter() {
+    protected DBasePresenter initPresenter() {
         return null;
     }
 

@@ -1,18 +1,13 @@
 package com.chen.fakevibrato
 
 import android.Manifest
-import android.content.res.Configuration
-import android.graphics.Rect
-import android.view.Surface
 import androidx.core.app.ActivityCompat
-import com.chen.baselibrary.base.BasePresenter
+import com.chen.baselibrary.base.DBasePresenter
 import com.chen.camerautils.camera.*
-import com.chen.camerautils.crop.CropView
-import com.chen.fakevibrato.base.BaseSupportActivity
-import com.qmuiteam.qmui.widget.popup.QMUIBasePopup
+import com.chen.fakevibrato.base.DBaseSupportActivity
 import kotlinx.android.synthetic.main.activity_camera.*
 
-class CameraActivity : BaseSupportActivity<BasePresenter<*>>() {
+class CameraActivity : DBaseSupportActivity<DBasePresenter<*>>() {
     private val PERMISSIONS_REQUEST_CAMERA = 800
     private val permissionCallback = PermissionCallback {
         ActivityCompat.requestPermissions(
@@ -26,7 +21,7 @@ class CameraActivity : BaseSupportActivity<BasePresenter<*>>() {
         return R.layout.activity_camera
     }
 
-    override fun initPresenter(): BasePresenter<*>? {
+    override fun initPresenter(): DBasePresenter<*>? {
         return null
     }
 
