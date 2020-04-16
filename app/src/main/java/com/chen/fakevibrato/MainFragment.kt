@@ -5,9 +5,13 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
+import com.chen.fakevibrato.base.BaseSupportFragment
 import com.chen.fakevibrato.base.DBaseSupportFragment
+import com.chen.fakevibrato.base.MyFragmentPagerAdapter
 import com.chen.fakevibrato.http.HttpUtils
 import com.chen.fakevibrato.ui.home.presenter.DMainPresenter
+import com.chen.fakevibrato.ui.home.presenter.MainPresenter
 import com.chen.fakevibrato.ui.home.view.HomeFragment
 import com.chen.fakevibrato.ui.message.view.MessageFragment
 import com.chen.fakevibrato.ui.my.view.UserFragment
@@ -29,8 +33,11 @@ import java.util.*
 /**
  * home
  */
-class MainFragment : DBaseSupportFragment<DMainPresenter>() {
-    private var adapter: MyStatePagerAdapter? = null
+class MainFragment : BaseSupportFragment<MainPresenter>() {
+
+
+//    private var adapter: MyStatePagerAdapter? = null
+    private var adapter: MyFragmentPagerAdapter? = null
     private val mFragments = ArrayList<Fragment>()
 //    private var registeredFragments = SparseArray<Fragment>()
     internal var mTitles = arrayOf("首页", "同城", "", "消息", "我")
@@ -45,26 +52,33 @@ class MainFragment : DBaseSupportFragment<DMainPresenter>() {
         return R.layout.fragment_main
     }
 
-    override fun initPresenter(): DMainPresenter {
-        return DMainPresenter()
+    override fun initPresenter(): MainPresenter {
+        return MainPresenter()
     }
 
-    override fun initView(view: View?) {
+    override fun onFirstVisible() {
+
+    }
+
+
+    override fun initView() {
 
         sameCityFragment = SameCityFragment()
         fragment = Fragment()
         messageFragment = MessageFragment()
         userFragment = UserFragment()
         mFragments.add(HomeFragment())
-//        sameCityFragment?.let { mFragments.add(it) }
-//        fragment?.let { mFragments.add(it) }
-//        messageFragment?.let { mFragments.add(it) }
-//        userFragment?.let { mFragments.add(it) }
+        sameCityFragment?.let { mFragments.add(it) }
+        fragment?.let { mFragments.add(it) }
+        messageFragment?.let { mFragments.add(it) }
+        userFragment?.let { mFragments.add(it) }
 
 //        registeredFragments.put(0, HomeFragment())
-        adapter = MyStatePagerAdapter(childFragmentManager, mFragments)
+        adapter = activity?.let { MyFragmentPagerAdapter(it, mFragments) }
         viewPager.adapter = adapter
-        viewPager.setSwipeable(false)
+        viewPager.isUserInputEnabled = false
+        viewPager.offscreenPageLimit = mFragments.size
+//        viewPager.setSwipeable(false)
 
         val mTabEntities = ArrayList<CustomTabEntity>()
         for (i in mTitles.indices) {
@@ -106,16 +120,7 @@ class MainFragment : DBaseSupportFragment<DMainPresenter>() {
                 }
             }
         })
-
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
-            }
-
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 if (mTabLayout.currentTab != position) {
                     mTabLayout.currentTab = position
@@ -123,6 +128,23 @@ class MainFragment : DBaseSupportFragment<DMainPresenter>() {
                 swipeLayout.isSwipe = position == 4 && userPosition == 2
             }
         })
+
+//        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+//            override fun onPageScrollStateChanged(state: Int) {
+//
+//            }
+//
+//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+//
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//                if (mTabLayout.currentTab != position) {
+//                    mTabLayout.currentTab = position
+//                }
+//                swipeLayout.isSwipe = position == 4 && userPosition == 2
+//            }
+//        })
 
 
         val textView = mTabLayout.getTitleView(0)
@@ -182,8 +204,7 @@ class MainFragment : DBaseSupportFragment<DMainPresenter>() {
                 }
 
                 if (viewPager.currentItem != position) {
-                    viewPager.currentItem = position
-                    viewPager.setCurrentItem(position, true)
+                    viewPager.setCurrentItem(position, false)
                 }
             }
 
@@ -214,7 +235,7 @@ class MainFragment : DBaseSupportFragment<DMainPresenter>() {
         startActivity(Intent(activity, CameraActivity::class.java))
     }
 
-    override fun initData(savedInstanceState: Bundle?) {
+    override fun initData() {
 
     }
 

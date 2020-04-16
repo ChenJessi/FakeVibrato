@@ -38,10 +38,10 @@ class MainHActivity : BaseActivity<MainPresenter>(), MainContract.View{
             }
         })
 
-        mFragments.add(SwipeFragment())
-        mFragments.add(SwipeFragment())
-//        mFragments.add(MainFragment())
-        mFragments.add(SwipeFragment())
+//        mFragments.add(SwipeFragment())
+//        mFragments.add(SwipeFragment())
+        mFragments.add(MainFragment())
+//        mFragments.add(SwipeFragment())
 
         adapter = MyPagerAdapter(supportFragmentManager, mFragments)
         viewPager.adapter = adapter

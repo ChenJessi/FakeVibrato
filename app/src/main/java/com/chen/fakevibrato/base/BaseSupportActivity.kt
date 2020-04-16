@@ -32,8 +32,9 @@ abstract class BaseSupportActivity<P : BasePresenter<BaseView>>  : BaseActivity<
     override fun onCreate(savedInstanceState: Bundle?) {
         val layoutInflater = LayoutInflater.from(this)
         LayoutInflaterCompat.setFactory(layoutInflater, this)
+
         super.onCreate(savedInstanceState)
-        QMUIStatusBarHelper.translucent(this)
+
 
         /**
          * APP灰度

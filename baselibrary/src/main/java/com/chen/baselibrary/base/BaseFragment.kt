@@ -15,14 +15,13 @@ abstract class BaseFragment<P : BasePresenter<in BaseView>> : Fragment() ,BaseVi
         val view = if (setView() == 0) null else inflater.inflate(setView(), container, false)
         mPresenter = initPresenter()
         mPresenter?.attachView(this)
-        initView()
-        initData()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initView()
+        initData()
     }
     override fun onResume() {
         super.onResume()

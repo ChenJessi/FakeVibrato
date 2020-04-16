@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 
 /**
@@ -16,7 +17,7 @@ import androidx.fragment.app.Fragment;
  */
 @Deprecated
 public abstract class BaseLazyFragment<P extends DBasePresenter> extends Fragment implements BaseView{
-    protected DBaseActivity mActivity;
+    protected FragmentActivity mActivity;
     protected View mRootView;
     protected final String TAG = this.getClass().getSimpleName();
 
@@ -127,7 +128,7 @@ public abstract class BaseLazyFragment<P extends DBasePresenter> extends Fragmen
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mActivity = (DBaseActivity) getActivity();
+        mActivity = (FragmentActivity) getActivity();
 
         initData(savedInstanceState);
     }

@@ -20,7 +20,17 @@
         android:layout_height="match_parent"
         android:background="#00000000">
 
-        <com.chen.fakevibrato.widget.viewpager.MyViewPager
+<!--        <com.chen.fakevibrato.widget.viewpager.MyViewPager-->
+<!--            android:id="@+id/viewPager"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            android:background="@color/gray"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/mTabLayout"-->
+<!--            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--            app:layout_constraintRight_toRightOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -29,7 +39,6 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <com.flyco.tablayout.CommonTabLayout
             android:id="@+id/mTabLayout"
             android:layout_width="match_parent"

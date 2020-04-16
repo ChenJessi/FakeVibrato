@@ -2,6 +2,7 @@ package com.chen.baselibrary.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 
 abstract class BaseActivity<P : BasePresenter<BaseView>> : AppCompatActivity(), BaseView {
 
@@ -10,7 +11,7 @@ abstract class BaseActivity<P : BasePresenter<BaseView>> : AppCompatActivity(), 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        QMUIStatusBarHelper.translucent(this)
         if (getLayoutId() != 0) {
             setContentView(getLayoutId())
         }
